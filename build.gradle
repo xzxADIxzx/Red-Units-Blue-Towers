@@ -1,0 +1,16 @@
+allprojects {
+	group = 'com.github.xzxADIxzx.Red-Units-Blue-Towers'
+	version = '1.0'
+}
+
+subprojects {
+	apply plugin: 'java'
+	
+	sourceCompatibility = JavaVersion.VERSION_16
+	targetCompatibility = JavaVersion.VERSION_16
+
+	repositories {
+		mavenCentral()
+		maven { url 'https://www.jitpack.io' }
+	}
+}

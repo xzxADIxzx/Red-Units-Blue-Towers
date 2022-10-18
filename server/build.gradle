@@ -1,0 +1,21 @@
+apply plugin: 'java'
+
+sourceSets.main.java.srcDirs = ['src']
+
+ext {
+	arcVersion = 'v139'
+}
+
+dependencies {
+    implementation "com.github.Anuken.Arc:arc-core:$arcVersion"
+    implementation "com.github.Anuken.Arc:arcnet:$arcVersion"
+    implementation "com.github.Anuken.Arc:backend-headless:$arcVersion"
+
+    implementation project(":core")
+}
+
+jar {
+    manifest {
+        attributes('Main-Class': 'rubt.ServerLauncher')
+    }
+}
