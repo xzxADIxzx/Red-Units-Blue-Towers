@@ -1,16 +1,23 @@
 allprojects {
-	group = 'com.github.xzxADIxzx.Red-Units-Blue-Towers'
-	version = '1.0'
+    group = 'com.github.xzxADIxzx.Red-Units-Blue-Towers'
+    version = '1.0'
 }
 
 subprojects {
-	apply plugin: 'java'
-	
-	sourceCompatibility = JavaVersion.VERSION_16
-	targetCompatibility = JavaVersion.VERSION_16
+    apply plugin: 'java'
+    
+    sourceCompatibility = JavaVersion.VERSION_16
+    targetCompatibility = JavaVersion.VERSION_16
 
-	repositories {
-		mavenCentral()
-		maven { url 'https://www.jitpack.io' }
-	}
+    repositories {
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+    }
+
+    jar {
+        archiveFileName = "${project.archivesBaseName}.jar"
+        from {
+            configurations.runtimeClasspath.collect{it.isDirectory() ? it : zipTree(it)}
+        }
+    }
 }

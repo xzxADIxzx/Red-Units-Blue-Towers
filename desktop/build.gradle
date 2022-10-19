@@ -3,7 +3,7 @@ apply plugin: 'java'
 sourceSets.main.java.srcDirs = ['src']
 
 ext {
-	arcVersion = 'v139'
+    arcVersion = 'v139'
 }
 
 dependencies {
@@ -12,7 +12,6 @@ dependencies {
     implementation "com.github.Anuken.Arc:backend-sdl:$arcVersion"
 
     implementation project(':core')
-    implementation "com.github.xzxADIxzx.Useful-Stuffs:json:c533be7d3a"
 }
 
 jar {
