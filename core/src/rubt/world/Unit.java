@@ -5,11 +5,12 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
+import rubt.net.NetObject;
 import rubt.net.Packet;
 import rubt.net.Packet.*;
 import rubt.net.PacketProvider;
 
-public class Unit implements PacketProvider {
+public class Unit extends NetObject implements PacketProvider {
 
     public Vec2 position;
     public Position target;
