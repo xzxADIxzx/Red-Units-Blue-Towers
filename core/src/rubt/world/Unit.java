@@ -5,8 +5,11 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
+import rubt.net.Packet;
+import rubt.net.Packet.*;
+import rubt.net.PacketProvider;
 
-public class Unit {
+public class Unit implements PacketProvider {
 
     public Vec2 position;
     public Position target;
@@ -24,5 +27,9 @@ public class Unit {
 
         Draw.color(Color.blue);
         Fill.circle(target.getX(), target.getY(), 10f);
+    }
+
+    public Packet pack() {
+        return new UnitUpdate(this);
     }
 }

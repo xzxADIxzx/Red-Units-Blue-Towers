@@ -4,8 +4,11 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.geom.Point2;
+import rubt.net.Packet;
+import rubt.net.Packet.*;
+import rubt.net.PacketProvider;
 
-public class Turret {
+public class Turret implements PacketProvider {
 
     public Point2 position;
     public float angel;
@@ -20,5 +23,9 @@ public class Turret {
 
         Draw.color(Color.green);
         Fill.square(position.x, position.y, 20f, angel);
+    }
+
+    public Packet pack() {
+        return new TurretUpdate(this);
     }
 }
