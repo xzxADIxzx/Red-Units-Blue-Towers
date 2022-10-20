@@ -9,6 +9,8 @@ import rubt.net.Packet;
 import rubt.net.Packet.*;
 import rubt.net.PacketProvider;
 
+import static rubt.Vars.*;
+
 public class Turret extends NetObject implements PacketProvider {
 
     public Point2 position;
@@ -23,7 +25,7 @@ public class Turret extends NetObject implements PacketProvider {
         Draw.reset();
 
         Draw.color(Color.green);
-        Fill.square(position.x, position.y, 20f, angel);
+        Fill.square(position.x * tilesize, position.y * tilesize, 20f, angel);
     }
 
     public Packet pack() {
