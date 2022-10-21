@@ -16,6 +16,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes('Main-Class': 'rubt.DesktopLauncher')
+        attributes('Main-Class': 'rubt.desktop.DesktopLauncher')
     }
 }

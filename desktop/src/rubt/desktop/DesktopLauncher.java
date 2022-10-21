@@ -1,4 +1,4 @@
-package rubt;
+package rubt.desktop;
 
 import arc.util.Log;
 

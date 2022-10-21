@@ -16,6 +16,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes('Main-Class': 'rubt.ServerLauncher')
+        attributes('Main-Class': 'rubt.server.ServerLauncher')
     }
 }
