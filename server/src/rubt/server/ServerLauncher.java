@@ -42,4 +42,9 @@ public class ServerLauncher extends ClientLauncher {
             return;
         }
     }
+
+    @Override
+    public void update() {
+        server.sync();
+    }
 }
