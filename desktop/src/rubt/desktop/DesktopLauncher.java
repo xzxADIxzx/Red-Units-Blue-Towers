@@ -1,14 +1,15 @@
 package rubt.desktop;
 
-import arc.ApplicationListener;
 import arc.backend.sdl.SdlApplication;
 import arc.backend.sdl.SdlConfig;
 import arc.backend.sdl.jni.SDL;
+import arc.net.Client;
 import arc.util.Log;
+import rubt.client.ClientLauncher;
 
 import static rubt.Vars.*;
 
-public class DesktopLauncher implements ApplicationListener {
+public class DesktopLauncher extends ClientLauncher {
 
     public static void main(String[] args) {
         try {

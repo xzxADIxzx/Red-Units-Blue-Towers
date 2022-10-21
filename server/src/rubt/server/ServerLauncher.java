@@ -1,12 +1,12 @@
 package rubt.server;
 
-import arc.ApplicationListener;
 import arc.backend.headless.HeadlessApplication;
 import arc.util.Log;
+import rubt.client.ClientLauncher;
 
 import static rubt.Vars.*;
 
-public class ServerLauncher implements ApplicationListener {
+public class ServerLauncher extends ClientLauncher {
 
     public final int port;
 
