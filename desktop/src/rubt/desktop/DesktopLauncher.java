@@ -10,7 +10,6 @@ import arc.util.Threads;
 import rubt.Renderer;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
-import rubt.ui.Textures;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -22,6 +21,7 @@ public class DesktopLauncher extends ClientLauncher {
 
     public static void main(String[] args) {
         try {
+            headless = false;
             loadLogger(); // needed only for debug
             new SdlApplication(new DesktopLauncher(args), new SdlConfig() {{
                 title = "Red Units Blue Towers";
@@ -45,8 +45,6 @@ public class DesktopLauncher extends ClientLauncher {
 
         batch = new SortedSpriteBatch();
         atlas = TextureAtlas.blankAtlas();
-
-        Textures.load();
 
         client = new Client();
 

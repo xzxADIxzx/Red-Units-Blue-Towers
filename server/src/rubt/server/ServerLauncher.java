@@ -16,6 +16,7 @@ public class ServerLauncher extends ClientLauncher {
 
     public static void main(String[] args) {
         try {
+            headless = true;
             loadLogger(); // pretty print
             new HeadlessApplication(new ServerLauncher(args), Log::err);
         } catch (Throwable error) {

@@ -12,6 +12,7 @@ public class Vars {
     public static final DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     public static float tilesize = 16f;
+    public static boolean headless;
 
     public static void loadLogger() {
         ArcNet.errorHandler = Log::err;
