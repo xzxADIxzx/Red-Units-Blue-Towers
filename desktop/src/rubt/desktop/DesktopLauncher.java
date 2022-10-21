@@ -3,15 +3,12 @@ package rubt.desktop;
 import arc.backend.sdl.SdlApplication;
 import arc.backend.sdl.SdlConfig;
 import arc.backend.sdl.jni.SDL;
-import arc.graphics.g2d.SortedSpriteBatch;
-import arc.graphics.g2d.TextureAtlas;
 import arc.util.Log;
 import arc.util.Threads;
 import rubt.Renderer;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
 
-import static arc.Core.*;
 import static rubt.Vars.*;
 
 public class DesktopLauncher extends ClientLauncher {
@@ -42,9 +39,6 @@ public class DesktopLauncher extends ClientLauncher {
     @Override
     public void init() {
         super.init();
-
-        batch = new SortedSpriteBatch();
-        atlas = TextureAtlas.blankAtlas();
 
         client = new Client();
 

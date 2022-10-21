@@ -1,9 +1,12 @@
 package rubt.client;
 
 import arc.ApplicationListener;
+import arc.graphics.g2d.SortedSpriteBatch;
+import arc.graphics.g2d.TextureAtlas;
 import rubt.Logic;
 import rubt.ui.Textures;
 
+import static arc.Core.*;
 import static rubt.Vars.*;
 
 public abstract class ClientLauncher implements ApplicationListener {
@@ -13,6 +16,9 @@ public abstract class ClientLauncher implements ApplicationListener {
         // TODO load content & etc.
 
         if (headless) return;
+
+        batch = new SortedSpriteBatch();
+        atlas = TextureAtlas.blankAtlas();
 
         Textures.load();
     }
