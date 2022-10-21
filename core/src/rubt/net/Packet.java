@@ -4,9 +4,7 @@ import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.net.Connection;
 import arc.util.Strings;
-import rubt.world.Tile;
-import rubt.world.Turret;
-import rubt.world.Unit;
+import rubt.world.*;
 
 public abstract class Packet extends NetObject {
 
