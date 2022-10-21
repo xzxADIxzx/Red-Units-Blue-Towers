@@ -1,6 +1,5 @@
 package rubt.net;
 
-import arc.math.geom.Point2;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.net.Connection;
@@ -17,6 +16,21 @@ public abstract class Packet extends NetObject {
     @Override
     public String toString() {
         return Strings.format("[@] @", id, super.toString());
+    }
+
+    /** Unit data packet used to create new unit on clients. */
+    public static class UnitCreate extends Packet {
+
+        public int unitID;
+
+        public Vec2 position;
+
+        public UnitCreate() {}
+
+        public UnitCreate(Unit unit) {
+            this.unitID = unit.id;
+            this.position = unit.position;
+        }
     }
 
     /** Unit data packet used to update unit state on clients. */
@@ -36,19 +50,32 @@ public abstract class Packet extends NetObject {
         }
     }
 
+    /** Unit data packet used to create new unit on clients. */
+    public static class TurretCreate extends Packet {
+
+        public int turretID;
+
+        public Vec2 position;
+
+        public TurretCreate() {}
+
+        public TurretCreate(Turret turret) {
+            this.turretID = turret.id;
+            this.position = turret.position;
+        }
+    }
+
     /** Turret data packet used to update turret state on clients. */
     public static class TurretUpdate extends Packet {
 
         public int turretID;
 
-        public Point2 position;
         public float angel;
 
         public TurretUpdate() {}
 
         public TurretUpdate(Turret turret) {
             this.turretID = turret.id;
-            this.position = turret.position;
             this.angel = turret.angel;
         }
     }
