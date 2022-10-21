@@ -3,13 +3,17 @@ package rubt.desktop;
 import arc.backend.sdl.SdlApplication;
 import arc.backend.sdl.SdlConfig;
 import arc.backend.sdl.jni.SDL;
-import arc.net.Client;
 import arc.util.Log;
+import arc.util.Threads;
+import rubt.client.Client;
 import rubt.client.ClientLauncher;
 
 import static rubt.Vars.*;
 
 public class DesktopLauncher extends ClientLauncher {
+
+    public Client client;
+    public Thread thread;
 
     public static void main(String[] args) {
         try {
@@ -29,4 +33,11 @@ public class DesktopLauncher extends ClientLauncher {
     }
 
     public DesktopLauncher(String[] args) {}
+
+    @Override
+    public void init() {
+        super.init();
+
+        client = new Client();
+    }
 }
