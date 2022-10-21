@@ -20,6 +20,7 @@ public class Server extends arc.net.Server implements NetListener {
     }
 
     public void sendWorldData(Connection connection) {
+        Groups.tiles.each(tile -> Send.createTile(connection, tile));
         Groups.units.each(unit -> Send.createUnit(connection, unit));
         Groups.turrets.each(turret -> Send.createTurret(connection, turret));
     }

@@ -6,6 +6,7 @@ import arc.net.NetListener;
 import rubt.Groups;
 import rubt.net.PacketSerializer;
 import rubt.net.Packet.*;
+import rubt.world.Tile;
 import rubt.world.Turret;
 import rubt.world.Unit;
 
@@ -23,6 +24,10 @@ public class Client extends arc.net.Client implements NetListener {
     public void disconnected(Connection connection, DcReason reason) {}
 
     public void received(Connection connection, Object object) {
+        if (object instanceof TileCreate create)
+            Groups.tiles.add(new Tile(create.tileID, create.x, create.y));
+        else if (object instanceof TileUpdate update) {} // nothing, because tile update class is empty
+
         if (object instanceof UnitCreate create)
             Groups.units.add(new Unit(create.unitID, create.position));
         else if (object instanceof UnitUpdate update) {
@@ -31,6 +36,7 @@ public class Client extends arc.net.Client implements NetListener {
             unit.position = update.position;
             unit.target = update.target;
         }
+
         if (object instanceof TurretCreate create)
             Groups.turrets.add(new Turret(create.turretID, create.position));
         else if (object instanceof TurretUpdate update) {

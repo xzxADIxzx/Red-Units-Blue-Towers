@@ -13,7 +13,6 @@ public abstract class ClientLauncher implements ApplicationListener {
 
     public void init() {
         Logic.load();
-        // TODO load content & etc.
 
         if (headless) return;
 

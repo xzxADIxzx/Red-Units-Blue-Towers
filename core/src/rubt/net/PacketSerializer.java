@@ -66,18 +66,23 @@ public class PacketSerializer implements NetSerializer {
     // region packet
 
     public void writePacket(ByteBuffer buffer, Packet packet) {
-        if (packet instanceof UnitCreate create) {
-            buffer.put((byte) 1).putInt(create.id).putInt(create.unitID);
+        if (packet instanceof TileCreate create) {
+            buffer.put((byte) 1).putInt(create.id).putInt(create.tileID);
+            buffer.putInt(create.x).putInt(create.y);
+        } else if (packet instanceof TileUpdate update) {
+            buffer.put((byte) 2).putInt(update.id);
+        } else if (packet instanceof UnitCreate create) {
+            buffer.put((byte) 3).putInt(create.id).putInt(create.unitID);
             writeVector(buffer, create.position);
         } else if (packet instanceof UnitUpdate update) {
-            buffer.put((byte) 2).putInt(update.id).putInt(update.unitID);
+            buffer.put((byte) 4).putInt(update.id).putInt(update.unitID);
             writeVector(buffer, update.position);
             writeVector(buffer, update.target);
         } else if (packet instanceof TurretCreate create) {
-            buffer.put((byte) 3).putInt(create.id).putInt(create.turretID);
+            buffer.put((byte) 5).putInt(create.id).putInt(create.turretID);
             writeVector(buffer, create.position);
         } else if (packet instanceof TurretUpdate update) {
-            buffer.put((byte) 4).putInt(update.id).putInt(update.turretID);
+            buffer.put((byte) 6).putInt(update.id).putInt(update.turretID);
             buffer.putFloat(update.angel);
         }
     }
@@ -85,13 +90,23 @@ public class PacketSerializer implements NetSerializer {
     public Packet readPacket(ByteBuffer buffer) {
         byte id = buffer.get();
         if (id == 1)
+            return new TileCreate() {{
+                id = buffer.getInt();
+                tileID = buffer.getInt();
+
+                x = buffer.getInt();
+                y = buffer.getInt();
+            }};
+        else if (id == 2)
+            return new TileUpdate();
+        else if (id == 3)
             return new UnitCreate() {{
                 id = buffer.getInt();
                 unitID = buffer.getInt();
 
                 position = readVector(buffer);
             }};
-        else if (id == 2)
+        else if (id == 4)
             return new UnitUpdate() {{
                 id = buffer.getInt();
                 unitID = buffer.getInt();
@@ -99,14 +114,14 @@ public class PacketSerializer implements NetSerializer {
                 position = readVector(buffer);
                 target = readVector(buffer);
             }};
-        else if (id == 3)
+        else if (id == 5)
             return new TurretCreate() {{
                 id = buffer.getInt();
                 turretID = buffer.getInt();
 
                 position = readVector(buffer);
             }};
-        else if (id == 4)
+        else if (id == 6)
             return new TurretUpdate() {{
                 id = buffer.getInt();
                 turretID = buffer.getInt();

@@ -34,7 +34,7 @@ public class Turret extends NetObject implements PacketProvider {
         Draw.reset();
 
         Draw.color(Color.green);
-        Fill.square(position.x, position.y, 20f, angel);
+        Fill.square(position.x, position.y, 12f, angel);
     }
 
     public Packet pack() {

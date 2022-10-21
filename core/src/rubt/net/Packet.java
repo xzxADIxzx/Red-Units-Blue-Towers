@@ -4,6 +4,7 @@ import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.net.Connection;
 import arc.util.Strings;
+import rubt.world.Tile;
 import rubt.world.Turret;
 import rubt.world.Unit;
 
@@ -20,6 +21,32 @@ public abstract class Packet extends NetObject {
     @Override
     public String toString() {
         return Strings.format("[@] @", id, super.toString());
+    }
+
+    /** Tile data packet used to upload tile to clients. */
+    public static class TileCreate extends Packet {
+
+        public int tileID;
+
+        public int x, y;
+
+        public TileCreate() {}
+
+        public TileCreate(Tile tile) {
+            this.tileID = tile.id;
+            this.x = tile.x;
+            this.y = tile.y;
+        }
+    }
+
+    /** Tile data packet used to update tile state on clients. */
+    public static class TileUpdate extends Packet {
+
+        public TileUpdate() {}
+
+        public TileUpdate(Tile tile) {
+            // there is nothing for now, because tile has not state
+        }
     }
 
     /** Unit data packet used to create new unit on clients. */

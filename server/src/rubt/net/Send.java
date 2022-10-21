@@ -3,10 +3,18 @@ package rubt.net;
 import arc.net.Connection;
 import rubt.Groups;
 import rubt.net.Packet.*;
-import rubt.world.Turret;
-import rubt.world.Unit;
+import rubt.world.*;
 
 public class Send {
+
+    public static void createTile(Connection connection, Tile tile) {
+        new TileCreate(tile).sendTCP(connection);
+    }
+
+    public static void updateTile(Tile tile) {
+        var packet = new TileCreate(tile);
+        Groups.connections.each(packet::sendUPD);
+    }
 
     public static void createUnit(Unit unit) {
         var packet = new UnitCreate(unit);
