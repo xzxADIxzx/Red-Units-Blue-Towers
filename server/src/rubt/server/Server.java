@@ -21,7 +21,6 @@ public class Server extends arc.net.Server implements NetListener {
 
     // region listeners
 
-    public void connected(Connection connection) {}
     public void connected(Connection connection) {
         Groups.connections.add(connection);
     }

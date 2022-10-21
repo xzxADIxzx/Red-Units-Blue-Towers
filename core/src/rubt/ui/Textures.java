@@ -11,15 +11,19 @@ public class Textures {
     public static Drawable whiteui, circle;
 
     public static void load() {
-        whiteui = load("whiteui");
-        circle = load("circle");
+        whiteui = loadui("whiteui");
+        circle = loadui("circle");
     }
 
-    public static Drawable load(String name) {
-        Texture texture = new Texture("sprites/" + name + ".png");
+    public static Drawable load(String path, String name) {
+        Texture texture = new Texture(path + name + ".png");
         texture.setFilter(TextureFilter.linear); // for better experience
 
         atlas.addRegion(name, texture, 0, 0, texture.width, texture.height);
         return atlas.drawable(name);
+    }
+
+    public static Drawable loadui(String name) {
+        return load("sprites/ui/", name);
     }
 }

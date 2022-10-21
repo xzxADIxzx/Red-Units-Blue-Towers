@@ -3,8 +3,11 @@ package rubt.desktop;
 import arc.backend.sdl.SdlApplication;
 import arc.backend.sdl.SdlConfig;
 import arc.backend.sdl.jni.SDL;
+import arc.graphics.g2d.SortedSpriteBatch;
+import arc.graphics.g2d.TextureAtlas;
 import arc.util.Log;
 import arc.util.Threads;
+import rubt.Renderer;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
 import rubt.ui.Textures;
@@ -46,5 +49,9 @@ public class DesktopLauncher extends ClientLauncher {
         Textures.load();
 
         client = new Client();
+
+    @Override
+    public void update() {
+        Renderer.draw();
     }
 }
