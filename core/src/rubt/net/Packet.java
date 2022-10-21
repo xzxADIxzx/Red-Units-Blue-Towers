@@ -9,8 +9,12 @@ import rubt.world.Unit;
 
 public abstract class Packet extends NetObject {
 
-    public void send(Connection connection) {
+    public void sendTCP(Connection connection) {
         connection.sendTCP(this);
+    }
+
+    public void sendUPD(Connection connection) {
+        connection.sendUDP(this);
     }
 
     @Override
