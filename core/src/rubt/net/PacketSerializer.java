@@ -57,8 +57,8 @@ public class PacketSerializer implements NetSerializer {
             return new RegisterUDP() {{
                 connectionID = buffer.getInt();
             }};
-        else if (id == 3) return FrameworkMessage.discoverHost;
-        else if (id == 4) return FrameworkMessage.keepAlive;
+        else if (id == 4) return FrameworkMessage.discoverHost;
+        else if (id == 5) return FrameworkMessage.keepAlive;
         throw new RuntimeException("Unknown framework message!"); // how is that even possible?
     }
 
@@ -91,7 +91,7 @@ public class PacketSerializer implements NetSerializer {
 
                 position = readVector(buffer);
             }};
-        if (id == 2)
+        else if (id == 2)
             return new UnitUpdate() {{
                 id = buffer.getInt();
                 unitID = buffer.getInt();
@@ -99,14 +99,14 @@ public class PacketSerializer implements NetSerializer {
                 position = readVector(buffer);
                 target = readVector(buffer);
             }};
-        if (id == 3)
+        else if (id == 3)
             return new TurretCreate() {{
                 id = buffer.getInt();
                 turretID = buffer.getInt();
 
                 position = readVector(buffer);
             }};
-        if (id == 4)
+        else if (id == 4)
             return new TurretUpdate() {{
                 id = buffer.getInt();
                 turretID = buffer.getInt();

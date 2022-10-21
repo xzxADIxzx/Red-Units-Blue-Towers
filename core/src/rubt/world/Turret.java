@@ -21,6 +21,11 @@ public class Turret extends NetObject implements PacketProvider {
         this.angel = 90f; // top direction
     }
 
+    public Turret(int id, Vec2 position) {
+        this(position);
+        this.id = id;
+    }
+
     public Turret(int x, int y) {
         this(new Vec2(x * tilesize, y * tilesize));
     }

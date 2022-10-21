@@ -20,6 +20,11 @@ public class Unit extends NetObject implements PacketProvider {
         this.target = new Vec2();
     }
 
+    public Unit(int id, Vec2 position) {
+        this(position);
+        this.id = id;
+    }
+
     public void draw() {
         Draw.reset();
 
