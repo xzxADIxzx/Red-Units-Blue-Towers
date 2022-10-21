@@ -7,7 +7,9 @@ import arc.util.Log;
 import arc.util.Threads;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
+import rubt.ui.Textures;
 
+import static arc.Core.*;
 import static rubt.Vars.*;
 
 public class DesktopLauncher extends ClientLauncher {
@@ -37,6 +39,11 @@ public class DesktopLauncher extends ClientLauncher {
     @Override
     public void init() {
         super.init();
+
+        batch = new SortedSpriteBatch();
+        atlas = TextureAtlas.blankAtlas();
+
+        Textures.load();
 
         client = new Client();
     }

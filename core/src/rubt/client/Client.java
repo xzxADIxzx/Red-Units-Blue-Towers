@@ -27,6 +27,7 @@ public class Client extends arc.net.Client implements NetListener {
             Groups.units.add(new Unit(create.unitID, create.position));
         else if (object instanceof UnitUpdate update) {
             Unit unit = Groups.units.find(u -> u.id == update.unitID);
+            if (unit == null) return;
             unit.position = update.position;
             unit.target = update.target;
         }
@@ -34,6 +35,7 @@ public class Client extends arc.net.Client implements NetListener {
             Groups.turrets.add(new Turret(create.turretID, create.position));
         else if (object instanceof TurretUpdate update) {
             Turret turret = Groups.turrets.find(t -> t.id == update.turretID);
+            if (turret == null) return;
             turret.angel = update.angel;
         }
     }
