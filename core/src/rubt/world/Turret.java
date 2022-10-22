@@ -8,23 +8,28 @@ import rubt.Groups;
 import rubt.Groups.GroupObject;
 import rubt.net.Packet;
 import rubt.net.Packet.*;
+import rubt.types.TurretType;
 import rubt.net.PacketProvider;
 
 import static rubt.Vars.*;
 
 public class Turret extends GroupObject implements PacketProvider {
 
+    public final TurretType type;
+
     public Vec2 position;
     public float angel;
 
-    public Turret(Vec2 position) {
+    public Turret(TurretType type, Vec2 position) {
         super(Groups.turrets);
+        this.type = type;
+
         this.position = position;
         this.angel = 90f; // top direction
     }
 
-    public Turret(int x, int y) {
-        this(new Vec2(x * tilesize, y * tilesize));
+    public Turret(TurretType type, int x, int y) {
+        this(type, new Vec2(x * tilesize, y * tilesize));
     }
 
     public void draw() {

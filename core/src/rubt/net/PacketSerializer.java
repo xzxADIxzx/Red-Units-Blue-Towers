@@ -74,14 +74,14 @@ public class PacketSerializer implements NetSerializer {
         } else if (packet instanceof TileUpdate update) {
             buffer.put((byte) 2);
         } else if (packet instanceof UnitCreate create) {
-            buffer.put((byte) 3);
+            buffer.put((byte) 3).putInt(create.type);
             writeVector(buffer, create.position);
         } else if (packet instanceof UnitUpdate update) {
             buffer.put((byte) 4).putInt(update.unitID);
             writeVector(buffer, update.position);
             writeVector(buffer, update.target);
         } else if (packet instanceof TurretCreate create) {
-            buffer.put((byte) 5);
+            buffer.put((byte) 5).putInt(create.type);
             writeVector(buffer, create.position);
         } else if (packet instanceof TurretUpdate update) {
             buffer.put((byte) 6).putInt(update.turretID);
@@ -104,6 +104,7 @@ public class PacketSerializer implements NetSerializer {
             return new TileUpdate();
         else if (id == 3)
             return new UnitCreate() {{
+                type = buffer.getInt();
                 position = readVector(buffer);
             }};
         else if (id == 4)
@@ -115,6 +116,7 @@ public class PacketSerializer implements NetSerializer {
             }};
         else if (id == 5)
             return new TurretCreate() {{
+                type = buffer.getInt();
                 position = readVector(buffer);
             }};
         else if (id == 6)

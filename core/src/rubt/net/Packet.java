@@ -54,11 +54,13 @@ public abstract class Packet {
     /** Unit data packet used to create new unit on clients. */
     public static class UnitCreate extends Packet {
 
+        public int type;
         public Vec2 position;
 
         public UnitCreate() {}
 
         public UnitCreate(Unit unit) {
+            this.type = unit.type.id;
             this.position = unit.position;
         }
     }
@@ -83,11 +85,13 @@ public abstract class Packet {
     /** Unit data packet used to create new unit on clients. */
     public static class TurretCreate extends Packet {
 
+        public int type;
         public Vec2 position;
 
         public TurretCreate() {}
 
         public TurretCreate(Turret turret) {
+            this.type = turret.type.id;
             this.position = turret.position;
         }
     }

@@ -9,15 +9,20 @@ import rubt.Groups;
 import rubt.Groups.GroupObject;
 import rubt.net.Packet;
 import rubt.net.Packet.*;
+import rubt.types.UnitType;
 import rubt.net.PacketProvider;
 
 public class Unit extends GroupObject implements PacketProvider {
 
+    public final UnitType type;
+
     public Vec2 position;
     public Position target;
 
-    public Unit(Vec2 position) {
+    public Unit(UnitType type, Vec2 position) {
         super(Groups.units);
+        this.type = type;
+
         this.position = position;
         this.target = new Vec2();
     }
