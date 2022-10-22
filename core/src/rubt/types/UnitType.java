@@ -1,9 +1,13 @@
 package rubt.types;
 
-public abstract class UnitType {
+import rubt.content.UnitTypes;
+
+public abstract class UnitType extends ContentType {
 
     public int health;
     public int damage;
 
-    public abstract void loadui();
+    public UnitType(String name) {
+        super(UnitTypes.all, name);
+    }
 }

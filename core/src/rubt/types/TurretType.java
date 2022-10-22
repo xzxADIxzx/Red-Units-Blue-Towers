@@ -1,9 +1,13 @@
 package rubt.types;
 
-public abstract class TurretType {
+import rubt.content.TurretTypes;
+
+public abstract class TurretType extends ContentType {
 
     public int health;
     public int damage;
 
-    public abstract void loadui();
+    public TurretType(String name) {
+        super(TurretTypes.all, name);
+    }
 }
