@@ -28,24 +28,27 @@ public class Client extends arc.net.Client implements NetListener {
         if (object instanceof StateUpdate update) {
             state = State.values()[update.state];
         }
+
         else if (object instanceof TileCreate create)
-            Groups.tiles.add(new Tile(create.tileID, create.x, create.y));
+            new Tile(create.x, create.y);
         else if (object instanceof TileUpdate update) {
             // nothing, because tile update class is empty
-        } 
+        }
+
         else if (object instanceof UnitCreate create)
-            Groups.units.add(new Unit(create.unitID, create.position));
+            new Unit(create.position);
         else if (object instanceof UnitUpdate update) {
-            Unit unit = Groups.units.find(u -> u.id == update.unitID);
-            if (unit == null) return;
+            if (update.unitID >= Groups.units.size) return;
+            Unit unit = Groups.units.get(update.unitID);
             unit.position = update.position;
             unit.target = update.target;
-        } 
+        }
+
         else if (object instanceof TurretCreate create)
-            Groups.turrets.add(new Turret(create.turretID, create.position));
+            new Turret(create.position);
         else if (object instanceof TurretUpdate update) {
-            Turret turret = Groups.turrets.find(t -> t.id == update.turretID);
-            if (turret == null) return;
+            if (update.turretID >= Groups.turrets.size) return;
+            Turret turret = Groups.turrets.get(update.turretID);
             turret.angel = update.angel;
         }
     }

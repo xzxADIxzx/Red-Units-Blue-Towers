@@ -4,26 +4,23 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.geom.Vec2;
-import rubt.net.NetObject;
+import rubt.Groups;
+import rubt.Groups.GroupObject;
 import rubt.net.Packet;
 import rubt.net.Packet.*;
 import rubt.net.PacketProvider;
 
 import static rubt.Vars.*;
 
-public class Turret extends NetObject implements PacketProvider {
+public class Turret extends GroupObject implements PacketProvider {
 
     public Vec2 position;
     public float angel;
 
     public Turret(Vec2 position) {
+        super(Groups.turrets);
         this.position = position;
         this.angel = 90f; // top direction
-    }
-
-    public Turret(int id, Vec2 position) {
-        this(position);
-        this.id = id;
     }
 
     public Turret(int x, int y) {

@@ -5,24 +5,21 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
-import rubt.net.NetObject;
+import rubt.Groups;
+import rubt.Groups.GroupObject;
 import rubt.net.Packet;
 import rubt.net.Packet.*;
 import rubt.net.PacketProvider;
 
-public class Unit extends NetObject implements PacketProvider {
+public class Unit extends GroupObject implements PacketProvider {
 
     public Vec2 position;
     public Position target;
 
     public Unit(Vec2 position) {
+        super(Groups.units);
         this.position = position;
         this.target = new Vec2();
-    }
-
-    public Unit(int id, Vec2 position) {
-        this(position);
-        this.id = id;
     }
 
     public void draw() {

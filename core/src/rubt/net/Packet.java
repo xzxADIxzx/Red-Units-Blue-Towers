@@ -31,14 +31,11 @@ public abstract class Packet {
     /** Tile data packet used to upload tile to clients. */
     public static class TileCreate extends Packet {
 
-        public int tileID;
-
         public int x, y;
 
         public TileCreate() {}
 
         public TileCreate(Tile tile) {
-            this.tileID = tile.id;
             this.x = tile.x;
             this.y = tile.y;
         }
@@ -57,14 +54,11 @@ public abstract class Packet {
     /** Unit data packet used to create new unit on clients. */
     public static class UnitCreate extends Packet {
 
-        public int unitID;
-
         public Vec2 position;
 
         public UnitCreate() {}
 
         public UnitCreate(Unit unit) {
-            this.unitID = unit.id;
             this.position = unit.position;
         }
     }
@@ -89,14 +83,11 @@ public abstract class Packet {
     /** Unit data packet used to create new unit on clients. */
     public static class TurretCreate extends Packet {
 
-        public int turretID;
-
         public Vec2 position;
 
         public TurretCreate() {}
 
         public TurretCreate(Turret turret) {
-            this.turretID = turret.id;
             this.position = turret.position;
         }
     }

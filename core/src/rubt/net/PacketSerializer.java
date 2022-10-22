@@ -97,8 +97,6 @@ public class PacketSerializer implements NetSerializer {
             }};
         else if (id == 1)
             return new TileCreate() {{
-                tileID = buffer.getInt();
-
                 x = buffer.getInt();
                 y = buffer.getInt();
             }};
@@ -106,8 +104,6 @@ public class PacketSerializer implements NetSerializer {
             return new TileUpdate();
         else if (id == 3)
             return new UnitCreate() {{
-                unitID = buffer.getInt();
-
                 position = readVector(buffer);
             }};
         else if (id == 4)
@@ -119,8 +115,6 @@ public class PacketSerializer implements NetSerializer {
             }};
         else if (id == 5)
             return new TurretCreate() {{
-                turretID = buffer.getInt();
-
                 position = readVector(buffer);
             }};
         else if (id == 6)

@@ -17,4 +17,15 @@ public class Groups {
         turrets.clear();
         connections.clear();
     }
+
+    @SuppressWarnings("unchecked")
+    public static abstract class GroupObject {
+
+        public final int id;
+
+        public <T extends GroupObject> GroupObject(Seq<T> group) {
+            this.id = group.size;
+            group.add((T)this);
+        }
+    }
 }
