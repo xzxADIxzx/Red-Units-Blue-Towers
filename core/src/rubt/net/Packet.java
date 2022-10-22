@@ -3,11 +3,10 @@ package rubt.net;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.net.Connection;
-import arc.util.Strings;
 import rubt.logic.State;
 import rubt.world.*;
 
-public abstract class Packet extends NetObject {
+public abstract class Packet {
 
     public void sendTCP(Connection connection) {
         connection.sendTCP(this);
@@ -15,11 +14,6 @@ public abstract class Packet extends NetObject {
 
     public void sendUPD(Connection connection) {
         connection.sendUDP(this);
-    }
-
-    @Override
-    public String toString() {
-        return Strings.format("[@] @", id, super.toString());
     }
 
     /** Packet used to update game state on clients. */

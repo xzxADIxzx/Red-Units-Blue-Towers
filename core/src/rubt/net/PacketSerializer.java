@@ -69,22 +69,22 @@ public class PacketSerializer implements NetSerializer {
         if (packet instanceof StateUpdate update) {
             buffer.put((byte) 0).putInt(update.state);
         } else if (packet instanceof TileCreate create) {
-            buffer.put((byte) 1).putInt(create.id).putInt(create.tileID);
+            buffer.put((byte) 1);
             buffer.putInt(create.x).putInt(create.y);
         } else if (packet instanceof TileUpdate update) {
-            buffer.put((byte) 2).putInt(update.id);
+            buffer.put((byte) 2);
         } else if (packet instanceof UnitCreate create) {
-            buffer.put((byte) 3).putInt(create.id).putInt(create.unitID);
+            buffer.put((byte) 3);
             writeVector(buffer, create.position);
         } else if (packet instanceof UnitUpdate update) {
-            buffer.put((byte) 4).putInt(update.id).putInt(update.unitID);
+            buffer.put((byte) 4).putInt(update.unitID);
             writeVector(buffer, update.position);
             writeVector(buffer, update.target);
         } else if (packet instanceof TurretCreate create) {
-            buffer.put((byte) 5).putInt(create.id).putInt(create.turretID);
+            buffer.put((byte) 5);
             writeVector(buffer, create.position);
         } else if (packet instanceof TurretUpdate update) {
-            buffer.put((byte) 6).putInt(update.id).putInt(update.turretID);
+            buffer.put((byte) 6).putInt(update.turretID);
             buffer.putFloat(update.angel);
         }
     }
@@ -97,7 +97,6 @@ public class PacketSerializer implements NetSerializer {
             }};
         else if (id == 1)
             return new TileCreate() {{
-                id = buffer.getInt();
                 tileID = buffer.getInt();
 
                 x = buffer.getInt();
@@ -107,14 +106,12 @@ public class PacketSerializer implements NetSerializer {
             return new TileUpdate();
         else if (id == 3)
             return new UnitCreate() {{
-                id = buffer.getInt();
                 unitID = buffer.getInt();
 
                 position = readVector(buffer);
             }};
         else if (id == 4)
             return new UnitUpdate() {{
-                id = buffer.getInt();
                 unitID = buffer.getInt();
 
                 position = readVector(buffer);
@@ -122,14 +119,12 @@ public class PacketSerializer implements NetSerializer {
             }};
         else if (id == 5)
             return new TurretCreate() {{
-                id = buffer.getInt();
                 turretID = buffer.getInt();
 
                 position = readVector(buffer);
             }};
         else if (id == 6)
             return new TurretUpdate() {{
-                id = buffer.getInt();
                 turretID = buffer.getInt();
 
                 angel = buffer.getFloat();
