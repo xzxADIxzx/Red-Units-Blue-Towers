@@ -1,4 +1,4 @@
-package rubt.types.turrets;
+package rubt.types.units;
 
 import rubt.types.UnitType;
 

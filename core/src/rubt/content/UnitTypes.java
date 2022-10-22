@@ -2,7 +2,7 @@ package rubt.content;
 
 import arc.struct.Seq;
 import rubt.types.UnitType;
-import rubt.types.turrets.AirUnit;
+import rubt.types.units.AirUnit;
 
 public class UnitTypes {
 
