@@ -3,7 +3,7 @@ package rubt.client;
 import arc.ApplicationListener;
 import arc.graphics.g2d.SortedSpriteBatch;
 import arc.graphics.g2d.TextureAtlas;
-import rubt.Logic;
+import rubt.logic.Logic;
 import rubt.ui.Textures;
 
 import static arc.Core.*;

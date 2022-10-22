@@ -39,6 +39,7 @@ public class Tile extends NetObject implements PacketProvider {
         Fill.square(drawX(), drawY(), tilesize);
     }
 
+    @Override
     public Packet pack() {
         return new TileUpdate(this);
     }
