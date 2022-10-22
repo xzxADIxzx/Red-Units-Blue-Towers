@@ -1,6 +1,7 @@
 package rubt.logic;
 
 import rubt.net.Packet;
+import rubt.net.Packet.*;
 import rubt.net.PacketProvider;
 
 public enum State implements PacketProvider {
@@ -8,7 +9,6 @@ public enum State implements PacketProvider {
 
     @Override
     public Packet pack() {
-        return null;
+        return new StateUpdate(this);
     }
-    
 }
