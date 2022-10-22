@@ -42,6 +42,9 @@ public class DesktopLauncher extends ClientLauncher {
 
         client = new Client();
 
+        Log.info("Client loaded successfully.");
+    }
+
     @Override
     public void update() {
         Renderer.draw();

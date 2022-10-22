@@ -42,6 +42,8 @@ public class ServerLauncher extends ClientLauncher {
             exit();
             return;
         }
+
+        Log.info("Server started successfully.");
     }
 
     @Override

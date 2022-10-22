@@ -38,7 +38,6 @@ public class Client extends arc.net.Client implements NetListener {
         else if (object instanceof UnitCreate create)
             new Unit(create.position);
         else if (object instanceof UnitUpdate update) {
-            if (update.unitID >= Groups.units.size) return;
             Unit unit = Groups.units.get(update.unitID);
             unit.position = update.position;
             unit.target = update.target;
@@ -47,7 +46,6 @@ public class Client extends arc.net.Client implements NetListener {
         else if (object instanceof TurretCreate create)
             new Turret(create.position);
         else if (object instanceof TurretUpdate update) {
-            if (update.turretID >= Groups.turrets.size) return;
             Turret turret = Groups.turrets.get(update.turretID);
             turret.angel = update.angel;
         }
