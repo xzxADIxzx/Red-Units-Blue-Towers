@@ -67,7 +67,7 @@ public class PacketSerializer implements NetSerializer {
 
     public void writePacket(ByteBuffer buffer, Packet packet) {
         if (packet instanceof StateUpdate update) {
-            buffer.put((byte) 0).putInt(update.state);
+            buffer.put((byte) 0).putInt(update.id);
         } else if (packet instanceof TileCreate create) {
             buffer.put((byte) 1);
             buffer.putInt(create.x).putInt(create.y);
@@ -93,7 +93,7 @@ public class PacketSerializer implements NetSerializer {
         byte id = buffer.get();
         if (id == 0)
             return new StateUpdate() {{
-                state = buffer.getInt();
+                id = buffer.getInt();
             }};
         else if (id == 1)
             return new TileCreate() {{
