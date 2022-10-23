@@ -1,7 +1,8 @@
-package rubt;
+package rubt.graphics;
 
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
+import rubt.Groups;
 import rubt.world.*;
 
 import static arc.Core.*;

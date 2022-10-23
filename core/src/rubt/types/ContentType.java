@@ -3,7 +3,7 @@ package rubt.types;
 import arc.scene.style.Drawable;
 import arc.struct.Seq;
 import rubt.Groups.GroupObject;
-import rubt.ui.Textures;
+import rubt.graphics.Textures;
 
 import static arc.Core.*;
 

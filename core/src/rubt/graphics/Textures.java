@@ -1,4 +1,4 @@
-package rubt.ui;
+package rubt.graphics;
 
 import arc.graphics.Texture;
 import arc.graphics.Texture.TextureFilter;

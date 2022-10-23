@@ -5,9 +5,9 @@ import arc.graphics.Camera;
 import arc.graphics.g2d.SortedSpriteBatch;
 import arc.graphics.g2d.TextureAtlas;
 import rubt.content.*;
+import rubt.graphics.Textures;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
-import rubt.ui.Textures;
 
 import static arc.Core.*;
 import static rubt.Vars.*;

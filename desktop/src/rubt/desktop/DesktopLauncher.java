@@ -5,9 +5,9 @@ import arc.backend.sdl.SdlConfig;
 import arc.backend.sdl.jni.SDL;
 import arc.util.Log;
 import arc.util.Threads;
-import rubt.Renderer;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
+import rubt.graphics.Renderer;
 
 import static rubt.Vars.*;
 
