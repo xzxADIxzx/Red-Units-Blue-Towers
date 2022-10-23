@@ -15,7 +15,7 @@ public class Vars {
     public static final float tilesize = 16f;
 
     public static boolean headless;
-    public static State state;
+    public static State state = State.menu;
 
     public static void loadLogger() {
         ArcNet.errorHandler = Log::err;

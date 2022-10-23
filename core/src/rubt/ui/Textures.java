@@ -11,8 +11,8 @@ public class Textures {
     public static Drawable whiteui, circle;
 
     public static void load() {
-        whiteui = loadui("whiteui");
-        circle = loadui("circle");
+        whiteui = loadUI("whiteui");
+        circle = loadUI("circle");
     }
 
     public static void load(String path, String name) {
@@ -22,8 +22,13 @@ public class Textures {
         atlas.addRegion(name, texture, 0, 0, texture.width, texture.height);
     }
 
-    public static Drawable loadui(String name) {
+    public static Drawable loadUI(String name) {
         load("sprites/ui/", name);
+        return atlas.drawable(name);
+    }
+
+    public static Drawable loadIcon(String name) {
+        load("sprites/icons/", name);
         return atlas.drawable(name);
     }
 }

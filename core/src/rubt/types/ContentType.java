@@ -28,6 +28,6 @@ public abstract class ContentType extends GroupObject {
 
     /** Load icon and etc. */
     public void loadui() {
-        icon = Textures.loadui(name);
+        icon = Textures.loadIcon(name);
     }
 }
