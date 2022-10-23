@@ -11,7 +11,8 @@ dependencies {
     implementation "com.github.Anuken.Arc:arcnet:$arcVersion"
     implementation "com.github.Anuken.Arc:backend-headless:$arcVersion"
 
-    implementation project(":core")
+    implementation project(':client')
+    implementation project(':core')
 }
 
 jar {

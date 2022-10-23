@@ -15,6 +15,7 @@ dependencies {
     implementation "com.github.Anuken.Arc:backend-sdl:$arcVersion"
     implementation "com.github.Anuken.Arc:natives-desktop:$arcVersion"
 
+    implementation project(':client')
     implementation project(':core')
 }
 
