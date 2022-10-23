@@ -16,13 +16,15 @@ public class Renderer {
         Draw.proj(camera);
         Draw.sort(true);
 
-        graphics.clear(Color.sky);
+        Draw.draw(Layers.bg, () -> {
+            graphics.clear(Color.sky);
+        });
 
-        Groups.tiles.each(Tile::draw);
-        Groups.turrets.each(Turret::draw);
-        Groups.units.each(Unit::draw);
+        Draw.draw(Layers.tiles, () -> Groups.tiles.each(Tile::draw));
+        Draw.draw(Layers.units, () -> Groups.units.each(Unit::draw));
+        Draw.draw(Layers.turrets, () -> Groups.turrets.each(Turret::draw));
 
-        handler.draw();
+        Draw.draw(Layers.overlay, handler::draw);
 
         Draw.flush();
     }
