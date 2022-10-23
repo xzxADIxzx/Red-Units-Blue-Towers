@@ -2,6 +2,7 @@ package rubt;
 
 import arc.net.ArcNet;
 import arc.util.Log;
+import rubt.input.InputHandler;
 import rubt.logic.State;
 
 import java.time.LocalDateTime;
@@ -15,7 +16,10 @@ public class Vars {
     public static final float tilesize = 16f;
 
     public static boolean headless;
+    public static boolean mobile;
+
     public static State state = State.menu;
+    public static InputHandler handler;
 
     public static void loadLogger() {
         ArcNet.errorHandler = Log::err;

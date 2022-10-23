@@ -4,6 +4,7 @@ import arc.ApplicationListener;
 import arc.graphics.g2d.SortedSpriteBatch;
 import arc.graphics.g2d.TextureAtlas;
 import rubt.content.*;
+import rubt.input.DesktopInput;
 import rubt.logic.Logic;
 import rubt.ui.Textures;
 
@@ -22,6 +23,9 @@ public abstract class ClientLauncher implements ApplicationListener {
 
         batch = new SortedSpriteBatch();
         atlas = TextureAtlas.blankAtlas();
+
+        mobile = app.isMobile();
+        handler = mobile ? null : new DesktopInput();
 
         Textures.load();
 

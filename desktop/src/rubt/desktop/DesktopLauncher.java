@@ -42,7 +42,7 @@ public class DesktopLauncher extends ClientLauncher {
 
         client = new Client();
 
-        Log.info("Client loaded successfully.");
+        Log.infoTag("APP", "Client loaded successfully.");
     }
 
     @Override
