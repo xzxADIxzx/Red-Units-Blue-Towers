@@ -1,5 +1,6 @@
 package rubt.input;
 
+import arc.graphics.g2d.Draw;
 import arc.input.KeyCode;
 import rubt.Groups;
 import rubt.world.Tile;
@@ -16,8 +17,8 @@ public abstract class InputHandler {
     public float dragX = -1f, dragY = -1f;
 
     public void update() {
-        lastX = input.mouseX();
-        lastY = input.mouseY();
+        lastX = input.mouseWorldX();
+        lastY = input.mouseWorldY();
 
         if (input.keyTap(KeyCode.mouseLeft)) {
             dragX = lastX;
@@ -29,13 +30,15 @@ public abstract class InputHandler {
     }
 
     public void draw() {
+        Draw.reset();
+
         drawRed();
         drawBlue();
     }
 
     public Tile tileOn() {
         return Groups.tiles.find(tile -> {
-            final float x = lastX - 8f, y = lastY - 8f;
+            final float x = lastX + 8f, y = lastY + 8f;
             return x > tile.drawX() && x < tile.drawX() + tilesize && y > tile.drawY() && y < tile.drawY() + tilesize;
         });
     }

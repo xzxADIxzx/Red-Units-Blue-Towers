@@ -29,7 +29,7 @@ public class DesktopLauncher extends ClientLauncher {
         }
     }
 
-    public static void crushed(String title,Throwable error) {
+    public static void crushed(String title, Throwable error) {
         Log.err(title, error);
         SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MESSAGEBOX_ERROR, title, error.getMessage());
     }
@@ -47,6 +47,7 @@ public class DesktopLauncher extends ClientLauncher {
 
     @Override
     public void update() {
+        handler.update();
         Renderer.draw();
     }
 }

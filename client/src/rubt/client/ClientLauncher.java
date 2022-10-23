@@ -1,6 +1,7 @@
 package rubt.client;
 
 import arc.ApplicationListener;
+import arc.graphics.Camera;
 import arc.graphics.g2d.SortedSpriteBatch;
 import arc.graphics.g2d.TextureAtlas;
 import rubt.content.*;
@@ -21,6 +22,7 @@ public abstract class ClientLauncher implements ApplicationListener {
 
         if (headless) return;
 
+        camera = new Camera();
         batch = new SortedSpriteBatch();
         atlas = TextureAtlas.blankAtlas();
 

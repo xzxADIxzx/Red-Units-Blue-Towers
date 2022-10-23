@@ -36,7 +36,7 @@ public class Turret extends GroupObject implements PacketProvider {
         Draw.reset();
 
         Draw.color(Color.green);
-        Fill.square(position.x, position.y, 12f, angel());
+        Fill.rect(position.x, position.y, tilesize - 4f, tilesize - 4f, angel());
     }
 
     public float angel() {

@@ -33,7 +33,7 @@ public class Tile extends GroupObject implements PacketProvider {
         Draw.reset();
 
         Draw.color(Color.gray);
-        Fill.square(drawX(), drawY(), tilesize);
+        Fill.rect(drawX(), drawY(), tilesize, tilesize);
     }
 
     @Override
