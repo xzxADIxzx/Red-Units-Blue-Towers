@@ -17,6 +17,8 @@ public class Unit extends GroupObject implements PacketProvider {
     public final UnitType type;
 
     public Vec2 position;
+    public float angel;
+
     public Position target;
 
     public Unit(UnitType type, Vec2 position) {
@@ -35,6 +37,10 @@ public class Unit extends GroupObject implements PacketProvider {
 
         Draw.color(Color.blue);
         Fill.circle(target.getX(), target.getY(), 10f);
+    }
+
+    public float angel() {
+        return angel - 90f;
     }
 
     @Override

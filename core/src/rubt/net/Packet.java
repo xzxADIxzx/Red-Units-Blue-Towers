@@ -128,7 +128,7 @@ public abstract class Packet {
     }
 
     /** Turret data packet used to update turret state on clients. */
-    public static class TurretUpdate extends Packet {
+    public static class TurretUpdate extends Packet { // TODO remove and update turrets on client
 
         public int turretID;
 
