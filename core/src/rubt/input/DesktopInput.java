@@ -27,6 +27,11 @@ public class DesktopInput extends InputHandler {
 
         Draw.color(Color.red, .3f);
         Fill.crect(dragX, dragY, lastX - dragX, lastY - dragY);
+
+        selected().each(unit -> {
+            Lines.stroke(2f, Color.red);
+            Lines.square(unit.position.x, unit.position.y, 18f, 45f);
+        });
     }
 
     @Override
