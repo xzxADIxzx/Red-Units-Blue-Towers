@@ -48,6 +48,7 @@ public class ServerLauncher extends ClientLauncher {
 
     @Override
     public void update() {
+        Logic.update();
         server.sync();
     }
 }

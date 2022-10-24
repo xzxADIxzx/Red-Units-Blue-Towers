@@ -47,6 +47,7 @@ public class DesktopLauncher extends ClientLauncher {
 
     @Override
     public void update() {
+        Logic.update();
         handler.update();
         Renderer.draw();
     }
