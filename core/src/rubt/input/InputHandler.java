@@ -1,7 +1,7 @@
 package rubt.input;
 
 import arc.graphics.g2d.Draw;
-import arc.input.KeyCode;
+import arc.struct.Seq;
 import rubt.Groups;
 import rubt.world.*;
 
@@ -13,17 +13,15 @@ public abstract class InputHandler {
     /** Last known mouse position. */
     public float lastX, lastY;
 
+    /** Current controlled units. */
+    public Seq<Unit> controlled = new Seq<>();
+
     /** Mouse position where player start dragging a line. */
     public float dragX = -1f, dragY = -1f;
 
     public void update() {
         lastX = input.mouseWorldX();
         lastY = input.mouseWorldY();
-
-        if (input.keyTap(KeyCode.mouseLeft)) {
-            dragX = lastX;
-            dragY = lastY;
-        } else if (input.keyRelease(KeyCode.mouseLeft)) dragX = dragY = -1f;
 
         updateRed();
         updateBlue();

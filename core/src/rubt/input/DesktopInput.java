@@ -1,6 +1,7 @@
 package rubt.input;
 
 import arc.input.KeyCode;
+import arc.math.Mathf;
 import rubt.world.Tile;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
@@ -13,7 +14,13 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateRed() {
-        // TODO Auto-generated method stub
+        if (input.keyTap(KeyCode.mouseLeft)) {
+            dragX = lastX;
+            dragY = lastY;
+        } else if (input.keyRelease(KeyCode.mouseLeft)) {
+            controlled = selected();
+            dragX = dragY = -1f;
+        }
     }
 
     @Override
@@ -23,6 +30,11 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void drawRed() {
+        controlled.each(unit -> {
+            Lines.stroke(2f, Color.red);
+            Lines.square(unit.position.x, unit.position.y, 18f, 45f);
+        });
+
         if (!input.keyDown(KeyCode.mouseLeft)) return;
 
         Draw.color(Color.red, .3f);
@@ -30,7 +42,7 @@ public class DesktopInput extends InputHandler {
 
         selected().each(unit -> {
             Lines.stroke(2f, Color.red);
-            Lines.square(unit.position.x, unit.position.y, 18f, 45f);
+            Lines.square(unit.position.x, unit.position.y, 16f + Mathf.absin(4f, 2f), 45f);
         });
     }
 
@@ -40,6 +52,6 @@ public class DesktopInput extends InputHandler {
         if (tile == null) return;
 
         Lines.stroke(2f, Color.blue);
-        Lines.square(tile.drawX(), tile.drawY(), 12f);
+        Lines.square(tile.drawX(), tile.drawY(), 10f + Mathf.absin(4f, 2f));
     }
 }
