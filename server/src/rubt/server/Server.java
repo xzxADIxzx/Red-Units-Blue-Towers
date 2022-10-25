@@ -3,6 +3,7 @@ package rubt.server;
 import arc.net.Connection;
 import arc.net.DcReason;
 import arc.net.NetListener;
+import arc.util.Log;
 import rubt.Groups;
 import rubt.net.Packet.*;
 import rubt.net.PacketSerializer;
@@ -31,10 +32,14 @@ public class Server extends arc.net.Server implements NetListener {
     public void connected(Connection connection) {
         Groups.connections.add(connection);
         sendWorldData(connection);
+
+        Log.info("@ received.", connection);
     }
 
     public void disconnected(Connection connection, DcReason reason) {
         Groups.connections.remove(connection);
+
+        Log.info("@ disconnected: @.", connection, reason);
     }
 
     public void received(Connection connection, Object object) {
