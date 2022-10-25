@@ -1,7 +1,6 @@
 package rubt.net;
 
 import arc.math.geom.Position;
-import arc.math.geom.Vec2;
 import arc.net.Connection;
 import rubt.Groups;
 import rubt.content.TurretTypes;
@@ -72,13 +71,13 @@ public abstract class Packet {
     public static class UnitCreate extends Packet {
 
         public int type;
-        public Vec2 position;
+        public Position position;
 
         public UnitCreate() {}
 
         public UnitCreate(Unit unit) {
             this.type = unit.type.id;
-            this.position = unit.position;
+            this.position = unit;
         }
 
         public void execute() {
@@ -91,20 +90,20 @@ public abstract class Packet {
 
         public int unitID;
 
-        public Vec2 position;
+        public Position position;
         public Position target;
 
         public UnitUpdate() {}
 
         public UnitUpdate(Unit unit) {
             this.unitID = unit.id;
-            this.position = unit.position;
+            this.position = unit;
             this.target = unit.target;
         }
 
         public void execute() {
             Unit unit = Groups.units.get(unitID);
-            if (position != null) unit.position = position;
+            if (position != null) unit.moveTo(position);
             unit.target = target;
         }
     }
@@ -113,13 +112,13 @@ public abstract class Packet {
     public static class TurretCreate extends Packet {
 
         public int type;
-        public Vec2 position;
+        public Position position;
 
         public TurretCreate() {}
 
         public TurretCreate(Turret turret) {
             this.type = turret.type.id;
-            this.position = turret.position;
+            this.position = turret;
         }
 
         public void execute() {
@@ -128,22 +127,22 @@ public abstract class Packet {
     }
 
     /** Turret data packet used to update turret state on clients. */
-    public static class TurretUpdate extends Packet { // TODO remove and update turrets on client
+    public static class TurretUpdate extends Packet {
 
         public int turretID;
 
-        public float angel;
+        public float rotation;
 
         public TurretUpdate() {}
 
         public TurretUpdate(Turret turret) {
             this.turretID = turret.id;
-            this.angel = turret.angel;
+            this.rotation = turret.rotation;
         }
 
         public void execute() {
             Turret turret = Groups.turrets.get(turretID);
-            turret.angel = angel;
+            turret.rotation = rotation;
         }
     }
 }

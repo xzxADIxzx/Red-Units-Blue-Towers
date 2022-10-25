@@ -3,9 +3,8 @@ package rubt.world;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
-import arc.math.geom.Vec2;
+import arc.math.geom.Position;
 import rubt.Groups;
-import rubt.Groups.GroupObject;
 import rubt.net.Packet;
 import rubt.net.Packet.*;
 import rubt.types.TurretType;
@@ -13,23 +12,18 @@ import rubt.net.PacketProvider;
 
 import static rubt.Vars.*;
 
-public class Turret extends GroupObject implements PacketProvider {
+public class Turret extends Body implements PacketProvider {
 
     public final TurretType type;
 
-    public Vec2 position;
-    public float angel;
-
-    public Turret(TurretType type, Vec2 position) {
-        super(Groups.turrets);
+    public Turret(TurretType type, Position position) {
+        super(Groups.turrets, position);
         this.type = type;
-
-        this.position = position;
-        this.angel = 90f; // top direction
     }
 
     public Turret(TurretType type, int x, int y) {
-        this(type, new Vec2(x * tilesize, y * tilesize));
+        super(Groups.turrets, x * tilesize, y * tilesize);
+        this.type = type;
     }
 
     public void update() {
@@ -40,11 +34,7 @@ public class Turret extends GroupObject implements PacketProvider {
         Draw.reset();
 
         Draw.color(Color.green);
-        Fill.rect(position.x, position.y, tilesize - 4f, tilesize - 4f, angel());
-    }
-
-    public float angel() {
-        return angel - 90f;
+        Fill.rect(x, y, tilesize - 4f, tilesize - 4f, rot());
     }
 
     @Override

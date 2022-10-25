@@ -18,7 +18,7 @@ public abstract class ContentType extends GroupObject {
 
     public Drawable icon;
 
-    public <T extends GroupObject> ContentType(Seq<T> group, String name) {
+    public ContentType(Seq<? extends GroupObject> group, String name) {
         super(group);
 
         this.name = name;

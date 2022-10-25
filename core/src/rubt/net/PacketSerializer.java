@@ -85,7 +85,7 @@ public class PacketSerializer implements NetSerializer {
             writeVector(buffer, create.position);
         } else if (packet instanceof TurretUpdate update) {
             buffer.put((byte) 6).putInt(update.turretID);
-            buffer.putFloat(update.angel);
+            buffer.putFloat(update.rotation);
         }
     }
 
@@ -123,7 +123,7 @@ public class PacketSerializer implements NetSerializer {
             return new TurretUpdate() {{
                 turretID = buffer.getInt();
 
-                angel = buffer.getFloat();
+                rotation = buffer.getFloat();
             }};
         throw new RuntimeException("Unknown packet!");
     }

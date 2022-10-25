@@ -35,7 +35,7 @@ public class DesktopInput extends InputHandler {
     protected void drawRed() {
         controlled.each(unit -> {
             Lines.stroke(2f, Color.red);
-            Lines.square(unit.position.x, unit.position.y, 18f, 45f);
+            Lines.square(unit.getX(), unit.getY(), 18f, 45f);
         });
 
         if (!input.keyDown(KeyCode.mouseLeft)) return;
@@ -45,7 +45,7 @@ public class DesktopInput extends InputHandler {
 
         selected().each(unit -> {
             Lines.stroke(2f, Color.red);
-            Lines.square(unit.position.x, unit.position.y, 16f + Mathf.absin(4f, 2f), 45f);
+            Lines.square(unit.getX(), unit.getY(), 16f + Mathf.absin(4f, 2f), 45f);
         });
     }
 
