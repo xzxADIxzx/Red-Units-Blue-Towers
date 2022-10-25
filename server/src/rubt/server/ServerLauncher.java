@@ -4,6 +4,7 @@ import arc.backend.headless.HeadlessApplication;
 import arc.util.Log;
 import arc.util.Threads;
 import rubt.client.ClientLauncher;
+import rubt.logic.Logic;
 
 import static rubt.Vars.*;
 

@@ -16,7 +16,7 @@ public class UnitTypes {
             health = 100;
             damage = 10;
 
-            speed = 10f;
+            speed = 2f;
         }};
     }
 

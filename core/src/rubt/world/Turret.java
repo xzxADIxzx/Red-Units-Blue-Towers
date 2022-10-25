@@ -32,6 +32,10 @@ public class Turret extends GroupObject implements PacketProvider {
         this(type, new Vec2(x * tilesize, y * tilesize));
     }
 
+    public void update() {
+        type.update(this);
+    }
+
     public void draw() {
         Draw.reset();
 

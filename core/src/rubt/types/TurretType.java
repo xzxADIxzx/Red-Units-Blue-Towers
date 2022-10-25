@@ -1,6 +1,7 @@
 package rubt.types;
 
 import rubt.content.TurretTypes;
+import rubt.world.Turret;
 
 public abstract class TurretType extends ContentType {
 
@@ -10,4 +11,6 @@ public abstract class TurretType extends ContentType {
     public TurretType(String name) {
         super(TurretTypes.all, name);
     }
+
+    public abstract void update(Turret turret);
 }

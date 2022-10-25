@@ -29,6 +29,10 @@ public class Unit extends GroupObject implements PacketProvider {
         this.target = new Vec2();
     }
 
+    public void update() {
+        type.update(this);
+    }
+
     public void draw() {
         Draw.reset();
 

@@ -1,6 +1,8 @@
 package rubt.types.turrets;
 
+import rubt.Groups;
 import rubt.types.TurretType;
+import rubt.world.*;
 
 public class BulletTurret extends TurretType {
 
@@ -9,5 +11,10 @@ public class BulletTurret extends TurretType {
 
     public BulletTurret(String name) {
         super(name);
+    }
+
+    public void update(Turret turret) {
+        Unit target = Groups.units.min(unit -> unit.position.dst(turret.position));
+        turret.angel = turret.position.angleTo(target.position);
     }
 }

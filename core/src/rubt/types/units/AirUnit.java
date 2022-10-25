@@ -1,6 +1,8 @@
 package rubt.types.units;
 
+import arc.util.Tmp;
 import rubt.types.UnitType;
+import rubt.world.Unit;
 
 public class AirUnit extends UnitType {
 
@@ -8,5 +10,10 @@ public class AirUnit extends UnitType {
 
     public AirUnit(String name) {
         super(name);
+    }
+
+    public void update(Unit unit) {
+        Tmp.v1.set(unit.position).sub(unit.target).limit(speed);
+        unit.position.sub(Tmp.v1);
     }
 }
