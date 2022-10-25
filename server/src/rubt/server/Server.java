@@ -49,7 +49,11 @@ public class Server extends arc.net.Server implements NetListener {
     }
 
     public void received(Connection connection, Object object) {
-        if (object instanceof Packet packet) handler.handle(connection, packet);
+        if (object instanceof Packet packet) try {
+            handler.handle(connection, packet);
+        } catch (Throwable ignored) {
+            Log.err("Unable to process client packet", ignored);
+        }
     }
 
     public void idle(Connection connection) {}
