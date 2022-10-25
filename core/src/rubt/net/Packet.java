@@ -2,13 +2,10 @@ package rubt.net;
 
 import arc.math.geom.Position;
 import arc.net.Connection;
-import rubt.Groups;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
 import rubt.logic.State;
 import rubt.world.*;
-
-import static rubt.Vars.*;
 
 public abstract class Packet {
 
@@ -20,8 +17,6 @@ public abstract class Packet {
         connection.sendUDP(this);
     }
 
-    public abstract void execute();
-
     /** Packet used to update game state on clients. */
     public static class StateUpdate extends Packet {
 
@@ -31,10 +26,6 @@ public abstract class Packet {
 
         public StateUpdate(State state) {
             this.id = state.ordinal();
-        }
-
-        public void execute() {
-            state = State.values()[id];
         }
     }
 
@@ -63,8 +54,6 @@ public abstract class Packet {
         public TileUpdate(Tile tile) {
             // there is nothing for now, because tile has not state
         }
-
-        public void execute() {}
     }
 
     /** Unit data packet used to create new unit on clients. */
@@ -100,12 +89,6 @@ public abstract class Packet {
             this.position = unit;
             this.target = unit.target;
         }
-
-        public void execute() {
-            Unit unit = Groups.units.get(unitID);
-            if (position != null) unit.moveTo(position);
-            unit.target = target;
-        }
     }
 
     /** Unit data packet used to create new unit on clients. */
@@ -138,11 +121,6 @@ public abstract class Packet {
         public TurretUpdate(Turret turret) {
             this.turretID = turret.id;
             this.rotation = turret.rotation;
-        }
-
-        public void execute() {
-            Turret turret = Groups.turrets.get(turretID);
-            turret.rotation = rotation;
         }
     }
 }

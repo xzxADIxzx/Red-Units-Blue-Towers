@@ -5,8 +5,9 @@ import arc.net.DcReason;
 import arc.net.NetListener;
 import arc.util.Log;
 import rubt.Groups;
-import rubt.net.Packet.*;
 import rubt.net.*;
+import rubt.net.Packet.*;
+import rubt.world.Unit;
 
 public class Server extends arc.net.Server implements NetListener {
 
@@ -17,8 +18,8 @@ public class Server extends arc.net.Server implements NetListener {
         addListener(this);
 
         handler.register(UnitUpdate.class, (con, update) -> {
-            update.position = null;
-            update.execute();
+            Unit unit = Groups.units.get(update.unitID);
+            unit.target = update.target;
         });
     }
 
