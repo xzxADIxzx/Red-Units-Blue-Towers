@@ -8,6 +8,7 @@ import arc.util.Threads;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
 import rubt.graphics.Renderer;
+import rubt.logic.Logic;
 
 import static rubt.Vars.*;
 
@@ -40,7 +41,7 @@ public class DesktopLauncher extends ClientLauncher {
     public void init() {
         super.init();
 
-        client = new Client();
+        clientCon = client = new Client();
 
         Log.infoTag("APP", "Client loaded successfully.");
     }
