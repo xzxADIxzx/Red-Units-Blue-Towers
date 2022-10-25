@@ -1,11 +1,16 @@
 package rubt.net;
 
+import arc.math.geom.Vec2;
 import arc.net.Connection;
 import rubt.Groups;
 import rubt.net.Packet.*;
 import rubt.world.*;
 
+import static rubt.Vars.*;
+
 public class Send {
+
+    // region server
 
     public static void createTile(Connection connection, Tile tile) {
         new TileCreate(tile).sendTCP(connection);
@@ -43,4 +48,16 @@ public class Send {
         var packet = new TurretUpdate(Turret);
         Groups.connections.each(packet::sendUPD);
     }
+
+    // endregion
+    // region client
+
+    public static void commandUnit(Unit unit, Vec2 target) {
+        unit.target = target;
+        new UnitUpdate(unit) {{
+            position = null; // save some bytes
+        }}.sendTCP(clientCon);
+    }
+
+    // endregion
 }

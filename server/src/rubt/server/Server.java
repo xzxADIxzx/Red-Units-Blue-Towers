@@ -4,6 +4,7 @@ import arc.net.Connection;
 import arc.net.DcReason;
 import arc.net.NetListener;
 import rubt.Groups;
+import rubt.net.Packet.*;
 import rubt.net.PacketSerializer;
 import rubt.net.Send;
 
@@ -36,7 +37,12 @@ public class Server extends arc.net.Server implements NetListener {
         Groups.connections.remove(connection);
     }
 
-    public void received(Connection connection, Object object) {}
+    public void received(Connection connection, Object object) {
+        if (object instanceof UnitUpdate update) {
+            update.position = null;
+            update.execute();
+        }
+    }
 
     public void idle(Connection connection) {}
 

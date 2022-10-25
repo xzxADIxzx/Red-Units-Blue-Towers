@@ -104,7 +104,7 @@ public abstract class Packet {
 
         public void execute() {
             Unit unit = Groups.units.get(unitID);
-            unit.position = position;
+            if (position != null) unit.position = position;
             unit.target = target;
         }
     }
