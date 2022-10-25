@@ -6,14 +6,20 @@ import arc.net.NetListener;
 import arc.util.Log;
 import rubt.Groups;
 import rubt.net.Packet.*;
-import rubt.net.PacketSerializer;
-import rubt.net.Send;
+import rubt.net.*;
 
 public class Server extends arc.net.Server implements NetListener {
+
+    public PacketHandler handler = new PacketHandler();
 
     public Server() {
         super(32768, 8192, new PacketSerializer());
         addListener(this);
+
+        handler.register(UnitUpdate.class, (con, update) -> {
+            update.position = null;
+            update.execute();
+        });
     }
 
     public void sync() {
@@ -43,10 +49,7 @@ public class Server extends arc.net.Server implements NetListener {
     }
 
     public void received(Connection connection, Object object) {
-        if (object instanceof UnitUpdate update) {
-            update.position = null;
-            update.execute();
-        }
+        if (object instanceof Packet packet) handler.handle(connection, packet);
     }
 
     public void idle(Connection connection) {}
