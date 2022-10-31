@@ -3,6 +3,7 @@ package rubt;
 import arc.net.ArcNet;
 import arc.net.Connection;
 import arc.util.Log;
+import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
 import rubt.logic.State;
 
@@ -22,6 +23,7 @@ public class Vars {
     public static State state = State.menu;
     public static Connection clientCon;
 
+    public static Renderer renderer;
     public static InputHandler handler;
 
     public static void loadLogger() {

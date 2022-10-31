@@ -7,7 +7,6 @@ import arc.util.Log;
 import arc.util.Threads;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
-import rubt.graphics.Renderer;
 import rubt.logic.Logic;
 
 import static rubt.Vars.*;
@@ -50,6 +49,6 @@ public class DesktopLauncher extends ClientLauncher {
     public void update() {
         Logic.update();
         handler.update();
-        Renderer.draw();
+        renderer.draw();
     }
 }

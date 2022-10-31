@@ -10,7 +10,7 @@ import static rubt.Vars.*;
 
 public class Renderer {
 
-    public static void draw() {
+    public void draw() {
         camera.resize(graphics.getWidth() / 4f, graphics.getHeight() / 4f);
 
         Draw.proj(camera);
