@@ -4,7 +4,6 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.geom.Position;
-import arc.math.geom.Vec2;
 import rubt.Groups;
 import rubt.net.Packet;
 import rubt.net.Packet.*;
@@ -21,7 +20,7 @@ public class Unit extends Body implements PacketProvider {
         super(Groups.units, position);
         this.type = type;
 
-        this.target = new Vec2();
+        this.target = position;
     }
 
     public void update() {

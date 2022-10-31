@@ -17,6 +17,11 @@ public class Server extends arc.net.Server implements NetListener {
         super(32768, 8192, new PacketSerializer());
         addListener(this);
 
+        handler.register(UnitCreate.class, (con, create) -> {
+            create.execute();
+            Send.createUnit(Groups.units.peek());
+        });
+
         handler.register(UnitUpdate.class, (con, update) -> {
             Unit unit = Groups.units.get(update.unitID);
             unit.target = update.target;

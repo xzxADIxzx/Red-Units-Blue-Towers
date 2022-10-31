@@ -15,6 +15,8 @@ public class BulletTurret extends TurretType {
 
     public void update(Turret turret) {
         Unit target = Groups.units.min(unit -> unit.dst(turret));
+        if (target == null) return;
+
         turret.rotation = turret.angleTo(target);
     }
 }

@@ -2,6 +2,7 @@ package rubt.input;
 
 import arc.input.KeyCode;
 import arc.math.Mathf;
+import rubt.content.UnitTypes;
 import rubt.net.Send;
 import rubt.world.Tile;
 import arc.graphics.Color;
@@ -24,6 +25,8 @@ public class DesktopInput extends InputHandler {
         }
 
         if (input.keyTap(KeyCode.mouseRight)) controlled.each(unit -> Send.commandUnit(unit, input.mouseWorld()));
+
+        if (input.keyTap(KeyCode.mouseMiddle)) Send.createUnit(UnitTypes.imau, input.mouseWorld());
     }
 
     @Override

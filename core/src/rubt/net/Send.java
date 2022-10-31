@@ -1,9 +1,10 @@
 package rubt.net;
 
-import arc.math.geom.Vec2;
+import arc.math.geom.Position;
 import arc.net.Connection;
 import rubt.Groups;
 import rubt.net.Packet.*;
+import rubt.types.*;
 import rubt.world.*;
 
 import static rubt.Vars.*;
@@ -52,7 +53,14 @@ public class Send {
     // endregion
     // region client
 
-    public static void commandUnit(Unit unit, Vec2 target) {
+    public static void createUnit(UnitType unit, Position pos) {
+        new UnitCreate() {{
+            type = unit.id;
+            position = pos;
+        }}.sendTCP(clientCon);
+    }
+
+    public static void commandUnit(Unit unit, Position target) {
         unit.target = target;
         new UnitUpdate(unit) {{
             position = null; // save some bytes
