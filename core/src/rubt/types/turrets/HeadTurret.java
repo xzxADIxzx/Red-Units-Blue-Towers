@@ -7,12 +7,12 @@ import rubt.Groups;
 import rubt.types.TurretType;
 import rubt.world.*;
 
-public class BulletTurret extends TurretType {
+public class HeadTurret extends TurretType {
 
     public float reload = 1f;
     public float inaccuracy = 0f;
 
-    public BulletTurret(String name) {
+    public HeadTurret(String name) {
         super(name);
     }
 
