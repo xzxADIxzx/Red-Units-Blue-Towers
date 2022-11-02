@@ -3,6 +3,7 @@ package rubt.graphics;
 import arc.graphics.Texture;
 import arc.graphics.Texture.TextureFilter;
 import arc.scene.style.Drawable;
+import rubt.types.textures.NormalTexture;
 
 import static arc.Core.*;
 
@@ -30,5 +31,9 @@ public class Textures {
     public static Drawable loadIcon(String name) {
         load("sprites/icons/", name);
         return atlas.drawable(name);
+    }
+
+    public static NormalTexture loadNormal(String file) {
+        return new NormalTexture(file + ".png");
     }
 }
