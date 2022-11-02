@@ -1,8 +1,6 @@
 package rubt.world;
 
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
 import arc.math.geom.Position;
 import rubt.Groups;
 import rubt.net.Packet;
@@ -29,12 +27,7 @@ public class Unit extends Body implements PacketProvider {
 
     public void draw() {
         Draw.reset();
-
-        Draw.color(Color.red);
-        Fill.circle(x, y, 10f);
-
-        Draw.color(Color.blue);
-        Fill.circle(target.getX(), target.getY(), 10f);
+        type.draw(this);
     }
 
     @Override

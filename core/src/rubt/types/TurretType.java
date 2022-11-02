@@ -13,4 +13,6 @@ public abstract class TurretType extends ContentType {
     }
 
     public abstract void update(Turret turret);
+
+    public abstract void draw(Turret turret);
 }

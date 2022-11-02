@@ -1,8 +1,6 @@
 package rubt.world;
 
-import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
 import arc.math.geom.Position;
 import rubt.Groups;
 import rubt.net.Packet;
@@ -32,9 +30,7 @@ public class Turret extends Body implements PacketProvider {
 
     public void draw() {
         Draw.reset();
-
-        Draw.color(Color.green);
-        Fill.rect(x, y, tilesize - 4f, tilesize - 4f, rot());
+        type.draw(this);
     }
 
     @Override
