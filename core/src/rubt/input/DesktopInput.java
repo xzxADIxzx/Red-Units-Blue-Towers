@@ -43,7 +43,7 @@ public class DesktopInput extends InputHandler {
 
         if (!input.keyDown(KeyCode.mouseLeft)) return;
 
-        Draw.color(Color.red, .3f);
+        Draw.color(Color.red, .2f);
         Fill.crect(dragX, dragY, lastX - dragX, lastY - dragY);
 
         selected().each(unit -> {

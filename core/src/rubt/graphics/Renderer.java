@@ -17,7 +17,7 @@ public class Renderer {
         camera.resize(graphics.getWidth() / 4f, graphics.getHeight() / 4f);
         bloom.resize(graphics.getWidth(), graphics.getHeight());
 
-        bloom.setBloomIntesity(10f);
+        bloom.setBloomIntesity(1.8f);
         bloom.blurPasses = 6;
 
         Draw.proj(camera);
