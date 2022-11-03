@@ -67,5 +67,12 @@ public class Send {
         }}.sendTCP(clientCon);
     }
 
+    public static void createTurret(TurretType turret, Position pos) {
+        new TurretCreate() {{
+            type = turret.id;
+            position = pos;
+        }}.sendTCP(clientCon);
+    }
+
     // endregion
 }

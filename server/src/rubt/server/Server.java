@@ -26,6 +26,11 @@ public class Server extends arc.net.Server implements NetListener {
             Unit unit = Groups.units.get(update.unitID);
             unit.target = update.target;
         });
+
+        handler.register(TurretCreate.class, (con, create) -> {
+            create.execute();
+            Send.createTurret(Groups.turrets.peek());
+        });
     }
 
     public void sync() {

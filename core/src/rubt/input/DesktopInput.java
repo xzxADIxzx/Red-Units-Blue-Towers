@@ -2,6 +2,8 @@ package rubt.input;
 
 import arc.input.KeyCode;
 import arc.math.Mathf;
+import arc.math.geom.Vec2;
+import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
 import rubt.net.Send;
 import rubt.world.Tile;
@@ -31,7 +33,10 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateBlue() {
-        // TODO Auto-generated method stub
+        Tile tile = tileOn();
+        if (tile == null) return;
+
+        if (input.keyTap(KeyCode.b)) Send.createTurret(TurretTypes.imat, new Vec2(tile.drawX(), tile.drawY()));
     }
 
     @Override
