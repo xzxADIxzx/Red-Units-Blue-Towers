@@ -13,6 +13,8 @@ public class NormalTexture {
     public Pixmap raw, out;
     public TextureRegion region;
 
+    private float last = Float.NaN;
+
     public NormalTexture(String file) {
         raw = new Pixmap(file);
         out = raw.copy();
@@ -22,6 +24,8 @@ public class NormalTexture {
     }
 
     public TextureRegion region(float rotation) {
+        if (rotation == last) return region;
+
         raw.each((x, y) -> {
             Tmp.c1.set(raw.get(x, y));
             if (Tmp.c1.a == 0f) return;
