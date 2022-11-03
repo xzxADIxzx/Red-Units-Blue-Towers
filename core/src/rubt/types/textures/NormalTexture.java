@@ -9,18 +9,13 @@ import arc.util.Tmp;
 
 public class NormalTexture {
 
+    public Pixmap raw, out;
     public TextureRegion region;
-
-    private Pixmap raw;
-    private Pixmap pix;
-    private Texture tex;
-    private TextureRegion reg;
 
     public NormalTexture(String file) {
         raw = new Pixmap(file);
-        pix = raw.copy();
-        tex = new Texture(pix);
-        reg = new TextureRegion(tex);
+        out = raw.copy();
+        region = new TextureRegion(new Texture(out));
     }
 
     public TextureRegion region(float rotation) {
@@ -31,10 +26,10 @@ public class NormalTexture {
             Tmp.v1.set(Tmp.c1.r - .5f, Tmp.c1.g - .5f).rotate(rotation);
             float n = Tmp.v1.angleTo(-1f, -1f) / 180f;
 
-            pix.set(x, y, Color.rgba8888(n, n, n, Tmp.c1.a));
+            out.set(x, y, Color.rgba8888(n, n, n, Tmp.c1.a));
         });
 
-        tex.load(new PixmapTextureData(pix, false, false));
-        return reg;
+        region.texture.load(new PixmapTextureData(out, false, false));
+        return region;
     }
 }
