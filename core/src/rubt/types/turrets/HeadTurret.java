@@ -31,6 +31,6 @@ public class HeadTurret extends TurretType {
     }
 
     public void draw(Turret turret) {
-        Draw.rect(head.region(turret.rotation), turret, turret.rot());
+        Draw.rect(head.region(turret.rotation), turret, 16f, 16f, turret.rot());
     }
 }

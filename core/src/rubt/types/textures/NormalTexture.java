@@ -3,6 +3,7 @@ package rubt.types.textures;
 import arc.graphics.Color;
 import arc.graphics.Pixmap;
 import arc.graphics.Texture;
+import arc.graphics.Texture.TextureFilter;
 import arc.graphics.g2d.TextureRegion;
 import arc.graphics.gl.PixmapTextureData;
 import arc.util.Tmp;
@@ -15,7 +16,9 @@ public class NormalTexture {
     public NormalTexture(String file) {
         raw = new Pixmap(file);
         out = raw.copy();
+
         region = new TextureRegion(new Texture(out));
+        region.texture.setFilter(TextureFilter.linear);
     }
 
     public TextureRegion region(float rotation) {
