@@ -17,6 +17,7 @@ public class UnitTypes {
             damage = 10;
 
             speed = 2f;
+            accel = .12f;
         }};
     }
 
