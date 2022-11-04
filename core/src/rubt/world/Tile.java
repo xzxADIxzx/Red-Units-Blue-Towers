@@ -5,13 +5,10 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import rubt.Groups;
 import rubt.Groups.GroupObject;
-import rubt.net.Packet;
-import rubt.net.Packet.*;
-import rubt.net.PacketProvider;
 
 import static rubt.Vars.*;
 
-public class Tile extends GroupObject implements PacketProvider {
+public class Tile extends GroupObject {
 
     public final int x, y;
 
@@ -34,10 +31,5 @@ public class Tile extends GroupObject implements PacketProvider {
 
         Draw.color(Color.gray);
         Fill.rect(drawX(), drawY(), tilesize, tilesize);
-    }
-
-    @Override
-    public Packet pack() {
-        return new TileUpdate(this);
     }
 }

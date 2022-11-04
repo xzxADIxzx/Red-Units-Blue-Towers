@@ -3,14 +3,11 @@ package rubt.world;
 import arc.graphics.g2d.Draw;
 import arc.math.geom.Position;
 import rubt.Groups;
-import rubt.net.Packet;
-import rubt.net.Packet.*;
 import rubt.types.TurretType;
-import rubt.net.PacketProvider;
 
 import static rubt.Vars.*;
 
-public class Turret extends Body implements PacketProvider {
+public class Turret extends Body {
 
     public final TurretType type;
 
@@ -31,10 +28,5 @@ public class Turret extends Body implements PacketProvider {
     public void draw() {
         Draw.reset();
         type.draw(this);
-    }
-
-    @Override
-    public Packet pack() {
-        return new TurretUpdate(this);
     }
 }

@@ -5,12 +5,9 @@ import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.util.Tmp;
 import rubt.Groups;
-import rubt.net.Packet;
-import rubt.net.Packet.*;
 import rubt.types.UnitType;
-import rubt.net.PacketProvider;
 
-public class Unit extends Body implements PacketProvider {
+public class Unit extends Body {
 
     public final UnitType type;
 
@@ -38,10 +35,5 @@ public class Unit extends Body implements PacketProvider {
         Tmp.v1.set(to).sub(this);
         Tmp.v1.sub(vel).limit(type.accel);
         vel.add(Tmp.v1).limit(type.speed);
-    }
-
-    @Override
-    public Packet pack() {
-        return new UnitUpdate(this);
     }
 }
