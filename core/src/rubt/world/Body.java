@@ -38,8 +38,8 @@ public abstract class Body extends GroupObject implements Position {
     }
 
     public void move(float x, float y) {
-        this.x -= x;
-        this.y -= y;
+        this.x += x;
+        this.y += y;
     }
 
     public void moveTo(Position position) {

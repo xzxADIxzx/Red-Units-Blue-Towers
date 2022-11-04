@@ -16,7 +16,7 @@ public class AirUnit extends UnitType {
     }
 
     public void update(Unit unit) {
-        Tmp.v1.set(unit).sub(unit.target).limit(speed);
+        Tmp.v1.set(unit.target).sub(unit).limit(speed);
         unit.move(Tmp.v1);
     }
 
