@@ -4,6 +4,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Bloom;
 import arc.graphics.g2d.Draw;
 import rubt.Groups;
+import rubt.types.textures.NormalTexture;
 import rubt.world.*;
 
 import static arc.Core.*;
@@ -14,6 +15,8 @@ public class Renderer {
     public Bloom bloom = new Bloom(true);
 
     public void draw() {
+        NormalTexture.pointer = -1; // TODO event system or predraw call idk
+
         camera.resize(graphics.getWidth() / 4f, graphics.getHeight() / 4f);
         bloom.resize(graphics.getWidth(), graphics.getHeight());
 
