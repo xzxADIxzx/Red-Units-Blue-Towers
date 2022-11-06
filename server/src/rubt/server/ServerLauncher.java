@@ -51,5 +51,7 @@ public class ServerLauncher extends ClientLauncher {
     public void update() {
         Logic.update();
         server.sync();
+
+        limitFPS(60);
     }
 }

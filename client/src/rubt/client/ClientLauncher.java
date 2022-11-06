@@ -4,6 +4,8 @@ import arc.ApplicationListener;
 import arc.graphics.Camera;
 import arc.graphics.g2d.SortedSpriteBatch;
 import arc.graphics.g2d.TextureAtlas;
+import arc.util.Threads;
+import arc.util.Time;
 import rubt.content.*;
 import rubt.graphics.Renderer;
 import rubt.graphics.Textures;
@@ -14,6 +16,8 @@ import static arc.Core.*;
 import static rubt.Vars.*;
 
 public abstract class ClientLauncher implements ApplicationListener {
+
+    public long lastTime;
 
     public void init() {
         UnitTypes.load();
@@ -35,5 +39,15 @@ public abstract class ClientLauncher implements ApplicationListener {
 
         UnitTypes.loadui();
         TurretTypes.loadui();
+    }
+
+    public void limitFPS(int targetFPS) {
+        long target = 1000000000 / targetFPS; // target in nanos
+        long elapsed = Time.timeSinceNanos(lastTime);
+
+        if (elapsed < target)
+            Threads.sleep((target - elapsed) / 1000000, (int) ((target - elapsed) % 1000000));
+
+        lastTime = Time.nanos();
     }
 }
