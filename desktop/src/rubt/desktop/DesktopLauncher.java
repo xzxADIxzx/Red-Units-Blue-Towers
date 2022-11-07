@@ -25,11 +25,11 @@ public class DesktopLauncher extends ClientLauncher {
                 maximized = true;
             }});
         } catch (Throwable error) {
-            crushed("Oh no, critical error", error);
+            crashed("Oh no, critical error", error);
         }
     }
 
-    public static void crushed(String title, Throwable error) {
+    public static void crashed(String title, Throwable error) {
         Log.err(title, error);
         SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MESSAGEBOX_ERROR, title, error.getMessage());
     }
