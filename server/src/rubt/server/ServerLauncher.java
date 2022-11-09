@@ -5,6 +5,7 @@ import arc.util.Log;
 import arc.util.Threads;
 import rubt.client.ClientLauncher;
 import rubt.logic.Logic;
+import rubt.world.World;
 
 import static rubt.Vars.*;
 
@@ -38,6 +39,8 @@ public class ServerLauncher extends ClientLauncher {
             server = new Server();
             server.bind(port, port);
             thread = Threads.daemon("Server", server::run);
+
+            world.load(World.random());
         } catch (Throwable error) {
             Log.err("Could not to startup server", error);
             exit();

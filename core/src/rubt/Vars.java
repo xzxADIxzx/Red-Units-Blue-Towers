@@ -6,6 +6,7 @@ import arc.util.Log;
 import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
 import rubt.logic.State;
+import rubt.world.World;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,7 @@ public class Vars {
     public static boolean mobile;
 
     public static State state = State.menu;
+    public static World world;
     public static Connection clientCon;
 
     public static Renderer renderer;

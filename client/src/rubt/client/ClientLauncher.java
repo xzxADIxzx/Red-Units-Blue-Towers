@@ -11,6 +11,7 @@ import rubt.graphics.Renderer;
 import rubt.graphics.Textures;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
+import rubt.world.World;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -24,6 +25,8 @@ public abstract class ClientLauncher implements ApplicationListener {
         TurretTypes.load();
 
         Logic.load();
+
+        world = new World();
 
         if (headless) return;
 
