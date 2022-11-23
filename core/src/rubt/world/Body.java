@@ -4,6 +4,8 @@ import arc.math.geom.Position;
 import arc.struct.Seq;
 import rubt.Groups.GroupObject;
 
+import static rubt.Vars.*;
+
 /** 2D vector but also a GroupObject. */
 public abstract class Body extends GroupObject implements Position {
 
@@ -31,6 +33,10 @@ public abstract class Body extends GroupObject implements Position {
 
     public float rot() {
         return rotation - 90f;
+    }
+
+    public Tile tileOn() {
+        return world.get(0, 0);
     }
 
     public void move(Position position) {

@@ -1,12 +1,15 @@
 package rubt.world;
 
+import arc.math.Mathf;
+
+import static arc.Core.*;
+import static rubt.Vars.*;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import static arc.Core.*;
 
 public class World {
 
@@ -22,6 +25,10 @@ public class World {
     public Tile get(int x, int y) {
         if (x < 0 || y < 0 || x >= width || y >= height) return null; // out of bounds
         return tiles[x + y * width];
+    }
+
+    public Tile get(float x, float y) {
+        return get(Mathf.round(x / tilesize), Mathf.round(y / tilesize));
     }
 
     public static InputStream random() {
