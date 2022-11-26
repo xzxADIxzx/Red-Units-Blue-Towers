@@ -36,7 +36,7 @@ public abstract class Body extends GroupObject implements Position {
     }
 
     public Tile tileOn() {
-        return world.get(0, 0);
+        return world.get(x, y);
     }
 
     public void move(Position position) {

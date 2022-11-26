@@ -11,6 +11,7 @@ import rubt.graphics.Renderer;
 import rubt.graphics.Textures;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
+import rubt.world.Pathfinder;
 import rubt.world.World;
 
 import static arc.Core.*;
@@ -27,6 +28,7 @@ public abstract class ClientLauncher implements ApplicationListener {
         Logic.load();
 
         world = new World();
+        pathfinder = new Pathfinder();
 
         if (headless) return;
 

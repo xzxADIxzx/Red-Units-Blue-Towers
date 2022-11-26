@@ -6,6 +6,7 @@ import arc.util.Log;
 import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
 import rubt.logic.State;
+import rubt.world.Pathfinder;
 import rubt.world.World;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,7 @@ public class Vars {
 
     public static Renderer renderer;
     public static InputHandler handler;
+    public static Pathfinder pathfinder;
 
     public static void loadLogger() {
         ArcNet.errorHandler = Log::err;
