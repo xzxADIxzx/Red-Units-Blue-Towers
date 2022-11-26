@@ -4,12 +4,14 @@ import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.geom.Geometry;
+import arc.math.geom.Position;
+import arc.struct.Seq;
 import rubt.Groups;
 import rubt.Groups.GroupObject;
 
 import static rubt.Vars.*;
 
-public class Tile extends GroupObject {
+public class Tile extends GroupObject implements Position {
 
     public final int x, y;
 
@@ -25,6 +27,16 @@ public class Tile extends GroupObject {
 
     public float drawY() {
         return y * tilesize;
+    }
+
+    @Override
+    public float getX() {
+        return drawX();
+    }
+
+    @Override
+    public float getY() {
+        return drawY();
     }
 
     public void draw() {

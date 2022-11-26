@@ -43,6 +43,8 @@ public class Pathfinder {
     public static record Path(Seq<Tile> tiles) {
 
         public Tile nextOnPath(Tile from) {
+            if (tiles.size == 1) return tiles.first();
+
             if (tiles.peek() == from) tiles.pop();
             return tiles.peek();
         }

@@ -1,6 +1,7 @@
 package rubt.world;
 
 import arc.math.Mathf;
+import arc.math.geom.Position;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -29,6 +30,10 @@ public class World {
 
     public Tile get(float x, float y) {
         return get(Mathf.round(x / tilesize), Mathf.round(y / tilesize));
+    }
+
+    public Tile get(Position position) {
+        return get(position.getX(), position.getY());
     }
 
     public static InputStream random() {
