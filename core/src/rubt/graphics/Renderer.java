@@ -1,8 +1,8 @@
 package rubt.graphics;
 
-import arc.graphics.Color;
 import arc.graphics.g2d.Bloom;
 import arc.graphics.g2d.Draw;
+import arc.graphics.g2d.Fill;
 import rubt.Groups;
 import rubt.types.textures.NormalTexture;
 import rubt.world.*;
@@ -27,7 +27,8 @@ public class Renderer {
         Draw.sort(true);
 
         Draw.draw(Layers.bg, () -> {
-            graphics.clear(Color.sky);
+            graphics.clear(Palette.background);
+            Fill.light(0f, 0f, 64, graphics.getHeight() / 5f, Palette.lightbg, Palette.background);
         });
 
         Draw.draw(Layers.tiles, () -> Groups.tiles.each(Tile::draw));
