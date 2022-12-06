@@ -12,9 +12,7 @@ import static rubt.Vars.*;
 public class ServerLauncher extends ClientLauncher {
 
     public final int port;
-
     public Server server;
-    public Thread thread;
 
     public static void main(String[] args) {
         try {

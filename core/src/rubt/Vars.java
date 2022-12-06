@@ -25,12 +25,14 @@ public class Vars {
 
     public static State state = State.menu;
     public static World world;
-    public static Connection clientCon;
 
     public static Renderer renderer;
     public static UI ui;
     public static InputHandler handler;
     public static Pathfinder pathfinder;
+
+    public static Connection clientCon;
+    public static Thread thread;
 
     public static void loadLogger() {
         ArcNet.errorHandler = Log::err;

@@ -4,7 +4,6 @@ import arc.backend.sdl.SdlApplication;
 import arc.backend.sdl.SdlConfig;
 import arc.backend.sdl.jni.SDL;
 import arc.util.Log;
-import arc.util.Threads;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
 import rubt.logic.Logic;
@@ -14,7 +13,6 @@ import static rubt.Vars.*;
 public class DesktopLauncher extends ClientLauncher {
 
     public Client client;
-    public Thread thread;
 
     public static void main(String[] args) {
         try {
@@ -29,12 +27,12 @@ public class DesktopLauncher extends ClientLauncher {
         }
     }
 
+    public DesktopLauncher(String[] args) {}
+
     public static void crashed(String title, Throwable error) {
         Log.err(title, error);
         SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MESSAGEBOX_ERROR, title, error.getMessage());
     }
-
-    public DesktopLauncher(String[] args) {}
 
     @Override
     public void init() {
