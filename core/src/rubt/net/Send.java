@@ -13,6 +13,10 @@ public class Send {
 
     // region server
 
+    public static void updateState(Connection connection) {
+        new StateUpdate(state).sendTCP(connection);
+    }
+
     public static void createTile(Connection connection, Tile tile) {
         new TileCreate(tile).sendTCP(connection);
     }

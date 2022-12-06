@@ -23,9 +23,6 @@ public class Renderer {
         bloom.setBloomIntesity(1.8f);
         bloom.blurPasses = 6;
 
-        scene.act();
-        scene.draw();
-
         Draw.proj(camera);
         Draw.sort(true);
 
@@ -42,5 +39,8 @@ public class Renderer {
         Draw.draw(Layers.overlay, handler::draw);
 
         Draw.flush();
+
+        scene.act();
+        scene.draw();
     }
 }
