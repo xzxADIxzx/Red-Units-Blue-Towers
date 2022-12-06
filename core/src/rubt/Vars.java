@@ -6,6 +6,7 @@ import arc.util.Log;
 import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
 import rubt.logic.State;
+import rubt.ui.UI;
 import rubt.world.Pathfinder;
 import rubt.world.World;
 
@@ -27,6 +28,7 @@ public class Vars {
     public static Connection clientCon;
 
     public static Renderer renderer;
+    public static UI ui;
     public static InputHandler handler;
     public static Pathfinder pathfinder;
 

@@ -51,4 +51,9 @@ public class DesktopLauncher extends ClientLauncher {
         handler.update();
         renderer.draw();
     }
+
+    @Override
+    public void resize(int width, int height) {
+        ui.resize(width, height);
+    }
 }

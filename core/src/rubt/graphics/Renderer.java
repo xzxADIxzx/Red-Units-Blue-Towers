@@ -23,6 +23,9 @@ public class Renderer {
         bloom.setBloomIntesity(1.8f);
         bloom.blurPasses = 6;
 
+        scene.act();
+        scene.draw();
+
         Draw.proj(camera);
         Draw.sort(true);
 

@@ -4,6 +4,7 @@ import arc.ApplicationListener;
 import arc.graphics.Camera;
 import arc.graphics.g2d.SortedSpriteBatch;
 import arc.graphics.g2d.TextureAtlas;
+import arc.scene.Scene;
 import arc.util.Threads;
 import arc.util.Time;
 import rubt.content.*;
@@ -11,6 +12,8 @@ import rubt.graphics.Renderer;
 import rubt.graphics.Textures;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
+import rubt.ui.Styles;
+import rubt.ui.UI;
 import rubt.world.Pathfinder;
 import rubt.world.World;
 
@@ -34,13 +37,18 @@ public abstract class ClientLauncher implements ApplicationListener {
 
         camera = new Camera();
         batch = new SortedSpriteBatch();
+        scene = new Scene();
         atlas = TextureAtlas.blankAtlas();
 
         mobile = app.isMobile();
         renderer = new Renderer();
+        ui = new UI();
         handler = mobile ? null : new DesktopInput();
 
         Textures.load();
+        Styles.load();
+
+        ui.load();
 
         UnitTypes.loadui();
         TurretTypes.loadui();
