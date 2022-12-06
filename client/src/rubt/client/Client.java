@@ -4,15 +4,19 @@ import arc.net.Connection;
 import arc.net.DcReason;
 import arc.net.NetListener;
 import arc.util.Log;
+import arc.util.Threads;
 import rubt.Groups;
 import rubt.logic.State;
 import rubt.net.*;
+import rubt.net.Host.Connector;
 import rubt.net.Packet.*;
 import rubt.world.*;
 
+import java.io.IOException;
+
 import static rubt.Vars.*;
 
-public class Client extends arc.net.Client implements NetListener {
+public class Client extends arc.net.Client implements NetListener, Connector {
 
     public PacketHandler handler = new PacketHandler();
 
@@ -41,6 +45,19 @@ public class Client extends arc.net.Client implements NetListener {
         });
     }
 
+    // region connection
+
+    public void connect(String ip, int port) throws IOException {
+        thread = Threads.daemon("Client", this::run);
+        connect(5000, ip, port, port);
+    }
+
+    public void disconnect() {
+        thread = null;
+        disconnect();
+    }
+
+    // endregion
     // region listeners
 
     public void connected(Connection connection) {
