@@ -1,6 +1,5 @@
 package rubt.world;
 
-import arc.graphics.g2d.Draw;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.util.Tmp;
@@ -32,8 +31,11 @@ public class Unit extends Body {
     }
 
     public void draw() {
-        Draw.reset();
         type.draw(this);
+    }
+
+    public void drawGlow() {
+        type.drawGlow(this);
     }
 
     public void moveVel(Position to) {

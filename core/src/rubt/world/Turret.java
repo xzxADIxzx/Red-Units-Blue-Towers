@@ -1,6 +1,5 @@
 package rubt.world;
 
-import arc.graphics.g2d.Draw;
 import arc.math.geom.Position;
 import rubt.Groups;
 import rubt.types.TurretType;
@@ -26,7 +25,10 @@ public class Turret extends Body {
     }
 
     public void draw() {
-        Draw.reset();
         type.draw(this);
+    }
+
+    public void drawGlow() {
+        type.drawGlow(this);
     }
 }

@@ -18,4 +18,6 @@ public abstract class UnitType extends ContentType {
     public abstract void update(Unit unit);
 
     public abstract void draw(Unit unit);
+
+    public abstract void drawGlow(Unit unit);
 }

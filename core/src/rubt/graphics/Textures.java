@@ -2,6 +2,7 @@ package rubt.graphics;
 
 import arc.graphics.Texture;
 import arc.graphics.Texture.TextureFilter;
+import arc.graphics.g2d.TextureRegion;
 import arc.scene.style.Drawable;
 import arc.util.serialization.JsonReader;
 import arc.util.serialization.JsonValue;
@@ -25,12 +26,14 @@ public class Textures {
         circle = loadUI("circle");
     }
 
-    public static void load(String path, String name) {
+    public static TextureRegion load(String path, String name) {
         Texture texture = new Texture(path + name + ".png");
         texture.setFilter(TextureFilter.linear); // for better experience
 
         var region = atlas.addRegion(name, texture, 0, 0, texture.width, texture.height);
         if (splits.has(name)) region.splits = splits.get(name).asIntArray();
+
+        return region;
     }
 
     public static Drawable loadUI(String name) {
