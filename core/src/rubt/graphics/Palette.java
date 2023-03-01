@@ -14,7 +14,11 @@ public class Palette {
 
     alpha = Color.valueOf("282E33CC"),
 
-    accent = Color.valueOf("006E62")
+    accent = Color.valueOf("006E62"),
+
+    red = Color.valueOf("#FF0040"),
+
+    blue = Color.valueOf("#0040FF")
 
     ;
 }
