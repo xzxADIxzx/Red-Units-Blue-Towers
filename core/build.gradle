@@ -9,4 +9,5 @@ ext {
 dependencies {
     compileOnly "com.github.Anuken.Arc:arc-core:$arcVersion"
     compileOnly "com.github.Anuken.Arc:arcnet:$arcVersion"
+    compileOnly "com.github.Anuken.Arc:freetype:$arcVersion"
 }

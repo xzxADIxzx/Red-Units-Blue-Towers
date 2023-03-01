@@ -12,6 +12,7 @@ import rubt.graphics.Renderer;
 import rubt.graphics.Textures;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
+import rubt.ui.Fonts;
 import rubt.ui.Styles;
 import rubt.ui.UI;
 import rubt.world.Pathfinder;
@@ -45,6 +46,7 @@ public abstract class ClientLauncher implements ApplicationListener {
         ui = new UI();
         handler = mobile ? null : new DesktopInput();
 
+        Fonts.load();
         Textures.load();
         Styles.load();
 

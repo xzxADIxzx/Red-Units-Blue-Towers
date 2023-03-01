@@ -9,6 +9,7 @@ ext {
 dependencies {
     implementation "com.github.Anuken.Arc:arc-core:$arcVersion"
     implementation "com.github.Anuken.Arc:arcnet:$arcVersion"
+    // freetype is not required, because the server only needs a console
     implementation "com.github.Anuken.Arc:backend-headless:$arcVersion"
 
     implementation project(':client')
