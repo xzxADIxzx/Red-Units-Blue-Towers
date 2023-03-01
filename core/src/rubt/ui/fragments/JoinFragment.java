@@ -34,7 +34,7 @@ public class JoinFragment {
                 info.table(Textures.alphabg).row();
                 info.table(Textures.alphabg).height(512f).row();
 
-                info.button(b -> {}, () -> { // TODO normal join
+                info.button("Join", () -> { // TODO normal join
                     try {
                         new Host("127.0.0.1", 6567).join();
                     } catch (Throwable error) {
