@@ -50,6 +50,8 @@ public class DesktopLauncher extends ClientLauncher {
         Logic.update();
         handler.update();
         renderer.draw();
+
+        limitFPS(60);
     }
 
     @Override
