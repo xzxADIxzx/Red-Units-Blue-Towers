@@ -6,7 +6,7 @@ sourceSets.main {
 }
 
 ext {
-    arcVersion = 'v139'
+    arcVersion = 'v142'
 }
 
 dependencies {
