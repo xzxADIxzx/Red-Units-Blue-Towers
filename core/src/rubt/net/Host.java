@@ -11,6 +11,8 @@ public class Host {
     public final String ip;
     public final int port;
 
+    public String name, desc;
+
     public Host(String ip, int port) {
         if (ip.isBlank()) throw new RuntimeException("IP address cannot be blank!");
 
@@ -23,6 +25,28 @@ public class Host {
     }
 
     public void ping() {}
+
+    // region info
+
+    public void fetchServerInfo() {}
+
+    public String address() {
+        return ip + ":" + port;
+    }
+
+    public String name() {
+        return name == null ? "Name not provided" : name;
+    }
+
+    public String desc() {
+        return desc == null ? "Description not provided." : desc;
+    }
+
+    public String enemy() {
+        return "[gray]No one is on the server right now.";
+    }
+
+    // endregion
 
     /** Any endpoint capable of connecting. */
     public interface Connector {

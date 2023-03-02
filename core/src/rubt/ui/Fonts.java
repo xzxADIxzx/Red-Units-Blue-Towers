@@ -12,6 +12,8 @@ public class Fonts {
 
     public static void load() {
         tech = load("tech", new FreeTypeFontParameter() {{ size = 18; }});
+        tech.getData().markupEnabled = true;
+        tech.getData().down *= 1.5f;
     }
 
     public static Font load(String name, FreeTypeFontParameter parameter) {
