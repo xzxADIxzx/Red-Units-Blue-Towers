@@ -15,7 +15,7 @@ public class Renderer {
     public Bloom bloom = new Bloom(true);
 
     public void draw() {
-        NormalTexture.pointer = -1; // TODO event system or predraw call idk
+        NormalTexture.pointer = -1;
 
         camera.resize(graphics.getWidth() / 4f, graphics.getHeight() / 4f);
         bloom.resize(graphics.getWidth(), graphics.getHeight());

@@ -2,8 +2,10 @@ package rubt.net;
 
 import java.io.IOException;
 
+/** Represents a remote server. */
 public class Host {
 
+    /** The endpoint used to connect. Usually it is {@link rubt.client.Client}. */
     public static Connector connector;
 
     public final String ip;
@@ -22,6 +24,7 @@ public class Host {
 
     public void ping() {}
 
+    /** Any endpoint capable of connecting. */
     public interface Connector {
 
         public void connect(String ip, int port) throws IOException;
