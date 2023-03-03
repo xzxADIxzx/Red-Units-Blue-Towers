@@ -1,5 +1,8 @@
 package rubt.net;
 
+import rubt.Vars;
+
+import java.nio.ByteBuffer;
 
 /** Represents a remote server. */
 public class Host {
@@ -37,7 +40,19 @@ public class Host {
     }
 
     // endregion
+    // region serialization
 
-
+    public void write(ByteBuffer buffer) {
+        PacketSerializer.writeString(buffer, name);
+        PacketSerializer.writeString(buffer, desc);
     }
+
+    public static Host read(String ip, ByteBuffer buffer) {
+        return new Host(ip, Vars.port) {{
+            name = PacketSerializer.readString(buffer);
+            desc = PacketSerializer.readString(buffer);
+        }};
+    }
+
+    // endregion
 }

@@ -8,6 +8,7 @@ import arc.util.Log;
 import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.net.Host;
+import rubt.net.Net;
 
 import static rubt.Vars.*;
 
@@ -50,7 +51,7 @@ public class JoinFragment {
 
                 info.button("Join", () -> {
                     try {
-                        selected.join();
+                        Net.connect(selected);
                     } catch (Throwable error) {
                         Log.err("Could not to join server", error);
                     }

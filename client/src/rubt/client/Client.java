@@ -1,5 +1,6 @@
 package rubt.client;
 
+import arc.func.Cons;
 import arc.net.Connection;
 import arc.net.DcReason;
 import arc.net.NetListener;
@@ -13,6 +14,7 @@ import rubt.net.Packet.*;
 import rubt.world.*;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
 
 import static rubt.Vars.*;
 
@@ -55,6 +57,10 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     public void disconnect() {
         thread = null;
         close();
+    }
+
+    public void discover(Cons<DatagramPacket> cons, Runnable done) {
+        discoverHosts(port, "227.2.7.7", 2727, 5000, cons, done);
     }
 
     // endregion
