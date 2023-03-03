@@ -1,5 +1,6 @@
 package rubt.ui.fragments;
 
+import arc.graphics.Color;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
@@ -12,7 +13,7 @@ import static rubt.Vars.*;
 
 public class JoinFragment {
 
-    public Seq<Host> hosts;
+    public Seq<Host> saved, local;
     public Host selected;
 
     public Table list;
@@ -26,12 +27,13 @@ public class JoinFragment {
 
             cont.pane(list -> { // server list
                 list.name = "Server list";
-                list.defaults().height(200f).growX().padBottom(8f);
+                list.defaults().growX().padBottom(8f);
 
                 this.list = list.top();
             }).width(600f).growY().padRight(8f);
 
-            loadHosts();
+            loadSavedHosts();
+            discoverLocalHosts();
             rebuildList();
 
             cont.table(info -> { // nickname & server info
@@ -59,28 +61,41 @@ public class JoinFragment {
 
     // region hosts
 
-    public void loadHosts() { // TODO load from settings
-        hosts = Seq.with(new Host("localhost", 6567));
+    public void loadSavedHosts() { // TODO load from settings
+        saved = Seq.with(new Host("localhost", 6567));
+    }
+
+    public void discoverLocalHosts() { // TODO discover hosts via Host.connector
+        local = Seq.with(new Host("localhost", 6567));
     }
 
     public void saveHosts() {}
 
     public void addHost(Host host) {
-        hosts.add(host);
+        saved.add(host);
         saveHosts();
         rebuildList();
     }
 
     public void removeHost(Host host) {
-        hosts.remove(host);
+        saved.remove(host);
         saveHosts();
         rebuildList();
     }
 
-    public void rebuildList() {
-        list.clear();
+    // endregion
+    // region build
 
+    public void partition(String name) {
+        list.table(gap -> {
+            gap.add(name).color(Color.gray).padRight(4f);
+            gap.image().color(Color.gray).height(4f).growX();
+        }).height(32f).row();
+    }
+
+    public void buildHosts(Seq<Host> hosts) {
         hosts.each(host -> {
+            host.fetchServerInfo(); // refresh server info
             list.button(b -> {
                 b.top();
                 b.defaults().growX();
@@ -88,10 +103,20 @@ public class JoinFragment {
                 b.labelWrap(host::name).padBottom(16f).row();
                 b.labelWrap(host::enemy).padBottom(8f).fontScale(.8f).row();
                 b.labelWrap(host::desc);
-            }, () -> this.selected = host).row();
+            }, () -> this.selected = host).height(180f).row();
         });
+    }
 
-        list.button("Add", () -> addHost(new Host("localhost", 6567))).height(64f); // TODO dialog with input field
+    public void rebuildList() {
+        list.clear();
+
+        partition("Saved");
+        buildHosts(saved);
+        list.button("Add", () -> addHost(new Host("localhost", 6567))).height(64f).row(); // TODO dialog with input field
+
+        partition("Local");
+        buildHosts(local);
+        list.button("Refresh", this::discoverLocalHosts).height(64f).row();
     }
 
     // endregion
