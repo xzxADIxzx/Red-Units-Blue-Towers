@@ -8,7 +8,7 @@ import arc.util.Threads;
 import rubt.Groups;
 import rubt.logic.State;
 import rubt.net.*;
-import rubt.net.Host.Connector;
+import rubt.net.Net.NetProvider;
 import rubt.net.Packet.*;
 import rubt.world.*;
 
@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import static rubt.Vars.*;
 
-public class Client extends arc.net.Client implements NetListener, Connector {
+public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     public PacketHandler handler = new PacketHandler();
 
@@ -45,7 +45,7 @@ public class Client extends arc.net.Client implements NetListener, Connector {
         });
     }
 
-    // region connection
+    // region provider
 
     public void connect(String ip, int port) throws IOException {
         thread = Threads.daemon("Client", this::run);

@@ -63,6 +63,7 @@ public class JoinFragment {
 
     public void loadSavedHosts() { // TODO load from settings
         saved = Seq.with(new Host("localhost", 6567));
+        saved.each(Host::fetchServerInfo); // refresh servers info
     }
 
     public void discoverLocalHosts() { // TODO discover hosts via Host.connector
@@ -95,7 +96,6 @@ public class JoinFragment {
 
     public void buildHosts(Seq<Host> hosts) {
         hosts.each(host -> {
-            host.fetchServerInfo(); // refresh server info
             list.button(b -> {
                 b.top();
                 b.defaults().growX();

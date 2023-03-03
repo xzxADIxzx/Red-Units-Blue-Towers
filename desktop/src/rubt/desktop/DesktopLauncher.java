@@ -7,7 +7,7 @@ import arc.util.Log;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
 import rubt.logic.Logic;
-import rubt.net.Host;
+import rubt.net.Net;
 
 import static rubt.Vars.*;
 
@@ -40,7 +40,7 @@ public class DesktopLauncher extends ClientLauncher {
         super.init();
 
         clientCon = client = new Client();
-        Host.connector = client;
+        Net.provider = client;
 
         Log.infoTag("APP", "Client loaded successfully.");
     }
