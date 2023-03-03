@@ -150,9 +150,12 @@ public class PacketSerializer implements NetSerializer {
     // region vector
 
     public static void writeVector(ByteBuffer buffer, Position position) {
-        buffer.put(position == null ? (byte) 1 : 0);
-        if (position == null) return;
-        buffer.putFloat(position.getX()).putFloat(position.getY());
+        if (position == null)
+            buffer.put((byte) 1);
+        else {
+            buffer.put((byte) 0);
+            buffer.putFloat(position.getX()).putFloat(position.getY());
+        }
     }
 
     public static Vec2 readVector(ByteBuffer buffer) {

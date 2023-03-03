@@ -19,6 +19,7 @@ public class Vars {
     public static final DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     public static final float tilesize = 16f;
+    public static final int port = 4755;
 
     public static boolean headless;
     public static boolean mobile;
@@ -36,7 +37,7 @@ public class Vars {
 
     public static void loadLogger() {
         ArcNet.errorHandler = Log::err;
-        Log.logger = (level, text) -> { // this is how fashionable i am
+        Log.logger = (level, text) -> { // this is how fashionable I am
             String result = Log.format("&lk&fb[" + dateTime.format(LocalDateTime.now()) + "]&fr " + tags[level.ordinal()] + " " + text + "&fr");
             System.out.println(result);
         };

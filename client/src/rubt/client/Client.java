@@ -54,7 +54,7 @@ public class Client extends arc.net.Client implements NetListener, Connector {
 
     public void disconnect() {
         thread = null;
-        disconnect();
+        close();
     }
 
     // endregion
