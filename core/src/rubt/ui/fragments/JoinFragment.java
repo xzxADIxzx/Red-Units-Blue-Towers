@@ -5,6 +5,8 @@ import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
 import arc.util.Log;
+import arc.util.Strings;
+import arc.util.Time;
 import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.net.Host;
@@ -14,10 +16,11 @@ import static rubt.Vars.*;
 
 public class JoinFragment {
 
-    public Seq<Host> saved, local;
+    public Seq<Host> saved, local = new Seq<>();
     public Host selected;
 
     public Table list;
+    public boolean discovering;
 
     public void build(Group parent) {
         parent.fill(cont -> {
@@ -34,7 +37,7 @@ public class JoinFragment {
             }).width(600f).growY().padRight(8f);
 
             loadSavedHosts();
-            discoverLocalHosts();
+            // discoverLocalHosts(); TODO load & discover on fragment opened
             rebuildList();
 
             cont.table(info -> { // nickname & server info
@@ -67,8 +70,14 @@ public class JoinFragment {
         saved.each(Host::fetchServerInfo); // refresh servers info
     }
 
-    public void discoverLocalHosts() { // TODO discover hosts via Host.connector
-        local = Seq.with(new Host("localhost", 6567));
+    public void discoverLocalHosts() {
+        local.clear();
+        discovering = true;
+
+        Net.discover(host -> {
+            local.add(host);
+            rebuildList();
+        }, () -> discovering = false);
     }
 
     public void saveHosts() {}
@@ -117,7 +126,9 @@ public class JoinFragment {
 
         partition("Local");
         buildHosts(local);
-        list.button("Refresh", this::discoverLocalHosts).height(64f).row();
+        list.button(b -> {
+            b.label(() -> discovering ? "Discovering" + Strings.animated(Time.time, 4, 20, ".") : "Refresh");
+        }, this::discoverLocalHosts).disabled(b -> discovering).height(64f).row();
     }
 
     // endregion
