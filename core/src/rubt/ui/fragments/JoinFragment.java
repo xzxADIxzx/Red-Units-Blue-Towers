@@ -36,10 +36,6 @@ public class JoinFragment {
                 this.list = list.top();
             }).width(600f).growY().padRight(8f);
 
-            loadSavedHosts();
-            // discoverLocalHosts(); TODO load & discover on fragment opened
-            rebuildList();
-
             cont.table(info -> { // nickname & server info
                 info.name = "Nickname & Server info";
                 info.defaults().height(64f).growX().padBottom(8f);
@@ -122,7 +118,7 @@ public class JoinFragment {
 
         partition("Saved");
         buildHosts(saved);
-        list.button("Add", () -> addHost(new Host("localhost", 6567))).height(64f).row(); // TODO dialog with input field
+        list.button("Add", ui.addHost::show).height(64f).row();
 
         partition("Local");
         buildHosts(local);
