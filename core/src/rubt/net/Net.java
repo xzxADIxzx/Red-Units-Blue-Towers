@@ -7,6 +7,7 @@ import arc.util.Log;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.nio.ByteBuffer;
 
 public class Net {
@@ -30,17 +31,29 @@ public class Net {
         Seq<InetAddress> found = new Seq<>();
         provider.discover(packet -> {
             synchronized (found) {
-                if (found.contains(address -> address.equals(packet.getAddress()))) return; // how does it possible?
+                if (found.contains(address -> address.equals(packet.getAddress()))) return; // how is that possible?
                 found.add(packet.getAddress());
 
                 try {
+                    String ip = isLocal(packet.getAddress()) ? "localhost" : packet.getAddress().getHostAddress();
                     ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
-                    cons.get(Host.read(packet.getAddress().getHostAddress(), buffer));
+
+                    cons.get(Host.read(ip, buffer));
                 } catch (Exception ignored) { // don't crash when there is an error parsing data
                     Log.err("Unable to process server datagram packet", ignored);
                 }
             }
         }, done);
+    }
+
+    public static boolean isLocal(InetAddress addr) {
+        if (addr.isAnyLocalAddress() || addr.isLoopbackAddress()) return true;
+
+        try {
+            return NetworkInterface.getByInetAddress(addr) != null;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 
     /** Any endpoint that allows you to connect to and discover servers. */

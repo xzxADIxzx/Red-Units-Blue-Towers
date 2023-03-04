@@ -12,7 +12,6 @@ import static rubt.Vars.*;
 
 public class ServerLauncher extends ClientLauncher {
 
-    public final int port;
     public Server server;
 
     public static void main(String[] args) {
@@ -26,8 +25,7 @@ public class ServerLauncher extends ClientLauncher {
     }
 
     public ServerLauncher(String[] args) {
-        if (args.length == 0) throw new RuntimeException("Need a port as an argument!");
-        port = Integer.parseInt(args[0]);
+        if (args.length != 0) port = Integer.parseInt(args[0]);
     }
 
     @Override

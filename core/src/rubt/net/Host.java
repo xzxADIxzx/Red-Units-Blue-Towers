@@ -43,12 +43,13 @@ public class Host {
     // region serialization
 
     public static void write(ByteBuffer buffer) { // TODO take this value from settings
+        buffer.putInt(Vars.port);
         PacketSerializer.writeString(buffer, "Test Server");
         PacketSerializer.writeString(buffer, "He's testing a game, be quiet...");
     }
 
     public static Host read(String ip, ByteBuffer buffer) {
-        return new Host(ip, Vars.port) {{
+        return new Host(ip, buffer.getInt()) {{
             name = PacketSerializer.readString(buffer);
             desc = PacketSerializer.readString(buffer);
         }};
