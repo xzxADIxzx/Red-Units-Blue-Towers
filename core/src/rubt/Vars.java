@@ -21,6 +21,9 @@ public class Vars {
     public static final float tilesize = 16f;
     public static final int port = 4755;
 
+    public static final String multicast = "227.2.2.7";
+    public static final int multicastPort = 2727;
+
     public static boolean headless;
     public static boolean mobile;
 

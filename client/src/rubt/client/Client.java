@@ -60,7 +60,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     }
 
     public void discover(Cons<DatagramPacket> cons, Runnable done) {
-        discoverHosts(port, "227.2.7.7", 2727, 5000, cons, done);
+        discoverHosts(port, multicast, multicastPort, 5000, cons, done);
     }
 
     // endregion

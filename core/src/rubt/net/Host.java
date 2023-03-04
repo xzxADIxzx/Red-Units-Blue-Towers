@@ -42,9 +42,9 @@ public class Host {
     // endregion
     // region serialization
 
-    public void write(ByteBuffer buffer) {
-        PacketSerializer.writeString(buffer, name);
-        PacketSerializer.writeString(buffer, desc);
+    public static void write(ByteBuffer buffer) { // TODO take this value from settings
+        PacketSerializer.writeString(buffer, "Test Server");
+        PacketSerializer.writeString(buffer, "He's testing a game, be quiet...");
     }
 
     public static Host read(String ip, ByteBuffer buffer) {

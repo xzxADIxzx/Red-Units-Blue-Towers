@@ -9,6 +9,8 @@ import rubt.net.*;
 import rubt.net.Packet.*;
 import rubt.world.Unit;
 
+import static rubt.Vars.*;
+
 import java.nio.ByteBuffer;
 
 public class Server extends arc.net.Server implements NetListener {
@@ -19,13 +21,10 @@ public class Server extends arc.net.Server implements NetListener {
         super(32768, 8192, new PacketSerializer());
         addListener(this);
 
-        setMulticast("227.2.7.7", 2727);
+        setMulticast(multicast, multicastPort);
         setDiscoveryHandler((address, handler) -> {
             ByteBuffer buffer = ByteBuffer.allocate(256);
-            new Host("bla bla bla", 0) {{ // TODO move to a field or make static
-                name = "Test Server";
-                desc = "He is testing a rubt, be quiet...";
-            }}.write(buffer);
+            Host.write(buffer);
 
             buffer.position(0);
             handler.respond(buffer);
