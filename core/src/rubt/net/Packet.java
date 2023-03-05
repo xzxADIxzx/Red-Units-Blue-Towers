@@ -79,8 +79,8 @@ public abstract class Packet {
 
         public int unitID;
 
-        public Position position;
-        public Position target;
+        public Position position, target;
+        public float rotation;
 
         public UnitUpdate() {}
 
@@ -88,6 +88,7 @@ public abstract class Packet {
             this.unitID = unit.id;
             this.position = unit;
             this.target = unit.target;
+            this.rotation = unit.rotation;
         }
     }
 

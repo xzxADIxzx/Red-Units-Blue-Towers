@@ -80,6 +80,7 @@ public class PacketSerializer implements NetSerializer {
             buffer.put((byte) 4).putInt(update.unitID);
             writeVector(buffer, update.position);
             writeVector(buffer, update.target);
+            buffer.putFloat(update.rotation);
         } else if (packet instanceof TurretCreate create) {
             buffer.put((byte) 5).putInt(create.type);
             writeVector(buffer, create.position);
@@ -113,6 +114,7 @@ public class PacketSerializer implements NetSerializer {
 
                 position = readVector(buffer);
                 target = readVector(buffer);
+                rotation = buffer.getFloat();
             }};
         else if (id == 5)
             return new TurretCreate() {{

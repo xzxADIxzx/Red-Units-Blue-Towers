@@ -38,6 +38,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             Unit unit = Groups.units.get(update.unitID);
             unit.moveTo(update.position);
             unit.target = update.target;
+            unit.rotation = update.rotation;
         });
 
         handler.register(TurretCreate.class, TurretCreate::execute);
