@@ -21,6 +21,9 @@ public class DesktopInput extends InputHandler {
     @Override
     protected void updateCamera() {
         if (Math.abs(input.axis(KeyCode.scroll)) > 0.2f && !scene.hasScroll()) renderer.zoom(input.axis(KeyCode.scroll));
+        if (input.keyDown(KeyCode.mouseMiddle)) camera.position.add(
+                (screenX - input.mouseX()) / renderer.current,
+                (screenY - input.mouseY()) / renderer.current);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class DesktopInput extends InputHandler {
 
         if (input.keyTap(KeyCode.mouseRight)) controlled.each(unit -> Send.commandUnit(unit, input.mouseWorld()));
 
-        if (input.keyTap(KeyCode.mouseMiddle)) Send.createUnit(UnitTypes.imau, input.mouseWorld());
+        if (input.keyTap(KeyCode.v)) Send.createUnit(UnitTypes.imau, input.mouseWorld());
     }
 
     @Override

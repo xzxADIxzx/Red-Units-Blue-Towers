@@ -13,6 +13,9 @@ public abstract class InputHandler {
     /** Last known mouse position. */
     public float lastX, lastY;
 
+    /** Last known mouse position in screen coordinates. */
+    public int screenX, screenY;
+
     /** Current controlled units. */
     public Seq<Unit> controlled = new Seq<>();
 
@@ -22,6 +25,8 @@ public abstract class InputHandler {
     public void update() {
         updateCamera();
 
+        screenX = input.mouseX();
+        screenY = input.mouseY();
         lastX = input.mouseWorldX();
         lastY = input.mouseWorldY();
 
