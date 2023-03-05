@@ -39,7 +39,7 @@ public class Renderer {
 
         Draw.draw(Layers.bg, () -> {
             graphics.clear(Palette.background);
-            Fill.light(0f, 0f, 64, graphics.getHeight() / 5f, Palette.lightbg, Palette.background);
+            Fill.light(camera.position.x, camera.position.y, 64, graphics.getHeight() / current * .8f, Palette.lightbg, Palette.background);
         });
 
         Draw.draw(Layers.tiles, () -> Groups.tiles.each(Tile::draw));
