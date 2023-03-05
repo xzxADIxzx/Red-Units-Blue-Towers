@@ -19,8 +19,6 @@ public class Renderer {
 
         camera.resize(graphics.getWidth() / 4f, graphics.getHeight() / 4f);
         bloom.resize(graphics.getWidth(), graphics.getHeight());
-
-        bloom.setBloomIntesity(1.8f);
         bloom.blurPasses = 6;
 
         Draw.proj(camera);
@@ -35,23 +33,33 @@ public class Renderer {
         Draw.draw(Layers.units, () -> {
             Groups.units.each(Unit::draw);
 
+            bloom.setBloomIntesity(2.8f);
             bloom.capture();
+
             Draw.color(Palette.red);
             Groups.units.each(Unit::drawGlow);
+
             bloom.render();
         });
         Draw.draw(Layers.turrets, () -> {
             Groups.turrets.each(Turret::draw);
 
+            bloom.setBloomIntesity(2.8f);
             bloom.capture();
+
             Draw.color(Palette.blue);
             Groups.turrets.each(Turret::drawGlow);
+
             bloom.render();
         });
 
-        Draw.draw(Layers.overlay - .02f, bloom::capture);
-        Draw.draw(Layers.overlay + .02f, bloom::render);
-        Draw.draw(Layers.overlay, handler::draw);
+        Draw.draw(Layers.overlay, () -> {
+            bloom.setBloomIntesity(1.8f);
+            bloom.capture();
+
+            handler.draw();
+            bloom.render();
+        });
 
         Draw.flush();
 

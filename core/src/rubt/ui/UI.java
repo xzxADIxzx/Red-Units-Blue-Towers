@@ -27,11 +27,11 @@ public class UI {
         // dialogs are created here because before the load() call, the styles have not yet been created
         addHost = new AddHostDialog();
 
-        app.post(() -> app.post(() -> { // TODO load & discover on fragment opened
+        app.post(() -> app.post(() -> app.post(() -> app.post(() -> { // TODO load & discover on fragment opened
             joinfrag.loadSavedHosts();
             joinfrag.discoverLocalHosts();
             joinfrag.rebuildList();
-        }));
+        }))));
     }
 
     public void resize(int width, int height) {
