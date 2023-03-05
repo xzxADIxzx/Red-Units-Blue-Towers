@@ -19,9 +19,6 @@ public class AirUnit extends UnitType {
     public void draw(Unit unit) {
         Draw.color(Color.red);
         Fill.circle(unit.x, unit.y, 10f);
-
-        Draw.color(Color.blue);
-        Fill.circle(unit.target.getX(), unit.target.getY(), 10f);
     }
 
     public void drawGlow(Unit unit) {}

@@ -19,9 +19,6 @@ public class GroundUnit extends UnitType {
     public void draw(Unit unit) {
         Draw.color(Color.red);
         Fill.square(unit.x, unit.y, 8f, unit.rot());
-
-        Draw.color(Color.blue);
-        Fill.square(unit.target.getX(), unit.target.getY(), 8f);
     }
 
     public void drawGlow(Unit unit) {}

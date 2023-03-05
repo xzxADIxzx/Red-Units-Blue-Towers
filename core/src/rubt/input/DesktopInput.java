@@ -5,6 +5,7 @@ import arc.math.Mathf;
 import arc.math.geom.Vec2;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
+import rubt.graphics.Drawf;
 import rubt.graphics.Palette;
 import rubt.net.Send;
 import rubt.world.Tile;
@@ -44,6 +45,8 @@ public class DesktopInput extends InputHandler {
         controlled.each(unit -> {
             Lines.stroke(2f, Palette.red);
             Lines.square(unit.getX(), unit.getY(), 18f, 45f);
+
+            Drawf.drawTarget(unit.target); // TODO only draw unique targets
         });
 
         if (!input.keyDown(KeyCode.mouseLeft)) return;
@@ -51,8 +54,8 @@ public class DesktopInput extends InputHandler {
         Draw.color(Palette.red, .2f);
         Fill.crect(dragX, dragY, lastX - dragX, lastY - dragY);
 
+        Lines.stroke(2f, Palette.red);
         selected().each(unit -> {
-            Lines.stroke(2f, Palette.red);
             Lines.square(unit.getX(), unit.getY(), 16f + Mathf.absin(4f, 2f), 45f);
         });
     }
