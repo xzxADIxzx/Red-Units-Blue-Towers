@@ -13,14 +13,16 @@ import static arc.Core.*;
 public class Textures {
 
     public static JsonValue splits;
-    public static Drawable mainbg, alphabg, accentbg, whiteui, circle;
+    public static Drawable darkbg, mainbg, alphabg, accentbg, redbg, whiteui, circle;
 
     public static void load() {
         splits = new JsonReader().parse(files.internal("sprites/ui/splits.json"));
 
+        darkbg = loadUI("darkbg");
         mainbg = loadUI("mainbg");
         alphabg = loadUI("alphabg");
         accentbg = loadUI("accentbg");
+        redbg = loadUI("redbg");
 
         whiteui = loadUI("whiteui");
         circle = loadUI("circle");

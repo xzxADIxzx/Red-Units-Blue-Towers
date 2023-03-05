@@ -43,11 +43,12 @@ public class Styles {
             font = Fonts.tech;
         }});
 
-        scene.addStyle(TextFieldStyle.class, field = new TextFieldStyle() {{ // TODO invalid background with red color from palette
+        scene.addStyle(TextFieldStyle.class, field = new TextFieldStyle() {{
             font = Fonts.tech;
 
             fontColor = Color.white;
-            background = Textures.alphabg;
+            background = Textures.mainbg;
+            invalidBackground = Textures.redbg;
             cursor = Textures.whiteui;
             selection = Textures.accentbg;
         }});
@@ -59,11 +60,12 @@ public class Styles {
             hScrollKnob = Textures.accentbg;
         }});
 
-        scene.addStyle(DialogStyle.class, dialog = new DialogStyle() {{ // TODO dark stage background
+        scene.addStyle(DialogStyle.class, dialog = new DialogStyle() {{
             titleFont = Fonts.tech;
 
             titleFontColor = Palette.accent;
             background = Textures.alphabg;
+            stageBackground = Textures.darkbg;
         }});
     }
 }
