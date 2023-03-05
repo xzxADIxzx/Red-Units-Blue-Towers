@@ -14,8 +14,14 @@ import arc.graphics.g2d.Fill;
 import arc.graphics.g2d.Lines;
 
 import static arc.Core.*;
+import static rubt.Vars.*;
 
 public class DesktopInput extends InputHandler {
+
+    @Override
+    protected void updateCamera() {
+        if (Math.abs(input.axis(KeyCode.scroll)) > 0.2f && !scene.hasScroll()) renderer.zoom(input.axis(KeyCode.scroll));
+    }
 
     @Override
     protected void updateRed() {

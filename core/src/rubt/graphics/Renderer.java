@@ -3,6 +3,7 @@ package rubt.graphics;
 import arc.graphics.g2d.Bloom;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
+import arc.math.Mathf;
 import rubt.Groups;
 import rubt.types.textures.NormalTexture;
 import rubt.world.*;
@@ -14,10 +15,22 @@ public class Renderer {
 
     public Bloom bloom = new Bloom(true);
 
+    public float minZoom = 1f, maxZoom = 6f;
+    public float current = 4f, target = 4f;
+
+    public void zoom(float amount) {
+        target *= (amount / 4) + 1;
+        target = Mathf.clamp(target, minZoom, maxZoom);
+    }
+
     public void draw() {
         NormalTexture.pointer = -1;
 
-        camera.resize(graphics.getWidth() / 4f, graphics.getHeight() / 4f);
+        float dest = Mathf.clamp(Mathf.round(target, 0.5f), minZoom, maxZoom);
+        current = Mathf.lerpDelta(current, dest, 0.1f);
+        if (Mathf.equal(current, dest, 0.001f)) current = dest;
+
+        camera.resize(graphics.getWidth() / current, graphics.getHeight() / current);
         bloom.resize(graphics.getWidth(), graphics.getHeight());
         bloom.blurPasses = 6;
 

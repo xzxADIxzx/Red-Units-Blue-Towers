@@ -20,6 +20,8 @@ public abstract class InputHandler {
     public float dragX = -1f, dragY = -1f;
 
     public void update() {
+        updateCamera();
+
         lastX = input.mouseWorldX();
         lastY = input.mouseWorldY();
 
@@ -48,6 +50,9 @@ public abstract class InputHandler {
             return x > n.x1 && x < n.x2 && y > n.y1 && y < n.y2;
         });
     }
+
+    /** Input update of the camera. */
+    protected abstract void updateCamera();
 
     /** Input update of the red team. */
     protected abstract void updateRed();
