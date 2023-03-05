@@ -14,6 +14,7 @@ public class Textures {
 
     public static JsonValue splits;
     public static Drawable darkbg, mainbg, alphabg, accentbg, redbg, whiteui, circle;
+    public static TextureRegion engine;
 
     public static void load() {
         splits = new JsonReader().parse(files.internal("sprites/ui/splits.json"));
@@ -26,6 +27,8 @@ public class Textures {
 
         whiteui = loadUI("whiteui");
         circle = loadUI("circle");
+
+        engine = load("sprites/", "engine");
     }
 
     public static TextureRegion load(String path, String name) {
