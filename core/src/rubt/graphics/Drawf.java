@@ -31,10 +31,10 @@ public class Drawf {
         Tmp.c1.set(Draw.getColor());
         Tmp.c2.set(Draw.getColor()).mul(1.8f);
 
-        drawEngine(x, y, rotation, 6f);
+        drawEngine(x, y, rotation, 4f);
         Draw.color(Tmp.c2);
 
-        drawEngine(x, y, rotation, 4.5f);
+        drawEngine(x, y, rotation, 2.5f);
         Draw.color(Tmp.c1);
     }
 

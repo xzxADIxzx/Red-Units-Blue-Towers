@@ -1,7 +1,9 @@
 package rubt.world;
 
+import arc.math.Angles;
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
+import arc.util.Time;
 import arc.util.Tmp;
 import rubt.Groups;
 import rubt.types.UnitType;
@@ -53,5 +55,9 @@ public class Unit extends Body {
 
         if (path == null) return;
         moveVel(path.nextOnPath(tileOn()));
+    }
+
+    public void faceMovement() {
+        rotation = Angles.moveToward(rotation, vel.angle(), type.rotateSpeed * Time.delta);
     }
 }

@@ -14,13 +14,16 @@ public class UnitTypes {
 
     /** Create unit types. */
     public static void load() {
-        sunbeam = new AirUnit("imau") {{
+        sunbeam = new AirUnit("sunbeam") {{
             health = 100;
             damage = 10;
 
-            speed = 2f;
+            speed = 1.7f;
+            rotateSpeed = 7f;
             accel = .12f;
-            size = 10f;
+            size = 7f;
+
+            addEngine(0f, -5f, 0f);
         }};
 
         furbo = new GroundUnit("furbo") {{
