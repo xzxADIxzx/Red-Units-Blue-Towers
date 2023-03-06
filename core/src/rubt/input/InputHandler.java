@@ -30,6 +30,8 @@ public abstract class InputHandler {
         lastX = input.mouseWorldX();
         lastY = input.mouseWorldY();
 
+        if (scene.hasMouse()) return;
+
         updateRed();
         updateBlue();
     }

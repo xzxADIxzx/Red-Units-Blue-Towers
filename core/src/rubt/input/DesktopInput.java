@@ -34,11 +34,13 @@ public class DesktopInput extends InputHandler {
         } else if (input.keyRelease(KeyCode.mouseLeft)) {
             controlled = selected();
             dragX = dragY = -1f;
+
+            ui.redfrag.rebuild();
         }
 
         if (input.keyTap(KeyCode.mouseRight)) controlled.each(unit -> Send.commandUnit(unit, input.mouseWorld()));
 
-        if (input.keyTap(KeyCode.v)) Send.createUnit(UnitTypes.imau, input.mouseWorld());
+        if (input.keyTap(KeyCode.v)) Send.createUnit(tileOn() == null ? UnitTypes.imau : UnitTypes.furbo, input.mouseWorld());
     }
 
     @Override
@@ -58,7 +60,7 @@ public class DesktopInput extends InputHandler {
             Drawf.drawTarget(unit.target); // TODO only draw unique targets
         });
 
-        if (!input.keyDown(KeyCode.mouseLeft)) return;
+        if (!input.keyDown(KeyCode.mouseLeft) || scene.hasMouse()) return;
 
         Draw.color(Palette.red, .2f);
         Fill.crect(dragX, dragY, lastX - dragX, lastY - dragY);

@@ -14,7 +14,7 @@ import static arc.Core.*;
 
 public class Styles {
 
-    public static ButtonStyle button;
+    public static ButtonStyle button, emptyButton;
     public static TextButtonStyle textButton;
 
     public static LabelStyle label;
@@ -29,6 +29,10 @@ public class Styles {
             down = Textures.accentbg;
             disabled = Textures.mainbg;
         }});
+
+        emptyButton = new ButtonStyle() {{
+            over = Textures.mainbg;
+        }};
 
         scene.addStyle(TextButtonStyle.class, textButton = new TextButtonStyle() {{
             font = Fonts.tech;

@@ -37,7 +37,7 @@ public class JoinFragment {
             }).width(600f).growY().padRight(8f);
 
             cont.table(info -> { // nickname & server info
-                info.name = "Nickname & Server info";
+                info.name = "Nickname & Server Info";
                 info.defaults().height(64f).growX().padBottom(8f);
 
                 info.field("[#0096FF]xzxADIxzx", nickname -> {}).padBottom(16f).row();
