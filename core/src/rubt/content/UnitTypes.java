@@ -20,6 +20,7 @@ public class UnitTypes {
 
             speed = 2f;
             accel = .12f;
+            size = 10f;
         }};
 
         furbo = new GroundUnit("furbo") {{
@@ -28,6 +29,7 @@ public class UnitTypes {
 
             speed = 1.2f;
             accel = .1f;
+            size = 12f;
         }};
     }
 

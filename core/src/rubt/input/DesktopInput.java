@@ -32,9 +32,17 @@ public class DesktopInput extends InputHandler {
             dragX = lastX;
             dragY = lastY;
         } else if (input.keyRelease(KeyCode.mouseLeft)) {
-            controlled = selected();
-            dragX = dragY = -1f;
+            var unit = unitOn();
+            var selected = selected();
 
+            if (selected.any() || unit == null)
+                controlled = selected;
+            else {
+                // selects the unit if it was not selected, otherwise deselects
+                if (!controlled.remove(unit)) controlled.add(unit);
+            }
+
+            dragX = dragY = -1f; // do this only after calling selected()
             ui.redfrag.rebuild();
         }
 
@@ -53,22 +61,28 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void drawRed() {
+        Lines.stroke(2f, Palette.red);
         controlled.each(unit -> {
-            Lines.stroke(2f, Palette.red);
             Lines.square(unit.getX(), unit.getY(), 18f, 45f);
-
             Drawf.drawTarget(unit.target); // TODO only draw unique targets
         });
 
-        if (!input.keyDown(KeyCode.mouseLeft) || scene.hasMouse()) return;
+        var unit = unitOn();
 
-        Draw.color(Palette.red, .2f);
-        Fill.crect(dragX, dragY, lastX - dragX, lastY - dragY);
+        if (input.keyDown(KeyCode.mouseLeft) && !scene.hasMouse()) {
+            var selected = selected();
 
-        Lines.stroke(2f, Palette.red);
-        selected().each(unit -> {
-            Lines.square(unit.getX(), unit.getY(), 16f + Mathf.absin(4f, 2f), 45f);
-        });
+            if (selected.any() || unit == null)
+                selected.each(u -> Lines.square(u.getX(), u.getY(), 16f + Mathf.absin(4f, 2f), 45f));
+            else
+                Lines.square(unit.getX(), unit.getY(), 16f + Mathf.absin(4f, 2f), 45f);
+
+            Draw.alpha(.2f);
+            Fill.crect(dragX, dragY, lastX - dragX, lastY - dragY);
+        } else {
+            // displays which unit will be selected by LMB
+            if (unit != null) Lines.square(unit.getX(), unit.getY(), 16f + Mathf.absin(4f, 2f), 45f);
+        }
     }
 
     @Override

@@ -10,6 +10,8 @@ public abstract class UnitType extends ContentType {
 
     public float speed;
     public float accel;
+    /** Unit collision radius. */
+    public float size;
 
     public UnitType(String name) {
         super(UnitTypes.all, name);

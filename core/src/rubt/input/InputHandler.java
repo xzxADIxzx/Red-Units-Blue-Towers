@@ -50,10 +50,15 @@ public abstract class InputHandler {
         });
     }
 
+    public Unit unitOn() {
+        Unit closest = Groups.units.min(unit -> unit.dst(lastX, lastY));
+        return closest != null && closest.dst(lastX, lastY) <= closest.type.size ? closest : null;
+    }
+
     public Seq<Unit> selected() {
+        var n = new Normalized(lastX, lastY, dragX, dragY);
         return Groups.units.select(unit -> {
             final float x = unit.getX(), y = unit.getY();
-            var n = new Normalized(lastX, lastY, dragX, dragY);
             return x > n.x1 && x < n.x2 && y > n.y1 && y < n.y2;
         });
     }
