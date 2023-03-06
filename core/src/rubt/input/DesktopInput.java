@@ -48,7 +48,7 @@ public class DesktopInput extends InputHandler {
 
         if (input.keyTap(KeyCode.mouseRight)) controlled.each(unit -> Send.commandUnit(unit, input.mouseWorld()));
 
-        if (input.keyTap(KeyCode.v)) Send.createUnit(tileOn() == null ? UnitTypes.imau : UnitTypes.furbo, input.mouseWorld());
+        if (input.keyTap(KeyCode.v)) Send.createUnit(tileOn() == null ? UnitTypes.sunbeam : UnitTypes.furbo, input.mouseWorld());
     }
 
     @Override

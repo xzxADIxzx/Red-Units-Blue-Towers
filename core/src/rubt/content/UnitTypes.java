@@ -9,12 +9,12 @@ public class UnitTypes {
 
     public static Seq<UnitType> all = new Seq<>();
 
-    public static AirUnit imau;
+    public static AirUnit sunbeam, sunrise, coronalEjection;
     public static GroundUnit furbo;
 
     /** Create unit types. */
     public static void load() {
-        imau = new AirUnit("imau") {{
+        sunbeam = new AirUnit("imau") {{
             health = 100;
             damage = 10;
 
