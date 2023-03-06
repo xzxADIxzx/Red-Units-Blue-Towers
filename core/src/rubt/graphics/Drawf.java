@@ -28,9 +28,14 @@ public class Drawf {
     }
 
     public static void drawEngine(float x, float y, float rotation) {
+        Tmp.c1.set(Draw.getColor());
+        Tmp.c2.set(Draw.getColor()).mul(1.8f);
+
         drawEngine(x, y, rotation, 6f);
-        Draw.color(Draw.getColor().cpy().mul(1.8f));
+        Draw.color(Tmp.c2);
+
         drawEngine(x, y, rotation, 4.5f);
+        Draw.color(Tmp.c1);
     }
 
     public static void drawEngine(Vec3 engine, Unit unit) {

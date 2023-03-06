@@ -1,5 +1,6 @@
 package rubt.graphics;
 
+import arc.graphics.Color;
 import arc.graphics.g2d.Bloom;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
@@ -44,6 +45,7 @@ public class Renderer {
 
         Draw.draw(Layers.tiles, () -> Groups.tiles.each(Tile::draw));
         Draw.draw(Layers.units, () -> {
+            Draw.color(Color.white);
             Groups.units.each(Unit::draw);
 
             bloom.setBloomIntesity(2.8f);
@@ -55,6 +57,7 @@ public class Renderer {
             bloom.render();
         });
         Draw.draw(Layers.turrets, () -> {
+            Draw.color(Color.white);
             Groups.turrets.each(Turret::draw);
 
             bloom.setBloomIntesity(2.8f);

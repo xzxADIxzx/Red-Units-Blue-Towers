@@ -22,6 +22,8 @@ public class HeadTurret extends TurretType {
 
     @Override
     public void loadui() {
+        super.loadui();
+
         head = Textures.loadNormal("sprites/turrets/" + name + "-head");
         glow = Textures.load("sprites/turrets/", name + "-glow");
     }
