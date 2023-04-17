@@ -38,7 +38,7 @@ public class ServerLauncher extends ClientLauncher {
             thread = Threads.daemon("Server", server::run);
 
             world.load(World.random());
-            state = State.game;
+            state = State.lobby;
         } catch (Throwable error) {
             Log.err("Could not to startup server", error);
             exit();
