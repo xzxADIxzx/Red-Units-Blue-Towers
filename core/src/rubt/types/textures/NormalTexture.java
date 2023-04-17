@@ -9,6 +9,7 @@ import arc.graphics.gl.PixmapTextureData;
 import arc.struct.Seq;
 import arc.util.Tmp;
 
+// TODO replace with shaders because of cringe
 public class NormalTexture {
 
     public static Seq<CachedTexture> textures = new Seq<>();

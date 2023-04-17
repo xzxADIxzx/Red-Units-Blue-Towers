@@ -24,7 +24,7 @@ public class RedHudFragment {
 
             cont.bottom();
 
-            cont.table(Textures.alphabg, list -> { // uBnits list
+            cont.table(Textures.alphabg, list -> { // units list
                 list.name = "Units List";
                 list.visible(() -> handler.controlled.any());
                 list.defaults().size(64f);

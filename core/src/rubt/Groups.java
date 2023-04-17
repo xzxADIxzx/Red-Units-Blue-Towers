@@ -2,6 +2,7 @@ package rubt;
 
 import arc.net.Connection;
 import arc.struct.Seq;
+import rubt.logic.Player;
 import rubt.world.*;
 
 public class Groups {
@@ -10,12 +11,14 @@ public class Groups {
     public static Seq<Unit> units = new Seq<>();
     public static Seq<Turret> turrets = new Seq<>();
     public static Seq<Connection> connections = new Seq<>();
+    public static Seq<Player> players = new Seq<>();
 
     public static void clear() {
         tiles.clear();
         units.clear();
         turrets.clear();
         connections.clear();
+        players.clear();
     }
 
     @SuppressWarnings("unchecked")
@@ -25,7 +28,7 @@ public class Groups {
 
         public <T extends GroupObject> GroupObject(Seq<T> group) {
             this.id = group.size;
-            group.add((T)this);
+            group.add((T) this);
         }
     }
 }
