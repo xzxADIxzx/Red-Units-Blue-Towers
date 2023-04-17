@@ -3,6 +3,10 @@ allprojects {
     version = '1.0'
 }
 
+ext {
+    arcVersion = 'v143'
+}
+
 subprojects {
     apply plugin: 'java'
     

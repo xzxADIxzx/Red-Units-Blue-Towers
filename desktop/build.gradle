@@ -5,10 +5,6 @@ sourceSets.main {
     resources.srcDirs = ['../core/assets']
 }
 
-ext {
-    arcVersion = 'v142'
-}
-
 dependencies {
     implementation "com.github.Anuken.Arc:arc-core:$arcVersion"
     implementation "com.github.Anuken.Arc:arcnet:$arcVersion"
