@@ -4,6 +4,7 @@ import arc.scene.event.Touchable;
 import arc.scene.ui.layout.WidgetGroup;
 import rubt.ui.dialogs.AddHostDialog;
 import rubt.ui.fragments.JoinFragment;
+import rubt.ui.fragments.LobbyFragment;
 import rubt.ui.fragments.RedHudFragment;
 
 import static arc.Core.*;
@@ -13,6 +14,7 @@ public class UI {
     public final WidgetGroup hud = new WidgetGroup();
 
     public JoinFragment joinfrag = new JoinFragment();
+    public LobbyFragment lobbyfrag = new LobbyFragment();
     public RedHudFragment redfrag = new RedHudFragment();
 
     public AddHostDialog addHost;
@@ -25,6 +27,7 @@ public class UI {
         hud.touchable = Touchable.childrenOnly;
 
         joinfrag.build(hud);
+        lobbyfrag.build(hud);
         redfrag.build(hud);
 
         // dialogs are created here because before the load() call, the styles have not yet been created
