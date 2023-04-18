@@ -48,6 +48,16 @@ public abstract class Packet {
             this.team = player.team.ordinal();
             this.admin = player.admin;
         }
+
+        public void execute() {
+            Player player = new Player(null);
+
+            player.avatar = this.avatar;
+            player.name = this.name;
+
+            player.team = Team.values()[team];
+            player.admin = admin;
+        }
     }
 
     /** Tile data packet used to upload tile to clients. */

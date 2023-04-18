@@ -11,10 +11,13 @@ import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.net.Host;
 import rubt.net.Net;
+import rubt.net.Packet.PlayerCreate;
 
 import static rubt.Vars.*;
 
 public class JoinFragment {
+
+    public static PlayerCreate data = new PlayerCreate();
 
     public Seq<Host> saved, local = new Seq<>();
     public Host selected;
@@ -40,7 +43,7 @@ public class JoinFragment {
                 info.name = "Nickname & Server Info";
                 info.defaults().height(64f).growX().padBottom(8f);
 
-                info.field("[#0096FF]xzxADIxzx", nickname -> {}).padBottom(16f).row();
+                info.field("[#0096FF]xzxADIxzx", nickname -> data.name = nickname).padBottom(16f).row();
 
                 info.table(Textures.alphabg, name -> {
                     name.label(() -> selected == null ? "Server name" : selected.name()).growX();

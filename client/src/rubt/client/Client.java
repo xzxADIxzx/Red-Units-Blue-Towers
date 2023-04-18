@@ -30,6 +30,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             state = State.values()[update.id];
         });
 
+        handler.register(PlayerCreate.class, PlayerCreate::execute);
+
         handler.register(TileCreate.class, TileCreate::execute);
         handler.register(TileUpdate.class, update -> {});
 
@@ -70,6 +72,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     public void connected(Connection connection) {
         var tcp = connection.getRemoteAddressTCP();
         Log.info("Connected to @:@", tcp.getHostName(), tcp.getPort());
+
+        Send.player();
     }
 
     public void disconnected(Connection connection, DcReason reason) {

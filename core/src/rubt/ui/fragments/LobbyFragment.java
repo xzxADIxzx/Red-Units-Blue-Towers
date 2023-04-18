@@ -47,7 +47,7 @@ public class LobbyFragment {
             list.button(button -> {
                 button.margin(0f);
 
-                button.image(player.avatar).size(48f).pad(8f);
+                button.image(player.avatar()).size(48f).pad(8f);
                 button.add(player.name).growX();
                 button.image(Textures.redbg).size(48f).pad(8f).visible(() -> player.admin); // TODO icon
             }, () -> {/* TODO information, change team, kick/ban and etc. */}).row();

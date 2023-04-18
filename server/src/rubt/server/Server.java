@@ -5,6 +5,7 @@ import arc.net.DcReason;
 import arc.net.NetListener;
 import arc.util.Log;
 import rubt.Groups;
+import rubt.logic.*;
 import rubt.net.*;
 import rubt.net.Packet.*;
 import rubt.world.Unit;
@@ -30,6 +31,15 @@ public class Server extends arc.net.Server implements NetListener {
             handler.respond(buffer);
 
             Log.info("Server was discovered by the client with the address @", address.getHostName());
+        });
+
+        handler.register(PlayerCreate.class, (con, data) -> {
+            Player player = new Player(con);
+
+            player.avatar = data.avatar;
+            player.name = data.name;
+
+            Send.createPlayer(player);
         });
 
         handler.register(UnitCreate.class, (con, create) -> {

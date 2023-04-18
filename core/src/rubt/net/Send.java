@@ -3,8 +3,10 @@ package rubt.net;
 import arc.math.geom.Position;
 import arc.net.Connection;
 import rubt.Groups;
+import rubt.logic.Player;
 import rubt.net.Packet.*;
 import rubt.types.*;
+import rubt.ui.fragments.JoinFragment;
 import rubt.world.*;
 
 import static rubt.Vars.*;
@@ -15,6 +17,11 @@ public class Send {
 
     public static void updateState(Connection connection) {
         new StateUpdate(state).sendTCP(connection);
+    }
+
+    public static void createPlayer(Player player) {
+        var packet = new PlayerCreate(player);
+        Groups.connections.each(packet::sendTCP);
     }
 
     public static void createTile(Connection connection, Tile tile) {
@@ -56,6 +63,10 @@ public class Send {
 
     // endregion
     // region client
+
+    public static void player() {
+        JoinFragment.data.sendTCP(clientCon);
+    }
 
     public static void createUnit(UnitType unit, Position pos) {
         new UnitCreate() {{
