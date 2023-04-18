@@ -34,10 +34,15 @@ public class Server extends arc.net.Server implements NetListener {
         });
 
         handler.register(PlayerCreate.class, (con, data) -> {
+            if (rules.strict && Groups.players.contains(player -> con.getRemoteAddressTCP().getAddress().getHostName().equals(player.ip()))) return;
+
             Player player = new Player(con);
 
             player.avatar = data.avatar;
             player.name = data.name;
+
+            player.team = Logic.nextTeam();
+            player.admin = false; // TODO admin system?
 
             Send.createPlayer(player);
         });
@@ -67,6 +72,7 @@ public class Server extends arc.net.Server implements NetListener {
         Groups.tiles.each(tile -> Send.createTile(connection, tile));
         Groups.units.each(unit -> Send.createUnit(connection, unit));
         Groups.turrets.each(turret -> Send.createTurret(connection, turret));
+        Groups.players.each(player -> Send.createPlayer(connection, player));
         Send.updateState(connection);
     }
 
@@ -81,6 +87,7 @@ public class Server extends arc.net.Server implements NetListener {
 
     public void disconnected(Connection connection, DcReason reason) {
         Groups.connections.remove(connection);
+        // TODO mark player as disconnected and clear on game reset
 
         Log.info("@ disconnected: @.", connection, reason);
     }

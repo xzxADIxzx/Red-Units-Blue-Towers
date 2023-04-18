@@ -20,4 +20,11 @@ public class Logic {
         Groups.units.each(Unit::update);
         Groups.turrets.each(Turret::update);
     }
+
+    public static Team nextTeam() {
+        if (rules.duel)
+            return Groups.players.count(Player::red) == 0 ? Team.red : Groups.players.count(Player::blue) == 0 ? Team.blue : Team.observers;
+        else
+            return Groups.players.count(Player::red) > Groups.players.count(Player::blue) ? Team.blue : Team.red;
+    }
 }
