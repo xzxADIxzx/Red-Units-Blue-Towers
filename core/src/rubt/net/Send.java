@@ -24,6 +24,10 @@ public class Send {
         Groups.connections.each(packet::sendTCP);
     }
 
+    public static void createPlayer(Connection connection, Player player) {
+        new PlayerCreate(player).sendTCP(connection);
+    }
+
     public static void createTile(Connection connection, Tile tile) {
         new TileCreate(tile).sendTCP(connection);
     }

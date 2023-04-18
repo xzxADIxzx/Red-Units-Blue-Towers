@@ -101,18 +101,26 @@ public class PacketSerializer implements NetSerializer {
                 id = buffer.getInt();
             }};
         else if (id == 1)
+            return new PlayerCreate() {{
+                avatar = null;
+                name = readString(buffer);
+
+                team = buffer.getInt();
+                admin = buffer.get() == 1;
+            }};
+        else if (id == 3)
             return new TileCreate() {{
                 x = buffer.getInt();
                 y = buffer.getInt();
             }};
-        else if (id == 2)
+        else if (id == 4)
             return new TileUpdate();
-        else if (id == 3)
+        else if (id == 5)
             return new UnitCreate() {{
                 type = buffer.getInt();
                 position = readVector(buffer);
             }};
-        else if (id == 4)
+        else if (id == 6)
             return new UnitUpdate() {{
                 unitID = buffer.getInt();
 
@@ -120,12 +128,12 @@ public class PacketSerializer implements NetSerializer {
                 target = readVector(buffer);
                 rotation = buffer.getFloat();
             }};
-        else if (id == 5)
+        else if (id == 7)
             return new TurretCreate() {{
                 type = buffer.getInt();
                 position = readVector(buffer);
             }};
-        else if (id == 6)
+        else if (id == 8)
             return new TurretUpdate() {{
                 turretID = buffer.getInt();
 

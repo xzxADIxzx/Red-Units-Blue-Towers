@@ -8,6 +8,8 @@ import rubt.content.UnitTypes;
 import rubt.logic.*;
 import rubt.world.*;
 
+import static rubt.Vars.*;
+
 public abstract class Packet {
 
     public void sendTCP(Connection connection) {
@@ -57,6 +59,8 @@ public abstract class Packet {
 
             player.team = Team.values()[team];
             player.admin = admin;
+
+            ui.lobbyfrag.rebuildList();
         }
     }
 
