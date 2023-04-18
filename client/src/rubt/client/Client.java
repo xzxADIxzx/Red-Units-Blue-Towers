@@ -1,13 +1,14 @@
 package rubt.client;
 
 import arc.func.Cons;
+import arc.math.geom.Point2;
 import arc.net.Connection;
 import arc.net.DcReason;
 import arc.net.NetListener;
 import arc.util.Log;
 import arc.util.Threads;
 import rubt.Groups;
-import rubt.logic.State;
+import rubt.logic.Player;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;
 import rubt.net.Packets.*;
@@ -27,12 +28,21 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         addListener(this);
 
         handler.register(StateUpdate.class, update -> {
-            state = State.values()[update.id];
+            state = update.state;
         });
 
-        handler.register(PlayerCreate.class, PlayerCreate::execute);
+        handler.register(PlayerCreate.class, create -> {
+            Player player = new Player(null);
 
-        handler.register(TileCreate.class, TileCreate::execute);
+            player.avatar = create.avatar;
+            player.name = create.name;
+            player.team = create.team;
+            player.admin = create.admin;
+
+            ui.lobbyfrag.rebuildList();
+        });
+
+        handler.register(TileCreate.class, create -> new Tile(Point2.x(create.pos), Point2.y(create.pos)));
         handler.register(TileUpdate.class, update -> {});
 
         handler.register(UnitCreate.class, UnitCreate::execute);
