@@ -7,7 +7,7 @@ import arc.util.Log;
 import rubt.Groups;
 import rubt.logic.*;
 import rubt.net.*;
-import rubt.net.Packet.*;
+import rubt.net.Packets.*;
 import rubt.world.Unit;
 
 import static rubt.Vars.*;

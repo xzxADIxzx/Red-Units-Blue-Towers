@@ -10,7 +10,7 @@ import rubt.Groups;
 import rubt.logic.State;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;
-import rubt.net.Packet.*;
+import rubt.net.Packets.*;
 import rubt.world.*;
 
 import java.io.IOException;

@@ -4,7 +4,7 @@ import arc.math.geom.Position;
 import arc.net.Connection;
 import rubt.Groups;
 import rubt.logic.Player;
-import rubt.net.Packet.*;
+import rubt.net.Packets.*;
 import rubt.types.*;
 import rubt.ui.fragments.JoinFragment;
 import rubt.world.*;

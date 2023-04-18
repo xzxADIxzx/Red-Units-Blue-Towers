@@ -11,7 +11,7 @@ import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.net.Host;
 import rubt.net.Net;
-import rubt.net.Packet.PlayerCreate;
+import rubt.net.Packets.PlayerCreate;
 
 import static rubt.Vars.*;
 

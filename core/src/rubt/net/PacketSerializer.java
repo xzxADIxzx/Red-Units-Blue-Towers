@@ -4,7 +4,7 @@ import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.net.FrameworkMessage;
 import arc.net.FrameworkMessage.*;
-import rubt.net.Packet.*;
+import rubt.net.Packets.*;
 import arc.net.NetSerializer;
 
 import java.nio.ByteBuffer;

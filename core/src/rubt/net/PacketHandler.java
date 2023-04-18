@@ -3,6 +3,7 @@ package rubt.net;
 import arc.func.*;
 import arc.net.Connection;
 import arc.struct.Seq;
+import rubt.net.Packets.Packet;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class PacketHandler {

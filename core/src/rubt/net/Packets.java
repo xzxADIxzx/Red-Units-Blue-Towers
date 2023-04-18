@@ -10,14 +10,26 @@ import rubt.world.*;
 
 import static rubt.Vars.*;
 
-public abstract class Packet {
+public class Packets {
 
-    public void sendTCP(Connection connection) {
-        connection.sendTCP(this);
-    }
+    public static abstract class Packet {
 
-    public void sendUPD(Connection connection) {
-        connection.sendUDP(this);
+        public void sendTCP(Connection connection) {
+            connection.sendTCP(this);
+        }
+
+        public void sendUPD(Connection connection) {
+            connection.sendUDP(this);
+        }
+
+        public void sendTCP(Player player) {
+            player.con.sendTCP(this);
+        }
+
+        public void sendUPD(Player player) {
+            player.con.sendUDP(this);
+        }
+
     }
 
     /** Packet used to update game state on clients. */
