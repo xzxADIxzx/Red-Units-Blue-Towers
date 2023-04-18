@@ -5,6 +5,7 @@ import arc.net.Connection;
 import arc.util.Log;
 import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
+import rubt.logic.Rules;
 import rubt.logic.State;
 import rubt.ui.UI;
 import rubt.world.Pathfinder;
@@ -27,6 +28,7 @@ public class Vars {
     public static boolean mobile;
 
     public static State state = State.menu;
+    public static Rules rules = new Rules();
     public static World world;
 
     public static Renderer renderer;
