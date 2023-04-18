@@ -7,6 +7,7 @@ import arc.util.Log;
 import rubt.Groups;
 import rubt.logic.*;
 import rubt.net.*;
+import rubt.net.PacketSerializer.Writes;
 import rubt.net.Packets.*;
 import rubt.world.Unit;
 
@@ -25,7 +26,7 @@ public class Server extends arc.net.Server implements NetListener {
         setMulticast(multicast, multicastPort);
         setDiscoveryHandler((address, handler) -> {
             ByteBuffer buffer = ByteBuffer.allocate(256);
-            Host.write(buffer);
+            Host.write(new Writes(buffer));
 
             buffer.position(0);
             handler.respond(buffer);

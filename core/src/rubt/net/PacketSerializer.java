@@ -87,9 +87,16 @@ public class PacketSerializer implements NetSerializer {
             super(buffer);
         }
 
-        public void write(Position position) {
-            writeBoolean(position == null);
-            if (position != null) buffer.putFloat(position.getX()).putFloat(position.getY());
+        public void writeStr(String str) {
+            try {
+                writeBoolean(str == null);
+                if (str != null) writeUTF(str);
+            } catch (Exception ignored) {}
+        }
+
+        public void writePos(Position pos) {
+            writeBoolean(pos == null);
+            if (pos != null) buffer.putFloat(pos.getX()).putFloat(pos.getY());
         }
     }
 
@@ -99,7 +106,16 @@ public class PacketSerializer implements NetSerializer {
             super(buffer);
         }
 
-        public Position read(Position position) {
+        public String readStr() {
+            try {
+                if (readBoolean()) return null;
+                return readUTF();
+            } catch (Exception ignored) {
+                return null;
+            }
+        }
+
+        public Position readPos() {
             if (readBoolean()) return null;
             return new Vec2(buffer.getFloat(), buffer.getFloat());
         }

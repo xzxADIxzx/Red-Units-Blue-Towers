@@ -3,6 +3,7 @@ package rubt.net;
 import arc.func.Cons;
 import arc.struct.Seq;
 import arc.util.Log;
+import rubt.net.PacketSerializer.Reads;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -38,7 +39,7 @@ public class Net {
                     String ip = isLocal(packet.getAddress()) ? "localhost" : packet.getAddress().getHostAddress();
                     ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
 
-                    cons.get(Host.read(ip, buffer));
+                    cons.get(Host.read(ip, new Reads(buffer)));
                 } catch (Exception ignored) { // don't crash when there is an error parsing data
                     Log.err("Unable to process server datagram packet", ignored);
                 }
