@@ -1,16 +1,53 @@
 package rubt.net;
 
+import arc.func.Prov;
 import arc.graphics.Pixmap;
 import arc.math.geom.Position;
 import arc.net.Connection;
+import arc.struct.ObjectIntMap;
+import arc.struct.Seq;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
 import rubt.logic.*;
+import rubt.net.PacketSerializer.*;
 import rubt.world.*;
 
 import static rubt.Vars.*;
 
 public class Packets {
+
+    private static Seq<Prov<? extends Packet>> provs = new Seq<>();
+    private static ObjectIntMap<Class<?>> packetToId = new ObjectIntMap<>();
+
+    /** Registers a new packet type for serialization. */
+    public static void register(Prov<? extends Packet> prov) {
+        provs.add(prov);
+        packetToId.put(prov.get().getClass(), provs.size - 1);
+    }
+
+    /** Returns the packet id used for serialization. */
+    public static byte packetId(Packet packet) {
+        int id = packetToId.get(packet.getClass(), -1);
+        if (id == -1) throw new RuntimeException("Unknown packeta!"); // didn't you forget to register the package?
+
+        return (byte) id;
+    }
+
+    /** Creates a new package by the given id. */
+    public static Packet newPacket(byte id) {
+        return provs.get(id).get();
+    }
+
+    public static void load() {
+        register(StateUpdate::new);
+        register(PlayerCreate::new);
+        register(TileCreate::new);
+        register(TileUpdate::new);
+        register(UnitCreate::new);
+        register(UnitUpdate::new);
+        register(TurretCreate::new);
+        register(TurretUpdate::new);
+    }
 
     public static abstract class Packet {
 
@@ -30,6 +67,9 @@ public class Packets {
             player.con.sendUDP(this);
         }
 
+        public void write(Writes w) {}
+
+        public void read(Reads r) {}
     }
 
     /** Packet used to update game state on clients. */

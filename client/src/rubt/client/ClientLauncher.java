@@ -12,9 +12,8 @@ import rubt.graphics.Renderer;
 import rubt.graphics.Textures;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
-import rubt.ui.Fonts;
-import rubt.ui.Styles;
-import rubt.ui.UI;
+import rubt.net.Packets;
+import rubt.ui.*;
 import rubt.world.Pathfinder;
 import rubt.world.World;
 
@@ -30,6 +29,7 @@ public abstract class ClientLauncher implements ApplicationListener {
         TurretTypes.load();
 
         Logic.load();
+        Packets.load();
 
         world = new World();
         pathfinder = new Pathfinder();
