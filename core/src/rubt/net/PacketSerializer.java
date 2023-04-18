@@ -4,6 +4,8 @@ import arc.math.geom.Position;
 import arc.math.geom.Vec2;
 import arc.net.FrameworkMessage;
 import arc.net.FrameworkMessage.*;
+import arc.util.io.ByteBufferInput;
+import arc.util.io.ByteBufferOutput;
 import rubt.net.Packets.*;
 import arc.net.NetSerializer;
 
@@ -178,4 +180,28 @@ public class PacketSerializer implements NetSerializer {
     }
 
     // endregion
+
+    public static class Writes extends ByteBufferOutput {
+
+        public Writes(ByteBuffer buffer) {
+            super(buffer);
+        }
+
+        public void write(Position position) {
+            writeBoolean(position == null);
+            if (position != null) buffer.putFloat(position.getX()).putFloat(position.getY());
+        }
+    }
+
+    public static class Reads extends ByteBufferInput {
+
+        public Reads(ByteBuffer buffer) {
+            super(buffer);
+        }
+
+        public Position read(Position position) {
+            if (readBoolean()) return null;
+            return new Vec2(buffer.getFloat(), buffer.getFloat());
+        }
+    }
 }
