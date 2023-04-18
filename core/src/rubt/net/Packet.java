@@ -1,10 +1,11 @@
 package rubt.net;
 
+import arc.graphics.Pixmap;
 import arc.math.geom.Position;
 import arc.net.Connection;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
-import rubt.logic.State;
+import rubt.logic.*;
 import rubt.world.*;
 
 public abstract class Packet {
@@ -26,6 +27,26 @@ public abstract class Packet {
 
         public StateUpdate(State state) {
             this.id = state.ordinal();
+        }
+    }
+
+    /** Player data packet used to create new unit on clients. Clients sends this packet after connecting. */
+    public static class PlayerCreate extends Packet {
+
+        public Pixmap avatar;
+        public String name;
+
+        public int team;
+        public boolean admin;
+
+        public PlayerCreate() {}
+
+        public PlayerCreate(Player player) {
+            this.avatar = player.avatar;
+            this.name = player.name;
+
+            this.team = player.team.ordinal();
+            this.admin = player.admin;
         }
     }
 

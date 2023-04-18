@@ -1,6 +1,9 @@
 package rubt.logic;
 
+import arc.graphics.Pixmap;
+import arc.graphics.Texture;
 import arc.graphics.g2d.TextureRegion;
+import arc.net.Connection;
 import rubt.Groups;
 import rubt.Groups.GroupObject;
 
@@ -8,15 +11,25 @@ import static arc.Core.*;
 
 public class Player extends GroupObject {
 
-    public TextureRegion avatar = atlas.find("redbg");
+    public final Connection con;
+
+    public Pixmap avatar;
     public String name;
 
     public Team team = Team.observers;
     public boolean admin;
 
-    public Player(String name) {
+    public Player(Connection con) {
         super(Groups.players);
-        this.name = name;
+        this.con = con;
+    }
+
+    public String ip() {
+        return con.getRemoteAddressTCP().getAddress().getHostName();
+    }
+
+    public TextureRegion avatar() {
+        return avatar == null ? atlas.find("redbg") : new TextureRegion(new Texture(avatar));
     }
 
     public boolean red() {

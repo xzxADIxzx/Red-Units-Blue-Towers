@@ -68,24 +68,28 @@ public class PacketSerializer implements NetSerializer {
     public void writePacket(ByteBuffer buffer, Packet packet) {
         if (packet instanceof StateUpdate update) {
             buffer.put((byte) 0).putInt(update.id);
-        } else if (packet instanceof TileCreate create) {
+        } else if (packet instanceof PlayerCreate data) {
             buffer.put((byte) 1);
+            writeString(buffer, data.name);
+            buffer.putInt(data.team).put(data.admin ? (byte) 1 : 0);
+        } else if (packet instanceof TileCreate create) {
+            buffer.put((byte) 3);
             buffer.putInt(create.x).putInt(create.y);
         } else if (packet instanceof TileUpdate update) {
-            buffer.put((byte) 2);
+            buffer.put((byte) 4);
         } else if (packet instanceof UnitCreate create) {
-            buffer.put((byte) 3).putInt(create.type);
+            buffer.put((byte) 5).putInt(create.type);
             writeVector(buffer, create.position);
         } else if (packet instanceof UnitUpdate update) {
-            buffer.put((byte) 4).putInt(update.unitID);
+            buffer.put((byte) 6).putInt(update.unitID);
             writeVector(buffer, update.position);
             writeVector(buffer, update.target);
             buffer.putFloat(update.rotation);
         } else if (packet instanceof TurretCreate create) {
-            buffer.put((byte) 5).putInt(create.type);
+            buffer.put((byte) 7).putInt(create.type);
             writeVector(buffer, create.position);
         } else if (packet instanceof TurretUpdate update) {
-            buffer.put((byte) 6).putInt(update.turretID);
+            buffer.put((byte) 8).putInt(update.turretID);
             buffer.putFloat(update.rotation);
         }
     }
