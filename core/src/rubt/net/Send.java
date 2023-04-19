@@ -63,10 +63,10 @@ public class Send {
     }
 
     public static void createUnit(UnitType unit, Position pos) {
-        new UnitCreate() {{
-            type = unit;
-            position = pos;
-        }}.sendTCP(clientCon);
+        var packet = new UnitCreate();
+        packet.type = unit;
+        packet.position = pos;
+        packet.sendTCP(clientCon);
     }
 
     public static void commandUnit(Unit unit, Position target) {
@@ -77,10 +77,10 @@ public class Send {
     }
 
     public static void createTurret(TurretType turret, Position pos) {
-        new TurretCreate() {{
-            type = turret;
-            position = pos;
-        }}.sendTCP(clientCon);
+        var packet = new TurretCreate();
+        packet.type = turret;
+        packet.position = pos;
+        packet.sendTCP(clientCon);
     }
 
     // endregion

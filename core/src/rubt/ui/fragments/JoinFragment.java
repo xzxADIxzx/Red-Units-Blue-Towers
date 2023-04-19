@@ -18,7 +18,8 @@ import static rubt.Vars.*;
 
 public class JoinFragment {
 
-    public static PlayerCreate data = new PlayerCreate() {{ team = Team.observers; }};
+    public static PlayerCreate data = new PlayerCreate();
+    static { data.team = Team.observers; } // TODO remove this crutch
 
     public Seq<Host> saved, local = new Seq<>();
     public Host selected;
