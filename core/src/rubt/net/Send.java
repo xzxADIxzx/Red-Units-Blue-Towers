@@ -74,7 +74,7 @@ public class Send {
 
     public static void createUnit(UnitType unit, Position pos) {
         new UnitCreate() {{
-            type = unit.id;
+            type = unit;
             position = pos;
         }}.sendTCP(clientCon);
     }
@@ -88,7 +88,7 @@ public class Send {
 
     public static void createTurret(TurretType turret, Position pos) {
         new TurretCreate() {{
-            type = turret.id;
+            type = turret;
             position = pos;
         }}.sendTCP(clientCon);
     }

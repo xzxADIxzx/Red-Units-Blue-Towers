@@ -9,6 +9,7 @@ import arc.util.Strings;
 import arc.util.Time;
 import rubt.graphics.Textures;
 import rubt.logic.State;
+import rubt.logic.Team;
 import rubt.net.Host;
 import rubt.net.Net;
 import rubt.net.Packets.PlayerCreate;
@@ -17,7 +18,7 @@ import static rubt.Vars.*;
 
 public class JoinFragment {
 
-    public static PlayerCreate data = new PlayerCreate();
+    public static PlayerCreate data = new PlayerCreate() {{ team = Team.observers; }};
 
     public Seq<Host> saved, local = new Seq<>();
     public Host selected;
