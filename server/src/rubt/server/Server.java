@@ -9,6 +9,7 @@ import rubt.logic.*;
 import rubt.net.*;
 import rubt.net.PacketSerializer.Writes;
 import rubt.net.Packets.*;
+import rubt.world.Unit;
 
 import static rubt.Vars.*;
 
@@ -55,14 +56,14 @@ public class Server extends arc.net.Server implements NetListener {
             Send.createUnit(Groups.units.peek());
         });
 
-        handler.register(UnitUpdate.class, (con, update) -> {
-            Unit unit = Groups.units.get(update.unitID);
-            unit.target = update.target;
-        });
-
         handler.register(TurretCreate.class, (con, create) -> {
             create.execute();
             Send.createTurret(Groups.turrets.peek());
+        });
+
+        handler.register(CommandUnit.class, (con, command) -> {
+            var object = Groups.sync.get(command.netId);
+            if (object instanceof Unit unit) unit.target = command.target;
         });
     }
 

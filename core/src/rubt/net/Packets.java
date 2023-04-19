@@ -45,6 +45,7 @@ public class Packets {
         register(UnitCreate::new);
         register(TurretCreate::new);
         register(PlayerCreate::new);
+        register(CommandUnit::new);
     }
 
     public static interface Packet {
@@ -219,6 +220,30 @@ public class Packets {
         public void read(Reads r) {
             type = TurretTypes.all.get(r.readByte());
             position = r.readPos();
+        }
+    }
+
+    /** Packet used to command units. */
+    public static class CommandUnit implements Packet {
+
+        public int netId;
+        public Position target;
+
+        public CommandUnit() {}
+
+        public CommandUnit(Unit unit, Position target) {
+            this.netId = unit.netId;
+            this.target = target;
+        }
+
+        public void write(Writes w) {
+            w.writeInt(netId);
+            w.writePos(target);
+        }
+
+        public void read(Reads r) {
+            netId = r.readInt();
+            target = r.readPos();
         }
     }
 }

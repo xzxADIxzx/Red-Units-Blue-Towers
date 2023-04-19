@@ -69,18 +69,15 @@ public class Send {
         packet.sendTCP(clientCon);
     }
 
-    public static void commandUnit(Unit unit, Position target) {
-        unit.target = target;
-        // new UnitUpdate(unit) {{
-        //     position = null; // save some bytes
-        // }}.sendTCP(clientCon);
-    }
-
     public static void createTurret(TurretType turret, Position pos) {
         var packet = new TurretCreate();
         packet.type = turret;
         packet.position = pos;
         packet.sendTCP(clientCon);
+    }
+
+    public static void commandUnit(Unit unit, Position target) {
+        new CommandUnit(unit, target).sendTCP(clientCon);
     }
 
     // endregion
