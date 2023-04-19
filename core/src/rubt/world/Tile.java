@@ -29,12 +29,10 @@ public class Tile extends GroupObject implements Position {
         return y * tilesize;
     }
 
-    @Override
     public float getX() {
         return drawX();
     }
 
-    @Override
     public float getY() {
         return drawY();
     }

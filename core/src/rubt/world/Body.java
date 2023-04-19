@@ -2,22 +2,22 @@ package rubt.world;
 
 import arc.math.geom.Position;
 import arc.struct.Seq;
-import rubt.Groups.GroupObject;
+import rubt.Groups.NetObject;
 
 import static rubt.Vars.*;
 
-/** 2D vector but also a GroupObject. */
-public abstract class Body extends GroupObject implements Position {
+/** 2D vector but also a NetObject. */
+public abstract class Body extends NetObject implements Position {
 
     public float x, y;
     public float rotation;
 
-    public Body(Seq<? extends GroupObject> group, float x, float y) {
+    public Body(Seq<? extends NetObject> group, float x, float y) {
         super(group);
         moveTo(x, y);
     }
 
-    public Body(Seq<? extends GroupObject> group, Position position) {
+    public Body(Seq<? extends NetObject> group, Position position) {
         this(group, position.getX(), position.getY());
     }
 
