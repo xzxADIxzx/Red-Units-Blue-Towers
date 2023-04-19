@@ -1,7 +1,6 @@
 package rubt.client;
 
 import arc.func.Cons;
-import arc.math.geom.Point2;
 import arc.net.Connection;
 import arc.net.DcReason;
 import arc.net.NetListener;
@@ -46,7 +45,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             ui.lobbyfrag.rebuildList();
         });
 
-        handler.register(TileCreate.class, create -> new Tile(Point2.x(create.pos), Point2.y(create.pos)));
+        handler.register(TileCreate.class, create -> new Tile(create.pos));
         handler.register(UnitCreate.class, UnitCreate::execute);
         handler.register(TurretCreate.class, TurretCreate::execute);
     }

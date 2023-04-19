@@ -2,7 +2,6 @@ package rubt.net;
 
 import arc.func.Prov;
 import arc.graphics.Pixmap;
-import arc.math.geom.Point2;
 import arc.math.geom.Position;
 import arc.net.Connection;
 import arc.struct.ObjectIntMap;
@@ -155,7 +154,7 @@ public class Packets {
         public TileCreate() {}
 
         public TileCreate(Tile tile) {
-            this.pos = Point2.pack(tile.x, tile.y); // TODO move to tile
+            this.pos = tile.pack();
         }
 
         public void write(Writes w) {

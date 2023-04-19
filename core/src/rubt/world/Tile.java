@@ -3,8 +3,7 @@ package rubt.world;
 import arc.graphics.Color;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
-import arc.math.geom.Geometry;
-import arc.math.geom.Position;
+import arc.math.geom.*;
 import arc.struct.Seq;
 import rubt.Groups;
 import rubt.Groups.GroupObject;
@@ -21,6 +20,12 @@ public class Tile extends GroupObject implements Position {
         this.y = y;
     }
 
+    public Tile(int pos) {
+        this(Point2.x(pos), Point2.y(pos));
+    }
+
+    // region position
+
     public float drawX() {
         return x * tilesize;
     }
@@ -36,6 +41,12 @@ public class Tile extends GroupObject implements Position {
     public float getY() {
         return drawY();
     }
+
+    public int pack() {
+        return Point2.pack(x, y);
+    }
+
+    // endregion
 
     public void draw() {
         Draw.reset();
