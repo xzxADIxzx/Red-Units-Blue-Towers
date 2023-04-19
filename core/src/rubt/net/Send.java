@@ -15,6 +15,11 @@ public class Send {
 
     // region server
 
+    public static void snapshot(byte amount, byte[] data) {
+        var packet = new Snapshot(amount, data);
+        Groups.players.each(packet::sendUPD);
+    }
+
     public static void updateState(Connection connection) {
         new StateUpdate(state).sendTCP(connection);
     }
@@ -32,11 +37,6 @@ public class Send {
         new TileCreate(tile).sendTCP(connection);
     }
 
-    public static void updateTile(Tile tile) {
-        var packet = new TileCreate(tile);
-        Groups.connections.each(packet::sendUPD);
-    }
-
     public static void createUnit(Unit unit) {
         var packet = new UnitCreate(unit);
         Groups.connections.each(packet::sendTCP);
@@ -46,11 +46,6 @@ public class Send {
         new UnitCreate(unit).sendTCP(connection);
     }
 
-    public static void updateUnit(Unit unit) {
-        var packet = new UnitUpdate(unit);
-        Groups.connections.each(packet::sendUPD);
-    }
-
     public static void createTurret(Turret Turret) {
         var packet = new TurretCreate(Turret);
         Groups.connections.each(packet::sendTCP);
@@ -58,11 +53,6 @@ public class Send {
 
     public static void createTurret(Connection connection, Turret Turret) {
         new TurretCreate(Turret).sendTCP(connection);
-    }
-
-    public static void updateTurret(Turret Turret) {
-        var packet = new TurretUpdate(Turret);
-        Groups.connections.each(packet::sendUPD);
     }
 
     // endregion
@@ -81,9 +71,9 @@ public class Send {
 
     public static void commandUnit(Unit unit, Position target) {
         unit.target = target;
-        new UnitUpdate(unit) {{
-            position = null; // save some bytes
-        }}.sendTCP(clientCon);
+        // new UnitUpdate(unit) {{
+        //     position = null; // save some bytes
+        // }}.sendTCP(clientCon);
     }
 
     public static void createTurret(TurretType turret, Position pos) {
