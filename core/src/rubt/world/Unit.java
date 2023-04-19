@@ -6,6 +6,8 @@ import arc.math.geom.Vec2;
 import arc.util.Time;
 import arc.util.Tmp;
 import rubt.Groups;
+import rubt.net.PacketSerializer.Reads;
+import rubt.net.PacketSerializer.Writes;
 import rubt.types.UnitType;
 import rubt.world.Pathfinder.Path;
 
@@ -60,4 +62,20 @@ public class Unit extends Body {
     public void faceMovement() {
         rotation = Angles.moveToward(rotation, vel.angle(), type.rotateSpeed * Time.delta);
     }
+
+    // region serizalization
+
+    public void write(Writes w) {
+        w.writePos(this);
+        w.writePos(target);
+        w.writeFloat(rotation);
+    }
+
+    public void read(Reads r) {
+        moveTo(r.readPos());
+        target = r.readPos();
+        rotation = r.readFloat();
+    }
+
+    // endregion
 }

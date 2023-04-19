@@ -2,6 +2,8 @@ package rubt.world;
 
 import arc.math.geom.Position;
 import rubt.Groups;
+import rubt.net.PacketSerializer.Reads;
+import rubt.net.PacketSerializer.Writes;
 import rubt.types.TurretType;
 
 import static rubt.Vars.*;
@@ -31,4 +33,16 @@ public class Turret extends Body {
     public void drawGlow() {
         type.drawGlow(this);
     }
+
+    // region serialization
+
+    public void write(Writes w) {
+        w.writeFloat(rotation);
+    }
+
+    public void read(Reads r) {
+        rotation = r.readFloat();
+    }
+
+    // endregion
 }

@@ -51,6 +51,6 @@ public class Groups {
 
         public abstract void write(Writes w);
 
-        public abstract void read(Reads w);
+        public abstract void read(Reads r);
     }
 }

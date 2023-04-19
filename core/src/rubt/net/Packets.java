@@ -40,14 +40,13 @@ public class Packets {
     }
 
     public static void load() {
+        register(Snapshot::new);
         register(StateUpdate::new);
         register(PlayerCreate::new);
         register(TileCreate::new);
         register(TileUpdate::new);
         register(UnitCreate::new);
-        register(UnitUpdate::new);
         register(TurretCreate::new);
-        register(TurretUpdate::new);
     }
 
     public static abstract class Packet {
@@ -71,6 +70,31 @@ public class Packets {
         public abstract void write(Writes w);
 
         public abstract void read(Reads r);
+    }
+
+    /** Packet used to update net objects on clients. */
+    public static class Snapshot extends Packet {
+
+        public byte amount;
+        public byte[] data;
+
+        public Snapshot() {}
+
+        public Snapshot(byte amount, byte[] data) {
+            this.amount = amount;
+            this.data = data;
+        }
+
+        public void write(Writes w) {
+            w.write(amount);
+            w.writeShort(data.length);
+            w.write(data);
+        }
+
+        public void read(Reads r) {
+            amount = r.readByte();
+            r.readFully(data = new byte[r.readShort()]);
+        }
     }
 
     /** Packet used to update game state on clients. */
@@ -186,38 +210,6 @@ public class Packets {
         }
     }
 
-    /** Unit data packet used to update unit state on clients. */
-    public static class UnitUpdate extends Packet {
-
-        public int unitID;
-
-        public Position position, target;
-        public float rotation;
-
-        public UnitUpdate() {}
-
-        public UnitUpdate(Unit unit) {
-            this.unitID = unit.id;
-            this.position = unit;
-            this.target = unit.target;
-            this.rotation = unit.rotation;
-        }
-
-        public void write(Writes w) {
-            w.writeInt(unitID);
-            w.writePos(position);
-            w.writePos(target);
-            w.writeFloat(rotation);
-        }
-
-        public void read(Reads r) {
-            unitID = r.readInt();
-            position = r.readPos();
-            target = r.readPos();
-            rotation = r.readFloat();
-        }
-    }
-
     /** Unit data packet used to create new unit on clients. */
     public static class TurretCreate extends Packet {
 
@@ -243,31 +235,6 @@ public class Packets {
         public void read(Reads r) {
             type = TurretTypes.all.get(r.readByte());
             position = r.readPos();
-        }
-    }
-
-    /** Turret data packet used to update turret state on clients. */
-    public static class TurretUpdate extends Packet {
-
-        public int turretID;
-
-        public float rotation;
-
-        public TurretUpdate() {}
-
-        public TurretUpdate(Turret turret) {
-            this.turretID = turret.id;
-            this.rotation = turret.rotation;
-        }
-
-        public void write(Writes w) {
-            w.writeInt(turretID);
-            w.writeFloat(rotation);
-        }
-
-        public void read(Reads r) {
-            turretID = r.readInt();
-            rotation = r.readFloat();
         }
     }
 }
