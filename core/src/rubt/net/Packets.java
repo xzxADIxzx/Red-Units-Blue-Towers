@@ -47,31 +47,31 @@ public class Packets {
         register(PlayerCreate::new);
     }
 
-    public static abstract class Packet {
+    public static interface Packet {
 
-        public void sendTCP(Connection connection) {
+        default void sendTCP(Connection connection) {
             connection.sendTCP(this);
         }
 
-        public void sendUDP(Connection connection) {
+        default void sendUDP(Connection connection) {
             connection.sendUDP(this);
         }
 
-        public void sendTCP(Player player) {
+        default void sendTCP(Player player) {
             player.con.sendTCP(this);
         }
 
-        public void sendUDP(Player player) {
+        default void sendUDP(Player player) {
             player.con.sendUDP(this);
         }
 
-        public abstract void write(Writes w);
+        void write(Writes w);
 
-        public abstract void read(Reads r);
+        void read(Reads r);
     }
 
     /** Packet used to update net objects on clients. */
-    public static class Snapshot extends Packet {
+    public static class Snapshot implements Packet {
 
         public byte amount;
         public byte[] data;
@@ -96,7 +96,7 @@ public class Packets {
     }
 
     /** Packet used to update game state on clients. */
-    public static class StateUpdate extends Packet {
+    public static class StateUpdate implements Packet {
 
         public State state;
 
@@ -116,7 +116,7 @@ public class Packets {
     }
 
     /** Player data packet used to sync player datas on clients. Clients sends this packet after connecting. */
-    public static class PlayerCreate extends Packet {
+    public static class PlayerCreate implements Packet {
 
         public Pixmap avatar;
         public String name;
@@ -147,7 +147,7 @@ public class Packets {
     }
 
     /** Tile data packet used to upload tile to clients. */
-    public static class TileCreate extends Packet {
+    public static class TileCreate implements Packet {
 
         public int pos;
 
@@ -166,8 +166,8 @@ public class Packets {
         }
     }
 
-    /** Unit data packet used to create new unit on clients. */
-    public static class UnitCreate extends Packet {
+    /** Unit data packet used to upload unit on clients. */
+    public static class UnitCreate implements Packet {
 
         public UnitType type;
         public Position position;
@@ -194,8 +194,8 @@ public class Packets {
         }
     }
 
-    /** Unit data packet used to create new unit on clients. */
-    public static class TurretCreate extends Packet {
+    /** Unit data packet used to upload turret on clients. */
+    public static class TurretCreate implements Packet {
 
         public TurretType type;
         public Position position;
