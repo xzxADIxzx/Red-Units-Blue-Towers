@@ -55,7 +55,7 @@ public class Packets {
             connection.sendTCP(this);
         }
 
-        public void sendUPD(Connection connection) {
+        public void sendUDP(Connection connection) {
             connection.sendUDP(this);
         }
 
@@ -63,7 +63,7 @@ public class Packets {
             player.con.sendTCP(this);
         }
 
-        public void sendUPD(Player player) {
+        public void sendUDP(Player player) {
             player.con.sendUDP(this);
         }
 

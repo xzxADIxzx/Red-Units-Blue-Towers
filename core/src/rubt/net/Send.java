@@ -17,7 +17,7 @@ public class Send {
 
     public static void snapshot(byte amount, byte[] data) {
         var packet = new Snapshot(amount, data);
-        Groups.players.each(packet::sendUPD);
+        Groups.players.each(packet::sendUDP);
     }
 
     public static void updateState(Connection connection) {
