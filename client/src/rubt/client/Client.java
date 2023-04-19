@@ -11,11 +11,13 @@ import rubt.Groups;
 import rubt.logic.Player;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;
+import rubt.net.PacketSerializer.Reads;
 import rubt.net.Packets.*;
 import rubt.world.*;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
+import java.nio.ByteBuffer;
 
 import static rubt.Vars.*;
 
@@ -23,13 +25,15 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     public PacketHandler handler = new PacketHandler();
 
+    /** Input for reading snapshots. */
+    public Reads sync = new Reads(null);
+
     public Client() {
         super(8192, 8192, new PacketSerializer());
         addListener(this);
 
-        handler.register(StateUpdate.class, update -> {
-            state = update.state;
-        });
+        handler.register(Snapshot.class, snapshot -> readSnapshot(snapshot.amount, snapshot.data));
+        handler.register(StateUpdate.class, update -> state = update.state);
 
         handler.register(PlayerCreate.class, create -> {
             Player player = new Player(null);
@@ -46,18 +50,20 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         handler.register(TileUpdate.class, update -> {});
 
         handler.register(UnitCreate.class, UnitCreate::execute);
-        handler.register(UnitUpdate.class, update -> {
-            Unit unit = Groups.units.get(update.unitID);
-            unit.moveTo(update.position);
-            unit.target = update.target;
-            unit.rotation = update.rotation;
-        });
-
         handler.register(TurretCreate.class, TurretCreate::execute);
-        handler.register(TurretUpdate.class, update -> {
-            Turret turret = Groups.turrets.get(update.turretID);
-            turret.rotation = update.rotation;
-        });
+    }
+
+    public void readSnapshot(byte amount, byte[] data) {
+        try {
+            sync.setBuffer(ByteBuffer.wrap(data));
+
+            for (byte i = 0; i < amount; i++) {
+                var object = Groups.sync.get(sync.readInt());
+                object.read(sync);
+            }
+        } catch (Exception ignored) {
+            Log.err("Error reading snapshot", ignored);
+        }
     }
 
     // region provider

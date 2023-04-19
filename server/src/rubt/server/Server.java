@@ -9,7 +9,6 @@ import rubt.logic.*;
 import rubt.net.*;
 import rubt.net.PacketSerializer.Writes;
 import rubt.net.Packets.*;
-import rubt.world.Unit;
 
 import static rubt.Vars.*;
 
@@ -18,6 +17,9 @@ import java.nio.ByteBuffer;
 public class Server extends arc.net.Server implements NetListener {
 
     public PacketHandler handler = new PacketHandler();
+
+    /** Output for writing snapshots. */
+    public Writes sync = new Writes(ByteBuffer.allocate(snapshotSize));
 
     public Server() {
         super(32768, 8192, new PacketSerializer());
@@ -64,9 +66,25 @@ public class Server extends arc.net.Server implements NetListener {
         });
     }
 
-    public void sync() {
-        Groups.units.each(Send::updateUnit);
-        Groups.turrets.each(Send::updateTurret);
+    public void sendSnapshot() {
+        sync.buffer.clear();
+        byte sent = 0;
+
+        for (var object : Groups.sync) {
+            sent++;
+
+            sync.writeInt(object.netId);
+            object.write(sync);
+
+            if (sync.buffer.position() > snapshotSize || sent >= 255) {
+                Send.snapshot(sent, sync.buffer.array());
+
+                sync.buffer.clear();
+                sent = 0;
+            }
+        }
+
+        if (sent > 0) Send.snapshot(sent, sync.buffer.array());
     }
 
     public void sendWorldData(Connection connection) {

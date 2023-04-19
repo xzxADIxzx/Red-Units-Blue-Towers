@@ -38,7 +38,7 @@ public class ServerLauncher extends ClientLauncher {
             thread = Threads.daemon("Server", server::run);
 
             world.load(World.random());
-            state = State.lobby;
+            state = State.game;
         } catch (Throwable error) {
             Log.err("Could not to startup server", error);
             exit();
@@ -51,7 +51,7 @@ public class ServerLauncher extends ClientLauncher {
     @Override
     public void update() {
         Logic.update();
-        server.sync();
+        server.sendSnapshot(); // TODO send data once per 100ms
 
         limitFPS(60);
     }
