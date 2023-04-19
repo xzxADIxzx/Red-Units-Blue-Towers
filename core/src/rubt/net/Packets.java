@@ -42,11 +42,10 @@ public class Packets {
     public static void load() {
         register(Snapshot::new);
         register(StateUpdate::new);
-        register(PlayerCreate::new);
         register(TileCreate::new);
-        register(TileUpdate::new);
         register(UnitCreate::new);
         register(TurretCreate::new);
+        register(PlayerCreate::new);
     }
 
     public static abstract class Packet {
@@ -166,20 +165,6 @@ public class Packets {
         public void read(Reads r) {
             pos = r.readInt();
         }
-    }
-
-    /** Tile data packet used to update tile state on clients. */
-    public static class TileUpdate extends Packet {
-
-        public TileUpdate() {}
-
-        public TileUpdate(Tile tile) {
-            // there is nothing for now, because tile has not state
-        }
-
-        public void write(Writes w) {}
-
-        public void read(Reads r) {}
     }
 
     /** Unit data packet used to create new unit on clients. */

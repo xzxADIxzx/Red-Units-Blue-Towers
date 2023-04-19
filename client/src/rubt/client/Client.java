@@ -47,8 +47,6 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         });
 
         handler.register(TileCreate.class, create -> new Tile(Point2.x(create.pos), Point2.y(create.pos)));
-        handler.register(TileUpdate.class, update -> {});
-
         handler.register(UnitCreate.class, UnitCreate::execute);
         handler.register(TurretCreate.class, TurretCreate::execute);
     }
