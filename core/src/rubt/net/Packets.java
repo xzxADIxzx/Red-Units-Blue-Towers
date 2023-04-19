@@ -11,9 +11,9 @@ import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
 import rubt.logic.*;
 import rubt.net.PacketSerializer.*;
+import rubt.types.TurretType;
+import rubt.types.UnitType;
 import rubt.world.*;
-
-import static rubt.Vars.*;
 
 public class Packets {
 
@@ -161,18 +161,28 @@ public class Packets {
     /** Unit data packet used to create new unit on clients. */
     public static class UnitCreate extends Packet {
 
-        public int type;
+        public UnitType type;
         public Position position;
 
         public UnitCreate() {}
 
         public UnitCreate(Unit unit) {
-            this.type = unit.type.id;
+            this.type = unit.type;
             this.position = unit;
         }
 
         public void execute() {
-            new Unit(UnitTypes.all.get(type), position);
+            new Unit(type, position);
+        }
+
+        public void write(Writes w) {
+            w.write(type.id);
+            w.writePos(position);
+        }
+
+        public void read(Reads r) {
+            type = UnitTypes.all.get(r.readByte());
+            position = r.readPos();
         }
     }
 
@@ -192,23 +202,47 @@ public class Packets {
             this.target = unit.target;
             this.rotation = unit.rotation;
         }
+
+        public void write(Writes w) {
+            w.writeInt(unitID);
+            w.writePos(position);
+            w.writePos(target);
+            w.writeFloat(rotation);
+        }
+
+        public void read(Reads r) {
+            unitID = r.readInt();
+            position = r.readPos();
+            target = r.readPos();
+            rotation = r.readFloat();
+        }
     }
 
     /** Unit data packet used to create new unit on clients. */
     public static class TurretCreate extends Packet {
 
-        public int type;
+        public TurretType type;
         public Position position;
 
         public TurretCreate() {}
 
         public TurretCreate(Turret turret) {
-            this.type = turret.type.id;
+            this.type = turret.type;
             this.position = turret;
         }
 
         public void execute() {
-            new Turret(TurretTypes.all.get(type), position);
+            new Turret(type, position);
+        }
+
+        public void write(Writes w) {
+            w.write(type.id);
+            w.writePos(position);
+        }
+
+        public void read(Reads r) {
+            type = TurretTypes.all.get(r.readByte());
+            position = r.readPos();
         }
     }
 
@@ -224,6 +258,16 @@ public class Packets {
         public TurretUpdate(Turret turret) {
             this.turretID = turret.id;
             this.rotation = turret.rotation;
+        }
+
+        public void write(Writes w) {
+            w.writeInt(turretID);
+            w.writeFloat(rotation);
+        }
+
+        public void read(Reads r) {
+            turretID = r.readInt();
+            rotation = r.readFloat();
         }
     }
 }
