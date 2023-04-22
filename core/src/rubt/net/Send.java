@@ -20,7 +20,7 @@ public class Send {
     }
 
     public static void updateState(Connection connection) {
-        new StateUpdate(state).sendTCP(connection);
+        new UpdateState(state).sendTCP(connection);
     }
 
     public static void createPlayer(Player player) {
@@ -33,25 +33,25 @@ public class Send {
     }
 
     public static void createTile(Connection connection, Tile tile) {
-        new TileCreate(tile).sendTCP(connection);
+        new CreateTile(tile).sendTCP(connection);
     }
 
     public static void createUnit(Unit unit) {
-        var packet = new UnitCreate(unit);
+        var packet = new CreateUnit(unit);
         Groups.connections.each(packet::sendTCP);
     }
 
     public static void createUnit(Connection connection, Unit unit) {
-        new UnitCreate(unit).sendTCP(connection);
+        new CreateUnit(unit).sendTCP(connection);
     }
 
     public static void createTurret(Turret Turret) {
-        var packet = new TurretCreate(Turret);
+        var packet = new CreateTurret(Turret);
         Groups.connections.each(packet::sendTCP);
     }
 
     public static void createTurret(Connection connection, Turret Turret) {
-        new TurretCreate(Turret).sendTCP(connection);
+        new CreateTurret(Turret).sendTCP(connection);
     }
 
     // endregion
@@ -62,14 +62,14 @@ public class Send {
     }
 
     public static void createUnit(UnitType unit, Position pos) {
-        var packet = new UnitCreate();
+        var packet = new CreateUnit();
         packet.type = unit;
         packet.position = pos;
         packet.sendTCP(clientCon);
     }
 
     public static void createTurret(TurretType turret, Position pos) {
-        var packet = new TurretCreate();
+        var packet = new CreateTurret();
         packet.type = turret;
         packet.position = pos;
         packet.sendTCP(clientCon);

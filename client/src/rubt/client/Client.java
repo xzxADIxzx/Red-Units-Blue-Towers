@@ -32,7 +32,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         addListener(this);
 
         handler.register(Snapshot.class, this::readSnapshot);
-        handler.register(StateUpdate.class, data -> state = data.state);
+        handler.register(UpdateState.class, data -> state = data.state);
 
         handler.register(CreatePlayer.class, data -> {
             Player player = new Player(null);
@@ -45,9 +45,9 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             ui.lobbyfrag.rebuildList();
         });
 
-        handler.register(TileCreate.class, create -> new Tile(create.pos));
-        handler.register(UnitCreate.class, UnitCreate::execute);
-        handler.register(TurretCreate.class, TurretCreate::execute);
+        handler.register(CreateTile.class, create -> new Tile(create.pos));
+        handler.register(CreateUnit.class, CreateUnit::execute);
+        handler.register(CreateTurret.class, CreateTurret::execute);
     }
 
     public void readSnapshot(Snapshot snapshot) {

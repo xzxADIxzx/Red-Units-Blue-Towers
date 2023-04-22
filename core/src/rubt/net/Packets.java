@@ -6,6 +6,7 @@ import arc.math.geom.Position;
 import arc.net.Connection;
 import arc.struct.ObjectIntMap;
 import arc.struct.Seq;
+import rubt.Groups;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
 import rubt.logic.*;
@@ -40,12 +41,12 @@ public class Packets {
 
     public static void load() {
         register(Snapshot::new);
-        register(StateUpdate::new);
+        register(UpdateState::new);
         register(PlayerData::new);
         register(CreatePlayer::new);
-        register(TileCreate::new);
-        register(UnitCreate::new);
-        register(TurretCreate::new);
+        register(CreateTile::new);
+        register(CreateUnit::new);
+        register(CreateTurret::new);
         register(CommandUnit::new);
     }
 
@@ -65,6 +66,14 @@ public class Packets {
 
         default void sendUDP(Player player) {
             player.con.sendUDP(this);
+        }
+
+        default void sendTCP() {
+            Groups.players.each(this::sendTCP);
+        }
+
+        default void sendUDP() {
+            Groups.players.each(this::sendUDP);
         }
 
         void write(Writes w);
@@ -96,13 +105,13 @@ public class Packets {
     }
 
     /** Packet used to update game state on clients. */
-    public static class StateUpdate implements Packet {
+    public static class UpdateState implements Packet {
 
         public State state;
 
-        public StateUpdate() {}
+        public UpdateState() {}
 
-        public StateUpdate(State state) {
+        public UpdateState(State state) {
             this.state = state;
         }
 
@@ -159,13 +168,13 @@ public class Packets {
     }
 
     /** Tile data packet used to upload tile to clients. */
-    public static class TileCreate implements Packet {
+    public static class CreateTile implements Packet {
 
         public int pos;
 
-        public TileCreate() {}
+        public CreateTile() {}
 
-        public TileCreate(Tile tile) {
+        public CreateTile(Tile tile) {
             this.pos = tile.pack();
         }
 
@@ -179,14 +188,14 @@ public class Packets {
     }
 
     /** Unit data packet used to upload unit on clients. */
-    public static class UnitCreate implements Packet {
+    public static class CreateUnit implements Packet {
 
         public UnitType type;
         public Position position;
 
-        public UnitCreate() {}
+        public CreateUnit() {}
 
-        public UnitCreate(Unit unit) {
+        public CreateUnit(Unit unit) {
             this.type = unit.type;
             this.position = unit;
         }
@@ -207,14 +216,14 @@ public class Packets {
     }
 
     /** Unit data packet used to upload turret on clients. */
-    public static class TurretCreate implements Packet {
+    public static class CreateTurret implements Packet {
 
         public TurretType type;
         public Position position;
 
-        public TurretCreate() {}
+        public CreateTurret() {}
 
-        public TurretCreate(Turret turret) {
+        public CreateTurret(Turret turret) {
             this.type = turret.type;
             this.position = turret;
         }
