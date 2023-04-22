@@ -21,7 +21,9 @@ public class Vars {
     public static final DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     public static final float tilesize = 16f;
-    public static final int snapshotSize = 800;
+    public static final int maxSnapshotSize = 800;
+    public static final int maxNameLength = 80;
+    public static final int maxMessageLength = 128;
 
     public static final String multicast = "227.2.2.7";
     public static final int multicastPort = 2727;

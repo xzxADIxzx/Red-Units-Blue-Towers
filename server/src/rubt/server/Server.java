@@ -76,7 +76,7 @@ public class Server extends arc.net.Server implements NetListener {
             sync.writeInt(object.netId);
             object.write(sync);
 
-            if (sync.buffer.position() > snapshotSize || sent >= 255) {
+            if (sync.buffer.position() > maxSnapshotSize || sent >= 255) {
                 Send.snapshot((short) sync.buffer.position(), sync.buffer.array());
 
                 sync.buffer.clear();
@@ -106,6 +106,7 @@ public class Server extends arc.net.Server implements NetListener {
 
     public void disconnected(Connection connection, DcReason reason) {
         Groups.connections.remove(connection);
+        Groups.players.remove(player -> player.con == connection);
         // TODO mark player as disconnected and clear on game reset
 
         Log.info("@ disconnected: @.", connection, reason);
