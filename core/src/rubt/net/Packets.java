@@ -41,10 +41,11 @@ public class Packets {
     public static void load() {
         register(Snapshot::new);
         register(StateUpdate::new);
+        register(PlayerData::new);
+        register(CreatePlayer::new);
         register(TileCreate::new);
         register(UnitCreate::new);
         register(TurretCreate::new);
-        register(PlayerCreate::new);
         register(CommandUnit::new);
     }
 
@@ -129,15 +130,15 @@ public class Packets {
         }
     }
 
-    /** Packet used to upload player datas on clients.  */
-    public static class PlayerCreate extends PlayerData {
+    /** Packet used to upload player datas on clients. */
+    public static class CreatePlayer extends PlayerData {
 
         public Team team;
         public boolean admin;
 
-        public PlayerCreate() {}
+        public CreatePlayer() {}
 
-        public PlayerCreate(Player player) {
+        public CreatePlayer(Player player) {
             this.avatar = player.avatar;
             this.name = player.name;
             this.team = player.team;

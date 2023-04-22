@@ -24,12 +24,12 @@ public class Send {
     }
 
     public static void createPlayer(Player player) {
-        var packet = new PlayerCreate(player);
+        var packet = new CreatePlayer(player);
         Groups.connections.each(packet::sendTCP);
     }
 
     public static void createPlayer(Connection connection, Player player) {
-        new PlayerCreate(player).sendTCP(connection);
+        new CreatePlayer(player).sendTCP(connection);
     }
 
     public static void createTile(Connection connection, Tile tile) {

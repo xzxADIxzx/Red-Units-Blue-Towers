@@ -37,14 +37,13 @@ public class Server extends arc.net.Server implements NetListener {
             Log.info("Server was discovered by the client with the address @", address.getHostName());
         });
 
-        handler.register(PlayerCreate.class, (con, data) -> {
+        handler.register(PlayerData.class, (con, data) -> {
             if (rules.strict && Groups.players.contains(player -> con.getRemoteAddressTCP().getAddress().getHostName().equals(player.ip()))) return;
 
             Player player = new Player(con);
 
             player.avatar = data.avatar;
             player.name = data.name;
-
             player.team = Logic.nextTeam();
             player.admin = false; // TODO admin system?
 
