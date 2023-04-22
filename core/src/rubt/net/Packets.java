@@ -114,11 +114,24 @@ public class Packets {
         }
     }
 
-    /** Player data packet used to sync player datas on clients. Clients sends this packet after connecting. */
-    public static class PlayerCreate implements Packet {
+    /** Player data packet that clients sends to confirm the connection. */
+    public static class PlayerData implements Packet {
 
         public Pixmap avatar;
         public String name;
+
+        public void write(Writes w) {
+            w.writeStr(name);
+        }
+
+        public void read(Reads r) {
+            name = r.readStr();
+        }
+    }
+
+    /** Packet used to upload player datas on clients.  */
+    public static class PlayerCreate extends PlayerData {
+
         public Team team;
         public boolean admin;
 
@@ -132,14 +145,13 @@ public class Packets {
         }
 
         public void write(Writes w) {
-            w.writeStr(name);
+            super.write(w);
             w.write(team.ordinal());
             w.writeBoolean(admin);
         }
 
         public void read(Reads r) {
-            avatar = null;
-            name = r.readStr();
+            super.read(r);
             team = Team.values()[r.readByte()];
             admin = r.readBoolean();
         }

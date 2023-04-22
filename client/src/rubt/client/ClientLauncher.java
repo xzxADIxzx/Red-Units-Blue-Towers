@@ -14,6 +14,7 @@ import rubt.input.DesktopInput;
 import rubt.logic.Logic;
 import rubt.logic.Rules;
 import rubt.net.Packets;
+import rubt.net.Packets.PlayerData;
 import rubt.ui.*;
 import rubt.world.Pathfinder;
 import rubt.world.World;
@@ -47,6 +48,7 @@ public abstract class ClientLauncher implements ApplicationListener {
         renderer = new Renderer();
         ui = new UI();
         handler = mobile ? null : new DesktopInput();
+        player = new PlayerData(); // TODO load from settings, i guess
 
         Fonts.load();
         Textures.load();

@@ -6,7 +6,6 @@ import rubt.Groups;
 import rubt.logic.Player;
 import rubt.net.Packets.*;
 import rubt.types.*;
-import rubt.ui.fragments.JoinFragment;
 import rubt.world.*;
 
 import static rubt.Vars.*;
@@ -59,7 +58,7 @@ public class Send {
     // region client
 
     public static void player() {
-        JoinFragment.data.sendTCP(clientCon);
+        player.sendTCP(clientCon);
     }
 
     public static void createUnit(UnitType unit, Position pos) {
