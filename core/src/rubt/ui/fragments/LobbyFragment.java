@@ -1,13 +1,13 @@
 package rubt.ui.fragments;
 
 import arc.graphics.Color;
-import arc.net.DcReason;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import rubt.Groups;
 import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.logic.Team;
+import rubt.net.Net;
 
 import static rubt.Vars.*;
 
@@ -37,7 +37,7 @@ public class LobbyFragment {
                 // TODO some info about game like rules & etc.
 
                 info.button("Ready", () -> state = State.game).padRight(8f);
-                info.button("Quit", () -> clientCon.close(DcReason.closed));
+                info.button("Quit", Net::disconnect);
             }).growX().top();
         });
     }

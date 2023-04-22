@@ -8,6 +8,7 @@ import arc.util.Log;
 import arc.util.Threads;
 import rubt.Groups;
 import rubt.logic.Player;
+import rubt.logic.State;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;
 import rubt.net.PacketSerializer.Reads;
@@ -90,6 +91,9 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     }
 
     public void disconnected(Connection connection, DcReason reason) {
+        Groups.clear();
+        state = State.menu;
+
         Log.info("Connection closed: @.", reason);
     }
 
