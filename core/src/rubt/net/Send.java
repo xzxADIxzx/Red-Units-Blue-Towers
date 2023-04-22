@@ -15,7 +15,7 @@ public class Send {
 
     // region server
 
-    public static void snapshot(byte amount, byte[] data) {
+    public static void snapshot(short amount, byte[] data) {
         var packet = new Snapshot(amount, data);
         Groups.players.each(packet::sendUDP);
     }

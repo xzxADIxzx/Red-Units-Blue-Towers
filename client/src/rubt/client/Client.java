@@ -31,7 +31,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         super(8192, 8192, new PacketSerializer());
         addListener(this);
 
-        handler.register(Snapshot.class, snapshot -> readSnapshot(snapshot.amount, snapshot.data));
+        handler.register(Snapshot.class, this::readSnapshot);
         handler.register(StateUpdate.class, update -> state = update.state);
 
         handler.register(PlayerCreate.class, create -> {
@@ -50,11 +50,11 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         handler.register(TurretCreate.class, TurretCreate::execute);
     }
 
-    public void readSnapshot(byte amount, byte[] data) {
+    public void readSnapshot(Snapshot snapshot) {
         try {
-            sync.setBuffer(ByteBuffer.wrap(data));
+            sync.setBuffer(ByteBuffer.wrap(snapshot.data));
 
-            for (byte i = 0; i < amount; i++) {
+            while (sync.buffer.hasRemaining()) {
                 var object = Groups.sync.get(sync.readInt());
                 object.read(sync);
             }

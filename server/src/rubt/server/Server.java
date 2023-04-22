@@ -20,7 +20,7 @@ public class Server extends arc.net.Server implements NetListener {
     public PacketHandler handler = new PacketHandler();
 
     /** Output for writing snapshots. */
-    public Writes sync = new Writes(ByteBuffer.allocate(snapshotSize));
+    public Writes sync = new Writes(ByteBuffer.allocate(1024));
 
     public Server() {
         super(32768, 8192, new PacketSerializer());
@@ -78,14 +78,14 @@ public class Server extends arc.net.Server implements NetListener {
             object.write(sync);
 
             if (sync.buffer.position() > snapshotSize || sent >= 255) {
-                Send.snapshot(sent, sync.buffer.array());
+                Send.snapshot((short) sync.buffer.position(), sync.buffer.array());
 
                 sync.buffer.clear();
                 sent = 0;
             }
         }
 
-        if (sent > 0) Send.snapshot(sent, sync.buffer.array());
+        if (sent > 0) Send.snapshot((short) sync.buffer.position(), sync.buffer.array());
     }
 
     public void sendWorldData(Connection connection) {

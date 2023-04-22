@@ -74,24 +74,22 @@ public class Packets {
     /** Packet used to update net objects on clients. */
     public static class Snapshot implements Packet {
 
-        public byte amount;
+        public short amount;
         public byte[] data;
 
         public Snapshot() {}
 
-        public Snapshot(byte amount, byte[] data) {
+        public Snapshot(short amount, byte[] data) {
             this.amount = amount;
             this.data = data;
         }
 
         public void write(Writes w) {
-            w.write(amount);
-            w.writeShort(data.length);
-            w.write(data);
+            w.writeShort(amount);
+            w.write(data, 0, amount);
         }
 
         public void read(Reads r) {
-            amount = r.readByte();
             r.readFully(data = new byte[r.readShort()]);
         }
     }
