@@ -1,6 +1,7 @@
 package rubt.ui.fragments;
 
 import arc.graphics.Color;
+import arc.net.DcReason;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import rubt.Groups;
@@ -26,9 +27,17 @@ public class LobbyFragment {
                 list.defaults().growX().padBottom(8f);
 
                 this.list = list.top();
-            }).width(600f).growY().padRight(8f);
+            }).width(600f).growY().padRight(16f);
 
-            cont.table(info -> { // TODO match info
+            cont.table(info -> {
+                info.name = "Server info";
+                info.defaults().height(64f).growX().padBottom(8f);
+
+                info.table(Textures.alphabg).height(512f).colspan(2).row();
+                // TODO some info about game like rules & etc.
+
+                info.button("Ready", () -> state = State.game).padRight(8f);
+                info.button("Quit", () -> clientCon.close(DcReason.closed));
             }).growX().top();
         });
     }

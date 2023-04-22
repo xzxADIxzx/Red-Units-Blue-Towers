@@ -34,7 +34,7 @@ public class JoinFragment {
                 list.defaults().growX().padBottom(8f);
 
                 this.list = list.top();
-            }).width(600f).growY().padRight(8f);
+            }).width(600f).growY().padRight(16f);
 
             cont.table(info -> { // nickname & server info
                 info.name = "Nickname & Server Info";
