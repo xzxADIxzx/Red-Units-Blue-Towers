@@ -27,6 +27,11 @@ public class DesktopInput extends InputHandler {
     }
 
     @Override
+    protected void updateMisc() {
+        if (input.keyTap(KeyCode.enter)) ui.chatfrag.toggle();
+    }
+
+    @Override
     protected void updateRed() {
         if (input.keyTap(KeyCode.mouseLeft)) {
             dragX = lastX;

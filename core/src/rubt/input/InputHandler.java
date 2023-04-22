@@ -24,6 +24,7 @@ public abstract class InputHandler {
 
     public void update() {
         updateCamera();
+        updateMisc();
 
         screenX = input.mouseX();
         screenY = input.mouseY();
@@ -65,6 +66,9 @@ public abstract class InputHandler {
 
     /** Input update of the camera. */
     protected abstract void updateCamera();
+
+    /** Input update for both teams. */
+    protected abstract void updateMisc();
 
     /** Input update of the red team. */
     protected abstract void updateRed();
