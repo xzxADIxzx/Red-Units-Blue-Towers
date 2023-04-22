@@ -45,7 +45,7 @@ public class ServerLauncher extends ClientLauncher {
             return;
         }
 
-        Log.infoTag("APP", "Server started successfully.");
+        Log.infoTag("App", "Server started successfully.");
     }
 
     @Override

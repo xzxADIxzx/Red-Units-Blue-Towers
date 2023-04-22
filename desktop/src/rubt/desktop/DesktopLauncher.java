@@ -4,6 +4,7 @@ import arc.backend.sdl.SdlApplication;
 import arc.backend.sdl.SdlConfig;
 import arc.backend.sdl.jni.SDL;
 import arc.util.Log;
+import arc.util.Log.LogLevel;
 import rubt.client.Client;
 import rubt.client.ClientLauncher;
 import rubt.logic.Logic;
@@ -28,7 +29,9 @@ public class DesktopLauncher extends ClientLauncher {
         }
     }
 
-    public DesktopLauncher(String[] args) {}
+    public DesktopLauncher(String[] args) {
+        if (args.length != 0 && args[0].equals("-debug")) Log.level = LogLevel.debug;
+    }
 
     public static void crashed(String title, Throwable error) {
         Log.err(title, error);
@@ -42,7 +45,7 @@ public class DesktopLauncher extends ClientLauncher {
         clientCon = client = new Client();
         Net.provider = client;
 
-        Log.infoTag("APP", "Client loaded successfully.");
+        Log.infoTag("App", "Client loaded successfully.");
     }
 
     @Override
