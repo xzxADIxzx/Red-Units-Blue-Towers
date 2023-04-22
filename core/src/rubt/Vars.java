@@ -30,7 +30,7 @@ public class Vars {
     public static boolean mobile;
 
     public static State state = State.menu;
-    public static Rules rules = new Rules();
+    public static Rules rules;
     public static World world;
 
     public static Renderer renderer;
@@ -42,7 +42,7 @@ public class Vars {
     public static Thread thread;
 
     public static void loadLogger() {
-        ArcNet.errorHandler = Log::err;
+        ArcNet.errorHandler = Log::debug;
         Log.logger = (level, text) -> { // this is how fashionable I am
             String result = Log.format("&lk&fb[" + dateTime.format(LocalDateTime.now()) + "]&fr " + tags[level.ordinal()] + " " + text + "&fr");
             System.out.println(result);
