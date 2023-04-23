@@ -24,6 +24,7 @@ public class ChatFragment extends Table {
 
     public Seq<String> messages = new Seq<>();
     public Seq<String> history = new Seq<>();
+    public int position;
 
     public TextField field;
 
@@ -60,6 +61,8 @@ public class ChatFragment extends Table {
         alpha = Mathf.lerpDelta(alpha, Mathf.num(shown || state == State.lobby), .005f);
         Draw.alpha(Interp.pow3In.apply(alpha));
 
+        if (messages.isEmpty()) return;
+
         Textures.alphabg.draw(8f, sy, width, y - sy + 8f);
 
         y = sy;
@@ -79,6 +82,23 @@ public class ChatFragment extends Table {
         }
     }
 
+    public void flush(String message) {
+        if (!message.isBlank()) messages.add(message);
+    }
+
+    public void flush() {
+        if (!field.getText().isBlank()) {
+            Send.chatMessage(field.getText());
+
+            history.add(field.getText());
+            position = history.size;
+        }
+
+        field.clearText();
+    }
+
+    // region control
+
     public void toggle() {
         if (shown && scene.getKeyboardFocus() != field) return;
 
@@ -94,12 +114,13 @@ public class ChatFragment extends Table {
         });
     }
 
-    public void flush(String message) {
-        if (!message.isBlank()) messages.add(message);
+    public void next() {
+        if (position > 0) field.setText(history.get(--position));
     }
 
-    public void flush() {
-        if (!field.getText().isBlank()) Send.chatMessage(field.getText());
-        field.clearText();
+    public void prev() {
+        if (position < history.size) field.setText(++position == history.size ? "" : history.get(position));
     }
+
+    // endregion
 }

@@ -28,7 +28,13 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateMisc() {
-        if (input.keyTap(KeyCode.enter)) ui.chatfrag.toggle();
+        var frag = ui.chatfrag;
+
+        if (input.keyTap(KeyCode.enter)) frag.toggle();
+        if (frag.shown) {
+            if (input.keyTap(KeyCode.up)) frag.next();
+            if (input.keyTap(KeyCode.down)) frag.prev();
+        }
     }
 
     @Override
