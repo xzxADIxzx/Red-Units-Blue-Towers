@@ -56,7 +56,7 @@ public class ChatFragment extends Table {
     public void draw() {
         super.draw();
 
-        alpha = Mathf.lerpDelta(alpha, Mathf.num(shown), .005f);
+        alpha = Mathf.lerpDelta(alpha, Mathf.num(shown || state == State.lobby), .005f);
         Draw.alpha(Interp.pow3In.apply(alpha));
 
         Textures.alphabg.draw(8f, sy, width, y - sy + 8f);

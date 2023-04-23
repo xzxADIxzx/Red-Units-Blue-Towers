@@ -33,7 +33,10 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         addListener(this);
 
         handler.register(Snapshot.class, this::readSnapshot);
-        handler.register(UpdateState.class, data -> state = data.state);
+        handler.register(UpdateState.class, data -> {
+            state = data.state;
+            ui.chatfrag.alpha = 1f;
+        });
 
         handler.register(CreatePlayer.class, data -> {
             Player player = new Player(null);
