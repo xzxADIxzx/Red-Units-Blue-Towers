@@ -11,6 +11,7 @@ import arc.struct.Seq;
 import arc.util.Align;
 import rubt.graphics.Textures;
 import rubt.logic.State;
+import rubt.net.Send;
 import rubt.ui.Fonts;
 
 import static arc.Core.*;
@@ -93,10 +94,12 @@ public class ChatFragment extends Table {
         });
     }
 
-    public void flush() {
-        if (field.getText().isBlank()) return;
+    public void flush(String message) {
+        if (!message.isBlank()) messages.add(message);
+    }
 
-        messages.add(field.getText()); // TODO replace with Send.chatMessage
+    public void flush() {
+        if (!field.getText().isBlank()) Send.chatMessage(field.getText());
         field.clearText();
     }
 }
