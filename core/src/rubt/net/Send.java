@@ -49,6 +49,10 @@ public class Send {
         new CreateTurret(Turret).sendTCP(connection);
     }
 
+    public static void chatMessage(Player author, String message) {
+        new ChatMessage(author.name + "[coral]:[white] " + message).sendTCP();
+    }
+
     // endregion
     // region client
 
@@ -72,6 +76,10 @@ public class Send {
 
     public static void commandUnit(Unit unit, Position target) {
         new CommandUnit(unit, target).sendTCP(clientCon);
+    }
+
+    public static void chatMessage(String message) {
+        new ChatMessage(message).sendTCP(clientCon);
     }
 
     // endregion

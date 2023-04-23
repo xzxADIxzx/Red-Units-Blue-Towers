@@ -48,6 +48,7 @@ public class Packets {
         register(CreateUnit::new);
         register(CreateTurret::new);
         register(CommandUnit::new);
+        register(ChatMessage::new);
     }
 
     public static interface Packet {
@@ -81,7 +82,7 @@ public class Packets {
         void read(Reads r);
     }
 
-    /** Packet used to update net objects on clients. */
+    /** Packet used to update net objects. */
     public static class Snapshot implements Packet {
 
         public short amount;
@@ -104,7 +105,7 @@ public class Packets {
         }
     }
 
-    /** Packet used to update game state on clients. */
+    /** Packet used to update game state. */
     public static class UpdateState implements Packet {
 
         public State state;
@@ -139,7 +140,7 @@ public class Packets {
         }
     }
 
-    /** Packet used to upload player datas on clients. */
+    /** Packet used to upload player datas. */
     public static class CreatePlayer extends PlayerData {
 
         public Team team;
@@ -167,7 +168,7 @@ public class Packets {
         }
     }
 
-    /** Tile data packet used to upload tile to clients. */
+    /** Packet used to upload tiles. */
     public static class CreateTile implements Packet {
 
         public int pos;
@@ -187,7 +188,7 @@ public class Packets {
         }
     }
 
-    /** Unit data packet used to upload unit on clients. */
+    /** Packet used to upload units. */
     public static class CreateUnit implements Packet {
 
         public UnitType type;
@@ -215,7 +216,7 @@ public class Packets {
         }
     }
 
-    /** Unit data packet used to upload turret on clients. */
+    /** Packet used to upload turrets. */
     public static class CreateTurret implements Packet {
 
         public TurretType type;
@@ -264,6 +265,26 @@ public class Packets {
         public void read(Reads r) {
             netId = r.readInt();
             target = r.readPos();
+        }
+    }
+
+    /** Package used for communication between players. */
+    public static class ChatMessage implements Packet {
+
+        public String message;
+
+        public ChatMessage() {}
+
+        public ChatMessage(String message) {
+            this.message = message;
+        }
+
+        public void write(Writes w) {
+            w.writeStr(message);
+        }
+
+        public void read(Reads r) {
+            message = r.readStr();
         }
     }
 }
