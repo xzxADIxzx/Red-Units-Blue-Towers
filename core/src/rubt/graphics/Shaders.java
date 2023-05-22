@@ -7,7 +7,7 @@ import static arc.Core.*;
 
 public class Shaders {
 
-    public static Shader normal;
+    public static NormalShader normal;
     public static FrameBuffer buffer;
 
     public static void load() {
@@ -38,17 +38,23 @@ public class Shaders {
 
     public static class NormalShader extends Shader {
 
+        public float last; // crutch, but noway
+
         public NormalShader() {
             super("normal.frag");
         }
 
         public void draw(float rotation, Runnable draw) {
+            last = rotation;
+
             begin();
-
-            setUniformf("u_rotation", rotation);
             draw.run();
-
             end();
+        }
+
+        @Override
+        public void apply() {
+            setUniformf("u_rotation", last);
         }
     }
 }

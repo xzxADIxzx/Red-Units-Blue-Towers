@@ -63,7 +63,7 @@ public class Unit extends Body {
         rotation = Angles.moveToward(rotation, vel.angle(), type.rotateSpeed * Time.delta);
     }
 
-    // region serizalization
+    // region serialization
 
     public void write(Writes w) {
         w.writePos(this);
