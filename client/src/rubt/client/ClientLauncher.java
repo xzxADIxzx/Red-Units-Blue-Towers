@@ -8,8 +8,7 @@ import arc.scene.Scene;
 import arc.util.Threads;
 import arc.util.Time;
 import rubt.content.*;
-import rubt.graphics.Renderer;
-import rubt.graphics.Textures;
+import rubt.graphics.*;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
 import rubt.logic.Rules;
@@ -50,6 +49,7 @@ public abstract class ClientLauncher implements ApplicationListener {
         handler = mobile ? null : new DesktopInput();
         player = new PlayerData(); // TODO load from settings, i guess
 
+        Shaders.load();
         Fonts.load();
         Textures.load();
         Styles.load();
