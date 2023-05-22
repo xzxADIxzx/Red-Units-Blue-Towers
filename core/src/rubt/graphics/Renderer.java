@@ -6,7 +6,6 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.Mathf;
 import rubt.Groups;
-import rubt.types.textures.NormalTexture;
 import rubt.world.*;
 
 import static arc.Core.*;
@@ -25,8 +24,6 @@ public class Renderer {
     }
 
     public void draw() {
-        NormalTexture.pointer = -1;
-
         float dest = Mathf.clamp(Mathf.round(target, 0.5f), minZoom, maxZoom);
         current = Mathf.lerpDelta(current, dest, 0.1f);
         if (Mathf.equal(current, dest, 0.001f)) current = dest;

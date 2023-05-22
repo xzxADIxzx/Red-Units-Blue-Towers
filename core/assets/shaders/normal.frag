@@ -3,7 +3,7 @@ uniform float u_rotation;
 
 varying vec2 v_texCoords;
 
-const vec2 light = vec2(-.7, -.7);
+const vec2 light = vec2(.7, .7);
 const float div = 6.2830;
 
 vec2 rot(vec2 vec, float angle) {

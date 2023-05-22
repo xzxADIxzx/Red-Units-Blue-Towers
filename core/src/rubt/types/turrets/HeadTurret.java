@@ -3,9 +3,9 @@ package rubt.types.turrets;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
 import rubt.Groups;
+import rubt.graphics.Shaders;
 import rubt.graphics.Textures;
 import rubt.types.TurretType;
-import rubt.types.textures.NormalTexture;
 import rubt.world.*;
 
 public class HeadTurret extends TurretType {
@@ -13,8 +13,7 @@ public class HeadTurret extends TurretType {
     public float reload = 1f;
     public float inaccuracy = 0f;
 
-    public NormalTexture head;
-    public TextureRegion glow;
+    public TextureRegion head, glow;
 
     public HeadTurret(String name) {
         super(name);
@@ -24,7 +23,7 @@ public class HeadTurret extends TurretType {
     public void loadui() {
         super.loadui();
 
-        head = Textures.loadNormal("sprites/turrets/" + name + "-head");
+        head = Textures.load("sprites/turrets/", name + "-head");
         glow = Textures.load("sprites/turrets/", name + "-glow");
     }
 
@@ -36,7 +35,7 @@ public class HeadTurret extends TurretType {
     }
 
     public void draw(Turret turret) {
-        Draw.rect(head.region(turret.rotation), turret, 16f, 16f, turret.rot());
+        Shaders.normal.draw(turret.rotation, () -> Draw.rect(head, turret, 16f, 16f, turret.rot()));
     }
 
     public void drawGlow(Turret turret) {

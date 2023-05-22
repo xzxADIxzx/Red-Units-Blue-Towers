@@ -2,6 +2,7 @@ package rubt.graphics;
 
 import arc.graphics.Color;
 import arc.graphics.gl.FrameBuffer;
+import arc.math.Mathf;
 
 import static arc.Core.*;
 
@@ -45,7 +46,7 @@ public class Shaders {
         }
 
         public void draw(float rotation, Runnable draw) {
-            last = rotation;
+            last = rotation * Mathf.degRad;
 
             begin();
             draw.run();
