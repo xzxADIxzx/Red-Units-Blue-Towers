@@ -47,7 +47,7 @@ public abstract class InputHandler {
     public Tile tileOn() { // TODO replace by world.get and world stream
         return Groups.tiles.find(tile -> {
             final float x = lastX + 8f, y = lastY + 8f;
-            return x > tile.drawX() && x < tile.drawX() + tilesize && y > tile.drawY() && y < tile.drawY() + tilesize;
+            return x > tile.getX() && x < tile.getX() + tilesize && y > tile.getY() && y < tile.getY() + tilesize;
         });
     }
 

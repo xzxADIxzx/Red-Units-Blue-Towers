@@ -2,7 +2,6 @@ package rubt.input;
 
 import arc.input.KeyCode;
 import arc.math.Mathf;
-import arc.math.geom.Vec2;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
 import rubt.graphics.Drawf;
@@ -70,7 +69,7 @@ public class DesktopInput extends InputHandler {
         Tile tile = tileOn();
         if (tile == null) return;
 
-        if (input.keyTap(KeyCode.b)) Send.createTurret(TurretTypes.imat, new Vec2(tile.drawX(), tile.drawY()));
+        if (input.keyTap(KeyCode.b)) Send.createTurret(TurretTypes.imat, tile);
     }
 
     @Override
@@ -105,6 +104,6 @@ public class DesktopInput extends InputHandler {
         if (tile == null) return;
 
         Lines.stroke(2f, Palette.blue);
-        Lines.square(tile.drawX(), tile.drawY(), 10f + Mathf.absin(4f, 2f));
+        Lines.square(tile.getX(), tile.getY(), 10f + Mathf.absin(4f, 2f));
     }
 }

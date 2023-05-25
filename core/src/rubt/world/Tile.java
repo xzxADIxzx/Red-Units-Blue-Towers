@@ -26,20 +26,12 @@ public class Tile extends GroupObject implements Position {
 
     // region position
 
-    public float drawX() {
+    public float getX() {
         return x * tilesize;
     }
 
-    public float drawY() {
-        return y * tilesize;
-    }
-
-    public float getX() {
-        return drawX();
-    }
-
     public float getY() {
-        return drawY();
+        return y * tilesize;
     }
 
     public int pack() {
@@ -52,7 +44,7 @@ public class Tile extends GroupObject implements Position {
         Draw.reset();
 
         Draw.color(Color.gray);
-        Fill.rect(drawX(), drawY(), tilesize, tilesize);
+        Fill.rect(getX(), getY(), tilesize, tilesize);
     }
 
     public Seq<Tile> neightbours() {
