@@ -19,11 +19,13 @@ import static rubt.Vars.*;
 
 public class ChatFragment extends Table {
 
+    public static final int messagesShown = 12;
     public static final float width = 600f;
     public static final float textWidth = width - 32f;
 
     public Seq<String> messages = new Seq<>();
     public Seq<String> history = new Seq<>();
+    public int scroll;
     public int position;
 
     public TextField field;
@@ -66,7 +68,9 @@ public class ChatFragment extends Table {
         Textures.alphabg.draw(8f, sy, width, y - sy + 8f);
 
         y = sy;
-        for (int i = Math.min(messages.size - 1, 10); i >= 0; i--) {
+        int amount = Math.max(messages.size - scroll - messagesShown, 0);
+        for (int i = messages.size - scroll - 1; i >= amount; i--) {
+
             var msg = messages.get(i);
 
             layout.setText(font, msg, Color.white, textWidth, Align.bottomLeft, true);
@@ -84,6 +88,7 @@ public class ChatFragment extends Table {
 
     public void flush(String message) {
         if (!message.isBlank()) messages.add(message);
+        alpha = 1f; // show messages when someone sends a new one
     }
 
     public void flush() {

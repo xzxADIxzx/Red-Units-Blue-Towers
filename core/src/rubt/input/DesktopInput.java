@@ -8,6 +8,7 @@ import rubt.content.UnitTypes;
 import rubt.graphics.Drawf;
 import rubt.graphics.Palette;
 import rubt.net.Send;
+import rubt.ui.fragments.ChatFragment;
 import rubt.world.Tile;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
@@ -34,6 +35,8 @@ public class DesktopInput extends InputHandler {
         if (frag.shown) {
             if (input.keyTap(KeyCode.up)) frag.next();
             if (input.keyTap(KeyCode.down)) frag.prev();
+
+            frag.scroll = (int) Mathf.clamp(frag.scroll + input.axis(KeyCode.scroll), 0, Math.max(0, frag.messages.size - ChatFragment.messagesShown));
         }
     }
 
