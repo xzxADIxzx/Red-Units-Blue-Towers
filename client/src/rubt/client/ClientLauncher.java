@@ -11,12 +11,9 @@ import rubt.content.*;
 import rubt.graphics.*;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
-import rubt.logic.Rules;
 import rubt.net.Packets;
 import rubt.net.Packets.PlayerData;
 import rubt.ui.*;
-import rubt.world.Pathfinder;
-import rubt.world.World;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -31,10 +28,6 @@ public abstract class ClientLauncher implements ApplicationListener {
 
         Logic.load();
         Packets.load();
-
-        rules = new Rules();
-        world = new World();
-        pathfinder = new Pathfinder();
 
         if (headless) return;
 

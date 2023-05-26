@@ -9,8 +9,7 @@ import rubt.logic.Rules;
 import rubt.logic.State;
 import rubt.net.Packets.PlayerData;
 import rubt.ui.UI;
-import rubt.world.Pathfinder;
-import rubt.world.World;
+import rubt.world.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,13 +32,15 @@ public class Vars {
     public static boolean mobile;
 
     public static State state = State.menu;
-    public static Rules rules;
-    public static World world;
+    public static Rules rules = new Rules();
+    public static World world = new World();
+
+    public static Pathfinder pathfinder = new Pathfinder();
+    public static Collisions collisions = new Collisions();
 
     public static Renderer renderer;
     public static UI ui;
     public static InputHandler handler;
-    public static Pathfinder pathfinder;
 
     public static Connection clientCon;
     public static Thread thread;

@@ -31,7 +31,9 @@ public class Unit extends Body {
 
     public void update() {
         type.update(this);
+
         move(vel);
+        collisions.checkTile(this); // TODO move to GroundUnit
     }
 
     public void draw() {

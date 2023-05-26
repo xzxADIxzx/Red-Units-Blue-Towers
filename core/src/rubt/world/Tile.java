@@ -12,7 +12,7 @@ import static rubt.Vars.*;
 
 public class Tile extends GroupObject implements Position {
 
-    public final int x, y;
+    public final int x, y; // TODO replace by short?
 
     public Tile(int x, int y) {
         super(Groups.tiles);
