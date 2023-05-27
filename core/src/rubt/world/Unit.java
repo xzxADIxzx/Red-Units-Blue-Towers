@@ -30,10 +30,12 @@ public class Unit extends Body {
     }
 
     public void update() {
+        // logical update
         type.update(this);
+        faceMovement();
 
+        // physical update
         move(vel);
-        collisions.checkTile(this); // TODO move to GroundUnit
         collisions.checkUnit(this);
     }
 

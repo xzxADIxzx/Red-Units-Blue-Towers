@@ -6,6 +6,8 @@ import arc.graphics.g2d.Fill;
 import rubt.types.UnitType;
 import rubt.world.Unit;
 
+import static rubt.Vars.*;
+
 public class GroundUnit extends UnitType {
 
     public GroundUnit(String name) {
@@ -15,6 +17,7 @@ public class GroundUnit extends UnitType {
 
     public void update(Unit unit) {
         unit.movePath(unit.target);
+        collisions.checkTile(unit);
     }
 
     public void draw(Unit unit) {

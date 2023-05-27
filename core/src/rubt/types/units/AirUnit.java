@@ -6,6 +6,8 @@ import rubt.graphics.*;
 import rubt.types.UnitType;
 import rubt.world.Unit;
 
+import static rubt.Vars.*;
+
 public class AirUnit extends UnitType {
 
     public TextureRegion head, glow;
@@ -24,8 +26,7 @@ public class AirUnit extends UnitType {
     }
 
     public void update(Unit unit) {
-        unit.moveVel(unit.target);
-        unit.faceMovement();
+        if (!unit.within(unit.target, tilesize)) unit.moveVel(unit.target);
     }
 
     public void draw(Unit unit) {
