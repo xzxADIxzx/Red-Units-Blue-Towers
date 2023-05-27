@@ -38,7 +38,7 @@ public class ChatFragment extends Table {
     public float alpha;
 
     public void build(Group parent) {
-        scene.add(this);
+        parent.addChild(this);
         setFillParent(true);
 
         name = "Chat Fragment";

@@ -10,6 +10,7 @@ import static arc.Core.*;
 public class UI {
 
     public final WidgetGroup hud = new WidgetGroup();
+    public final WidgetGroup menu = new WidgetGroup();
 
     public JoinFragment joinfrag = new JoinFragment();
     public LobbyFragment lobbyfrag = new LobbyFragment();
@@ -20,13 +21,17 @@ public class UI {
 
     public void load() {
         input.addProcessor(scene);
-        scene.add(hud);
 
+        scene.add(hud);
         hud.setFillParent(true);
         hud.touchable = Touchable.childrenOnly;
 
-        joinfrag.build(hud);
-        lobbyfrag.build(hud);
+        scene.add(menu);
+        menu.setFillParent(true);
+        menu.touchable = Touchable.childrenOnly;
+
+        joinfrag.build(menu);
+        lobbyfrag.build(menu);
         redfrag.build(hud);
         chatfrag.build(hud);
 
