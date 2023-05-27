@@ -73,5 +73,14 @@ public class Net {
          * @param done is the callback that should run after discovery.
          */
         public void discover(Cons<DatagramPacket> cons, Runnable done);
+
+        public void readed(long bytes);
+        public void written(long bytes);
+
+        public int packetsReaded();
+        public int packetsWritten();
+
+        public long bytesReaded();
+        public long bytesWritten();
     }
 }

@@ -28,6 +28,10 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     /** Input for reading snapshots. */
     public Reads sync = new Reads(null);
 
+    /** Statistics for debug fragment. */
+    public int packetsReaded, packetsWritten;
+    public long bytesReaded, bytesWritten; // TODO per second (how?)
+
     public Client() {
         super(8192, 8192, new PacketSerializer());
         addListener(this);
@@ -82,6 +86,32 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     public void discover(Cons<DatagramPacket> cons, Runnable done) {
         discoverHosts(port, multicast, multicastPort, 5000, cons, done);
+    }
+
+    public void readed(long bytes) {
+        packetsReaded++;
+        bytesReaded += bytes;
+    }
+
+    public void written(long bytes) {
+        packetsWritten++;
+        bytesWritten += bytes;
+    }
+
+    public int packetsReaded() {
+        return packetsReaded;
+    }
+
+    public int packetsWritten() {
+        return packetsWritten;
+    }
+
+    public long bytesReaded() {
+        return bytesReaded;
+    }
+
+    public long bytesWritten() {
+        return bytesWritten;
     }
 
     // endregion

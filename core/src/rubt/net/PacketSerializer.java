@@ -23,10 +23,14 @@ public class PacketSerializer implements NetSerializer {
             buffer.put((byte) 2);
             writePacket(buffer, packet);
         }
+
+        if (Net.provider != null) Net.provider.written(buffer.position());
     }
 
     @Override
     public Object read(ByteBuffer buffer) {
+        if (Net.provider != null) Net.provider.readed(buffer.remaining());
+
         byte id = buffer.get();
         if (id == 1) return readFramework(buffer);
         if (id == 2) return readPacket(buffer);

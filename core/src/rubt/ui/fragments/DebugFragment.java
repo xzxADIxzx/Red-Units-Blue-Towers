@@ -6,6 +6,7 @@ import arc.scene.ui.layout.Table;
 import arc.util.Time;
 import rubt.Groups;
 import rubt.graphics.Textures;
+import rubt.net.Net;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -35,6 +36,13 @@ public class DebugFragment {
                 grps.label(() -> "UNITS: " + Groups.units.size).row();
                 grps.label(() -> "TURRETS: " + Groups.turrets.size).row();
                 grps.label(() -> "PLAYERS: " + Groups.players.size).row();
+            });
+            
+            group(cont, "Net", netp -> {
+                netp.label(() -> "PACKETS READED: " + Net.provider.packetsReaded()).row();
+                netp.label(() -> "PACKETS WRITTEN: " + Net.provider.packetsWritten()).row();
+                netp.label(() -> "BYTES READED: " + Net.provider.bytesReaded()).row();
+                netp.label(() -> "BYTES WRITTEN: " + Net.provider.bytesWritten()).row();
             });
         });
     }
