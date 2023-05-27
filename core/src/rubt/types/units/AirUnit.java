@@ -12,6 +12,7 @@ public class AirUnit extends UnitType {
 
     public AirUnit(String name) {
         super(name);
+        flying = true;
     }
 
     @Override

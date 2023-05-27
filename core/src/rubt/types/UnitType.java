@@ -13,8 +13,11 @@ public abstract class UnitType extends ContentType {
 
     public float speed, rotateSpeed;
     public float accel;
+
     /** Unit collision radius. */
     public float size;
+    /** Whether unit is flying. */
+    public boolean flying;
 
     public Seq<Vec3> engines = new Seq<>(0);
     public Seq<Vec2> airbags = new Seq<>(0);

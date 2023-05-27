@@ -10,6 +10,7 @@ public class GroundUnit extends UnitType {
 
     public GroundUnit(String name) {
         super(name);
+        flying = false;
     }
 
     public void update(Unit unit) {
