@@ -105,7 +105,7 @@ public class ChatFragment extends Table {
     // region control
 
     public void toggle() {
-        if (shown && scene.getKeyboardFocus() != field) return;
+        if (shown && scene.getKeyboardFocus() != null && scene.getKeyboardFocus() != field) return;
 
         shown = !shown;
         alpha = 1f;

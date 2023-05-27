@@ -20,6 +20,8 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateCamera() {
+        if (scene.hasMouse()) return;
+
         if (Math.abs(input.axis(KeyCode.scroll)) > 0.2f && !scene.hasScroll()) renderer.zoom(input.axis(KeyCode.scroll));
         if (input.keyDown(KeyCode.mouseMiddle)) camera.position.add(
                 (screenX - input.mouseX()) / renderer.current,
@@ -82,7 +84,7 @@ public class DesktopInput extends InputHandler {
 
         var unit = unitOn();
 
-        if (input.keyDown(KeyCode.mouseLeft) && !scene.hasMouse()) {
+        if (input.keyDown(KeyCode.mouseLeft) && !scene.hasMouse() && !scene.hasField()) {
             var selected = selected();
 
             if (selected.any() || unit == null)

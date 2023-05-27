@@ -1,6 +1,8 @@
 package rubt.input;
 
 import arc.graphics.g2d.Draw;
+import arc.input.KeyCode;
+import arc.scene.ui.TextField;
 import arc.struct.Seq;
 import rubt.Groups;
 import rubt.world.*;
@@ -23,6 +25,9 @@ public abstract class InputHandler {
     public float dragX = -1f, dragY = -1f;
 
     public void update() {
+        if (input.keyTap(KeyCode.mouseLeft) && scene.hasField() && scene.hit(input.mouseX(), input.mouseY(), true) instanceof TextField == false)
+            scene.setKeyboardFocus(null); // reset keyboard focus on click
+
         updateCamera();
         updateMisc();
 
@@ -31,7 +36,7 @@ public abstract class InputHandler {
         lastX = input.mouseWorldX();
         lastY = input.mouseWorldY();
 
-        if (scene.hasMouse()) return;
+        if (scene.hasMouse() || scene.hasField()) return;
 
         updateRed();
         updateBlue();
