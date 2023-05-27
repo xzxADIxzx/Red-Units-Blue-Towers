@@ -51,7 +51,7 @@ public class ChatFragment extends Table {
 
         add(field).growX().visible(() -> shown);
 
-        font = Fonts.tech;
+        font = Fonts.aldrich;
         layout = new GlyphLayout();
         sy = 16f + field.getHeight();
     }

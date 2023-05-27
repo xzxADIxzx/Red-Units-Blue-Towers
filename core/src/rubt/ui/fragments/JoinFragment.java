@@ -11,6 +11,7 @@ import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.net.Host;
 import rubt.net.Net;
+import rubt.ui.Styles;
 
 import static rubt.Vars.*;
 
@@ -95,7 +96,7 @@ public class JoinFragment {
 
     public void partition(String name) {
         list.table(gap -> {
-            gap.add(name).color(Color.gray).padRight(4f);
+            gap.add(name, Styles.tech).color(Color.gray).padRight(4f);
             gap.image().color(Color.gray).height(4f).growX();
         }).height(32f).row();
     }

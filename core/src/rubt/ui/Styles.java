@@ -17,7 +17,7 @@ public class Styles {
     public static ButtonStyle button, emptyButton;
     public static TextButtonStyle textButton;
 
-    public static LabelStyle label;
+    public static LabelStyle label, tech;
     public static TextFieldStyle field;
     public static ScrollPaneStyle scroll;
     public static DialogStyle dialog;
@@ -35,7 +35,7 @@ public class Styles {
         }};
 
         scene.addStyle(TextButtonStyle.class, textButton = new TextButtonStyle() {{
-            font = Fonts.tech;
+            font = Fonts.aldrich;
 
             up = Textures.alphabg;
             over = Textures.mainbg;
@@ -44,11 +44,15 @@ public class Styles {
         }});
 
         scene.addStyle(LabelStyle.class, label = new LabelStyle() {{
-            font = Fonts.tech;
+            font = Fonts.aldrich;
         }});
 
-        scene.addStyle(TextFieldStyle.class, field = new TextFieldStyle() {{
+        tech = new LabelStyle() {{
             font = Fonts.tech;
+        }};
+
+        scene.addStyle(TextFieldStyle.class, field = new TextFieldStyle() {{
+            font = Fonts.aldrich;
 
             fontColor = Color.white;
             background = Textures.mainbg;
@@ -65,7 +69,7 @@ public class Styles {
         }});
 
         scene.addStyle(DialogStyle.class, dialog = new DialogStyle() {{
-            titleFont = Fonts.tech;
+            titleFont = Fonts.aldrich;
 
             titleFontColor = Palette.accent;
             background = Textures.alphabg;

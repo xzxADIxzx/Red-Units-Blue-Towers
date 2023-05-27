@@ -43,7 +43,7 @@ public class RedHudFragment {
 
                         list.button(b -> {
                             b.stack(new Image(UnitTypes.all.get(id).icon).setScaling(Scaling.fit),
-                                    new Table(pad -> pad.bottom().right().add(label)));
+                                    new Table(pad -> pad.bottom().right().add(label, Styles.tech)));
                         }, Styles.emptyButton, () -> {
                             // select units of this type (LMB)
                             handler.controlled.filter(unit -> unit.type.id == id);
