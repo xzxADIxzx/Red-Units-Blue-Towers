@@ -1,6 +1,5 @@
 package rubt.ui.fragments;
 
-import arc.graphics.Color;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import rubt.Groups;
@@ -8,7 +7,6 @@ import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.logic.Team;
 import rubt.net.Net;
-import rubt.ui.Styles;
 
 import static rubt.Vars.*;
 
@@ -45,13 +43,6 @@ public class LobbyFragment {
 
     // region build
 
-    public void partition(String name) {
-        list.table(gap -> {
-            gap.add(name, Styles.tech).color(Color.gray).padRight(4f);
-            gap.image().color(Color.gray).height(4f).growX();
-        }).height(32f).row();
-    }
-
     public void buildPlayers(Team team) {
         Groups.players.each(player -> player.team == team, player -> {
             list.button(button -> {
@@ -68,7 +59,7 @@ public class LobbyFragment {
         list.clear();
 
         for (Team team : Team.values()) {
-            partition(team.name());
+            ui.partition(list, team.name());
             buildPlayers(team);
         }
     }

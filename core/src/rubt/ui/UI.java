@@ -1,6 +1,8 @@
 package rubt.ui;
 
+import arc.graphics.Color;
 import arc.scene.event.Touchable;
+import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import rubt.ui.dialogs.AddHostDialog;
 import rubt.ui.fragments.*;
@@ -48,4 +50,16 @@ public class UI {
     public void resize(int width, int height) {
         scene.resize(width, height);
     }
+
+    // region build
+    // TODO add something like announce(String text)
+
+    public void partition(Table list, String name) {
+        list.table(gap -> {
+            gap.add(name, Styles.tech).color(Color.gray).padRight(4f);
+            gap.image().color(Color.gray).height(4f).growX();
+        }).height(32f).row();
+    }
+
+    // endregion
 }

@@ -1,6 +1,5 @@
 package rubt.ui.fragments;
 
-import arc.graphics.Color;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
@@ -11,7 +10,6 @@ import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.net.Host;
 import rubt.net.Net;
-import rubt.ui.Styles;
 
 import static rubt.Vars.*;
 
@@ -94,13 +92,6 @@ public class JoinFragment {
     // endregion
     // region build
 
-    public void partition(String name) {
-        list.table(gap -> {
-            gap.add(name, Styles.tech).color(Color.gray).padRight(4f);
-            gap.image().color(Color.gray).height(4f).growX();
-        }).height(32f).row();
-    }
-
     public void buildHosts(Seq<Host> hosts) {
         hosts.each(host -> {
             list.button(b -> {
@@ -117,11 +108,11 @@ public class JoinFragment {
     public void rebuildList() {
         list.clear();
 
-        partition("Saved");
+        ui.partition(list, "Saved");
         buildHosts(saved);
         list.button("Add", ui.addHost::show).height(64f).row();
 
-        partition("Local");
+        ui.partition(list, "Local");
         buildHosts(local);
         list.button(b -> {
             b.label(() -> discovering ? "Discovering" + Strings.animated(Time.time, 4, 20, ".") : "Refresh");
