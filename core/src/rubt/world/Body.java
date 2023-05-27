@@ -14,7 +14,7 @@ public abstract class Body extends NetObject implements Position {
 
     public Body(Seq<? extends NetObject> group, float x, float y) {
         super(group);
-        moveTo(x, y);
+        set(x, y);
     }
 
     public Body(Seq<? extends NetObject> group, Position position) {
@@ -39,6 +39,15 @@ public abstract class Body extends NetObject implements Position {
         return world.get(x, y);
     }
 
+    public void set(Position position) {
+        set(position.getX(), position.getY());
+    }
+
+    public void set(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public void move(Position position) {
         move(position.getX(), position.getY());
     }
@@ -46,14 +55,5 @@ public abstract class Body extends NetObject implements Position {
     public void move(float x, float y) {
         this.x += x;
         this.y += y;
-    }
-
-    public void moveTo(Position position) {
-        moveTo(position.getX(), position.getY());
-    }
-
-    public void moveTo(float x, float y) {
-        this.x = x;
-        this.y = y;
     }
 }

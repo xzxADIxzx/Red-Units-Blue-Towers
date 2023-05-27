@@ -47,10 +47,19 @@ public class Unit extends Body {
         type.drawGlow(this);
     }
 
-    public void moveVel(Position to) {
+    // region movement
+
+    public void moveTo(Position to) {
         Tmp.v1.set(to).sub(this);
         Tmp.v1.sub(vel).limit(type.accel);
         vel.add(Tmp.v1).limit(type.speed);
+    }
+
+    public void moveTo(Position to, float radius) {
+        if (within(to, radius))
+            vel.add(Tmp.v1.set(vel).limit(type.accel).inv()); // slow down
+        else
+            moveTo(to);
     }
 
     public void movePath(Position to) {
@@ -61,13 +70,15 @@ public class Unit extends Body {
             path = pathfinder.findPath(tileOn(), target);
 
         if (path == null) return;
-        moveVel(path.nextOnPath(tileOn()));
+        moveTo(path.nextOnPath(tileOn()));
     }
 
     public void faceMovement() {
+        if (vel.isZero()) return; // zero vector angle is always zero
         rotation = Angles.moveToward(rotation, vel.angle(), type.rotateSpeed * Time.delta);
     }
 
+    // endregion
     // region serialization
 
     public void write(Writes w) {
@@ -77,7 +88,7 @@ public class Unit extends Body {
     }
 
     public void read(Reads r) {
-        moveTo(r.readPos());
+        set(r.readPos());
         target = r.readPos();
         rotation = r.readFloat();
     }
