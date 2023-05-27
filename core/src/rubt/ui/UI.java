@@ -18,6 +18,7 @@ public class UI {
     public LobbyFragment lobbyfrag = new LobbyFragment();
     public RedHudFragment redfrag = new RedHudFragment();
     public ChatFragment chatfrag = new ChatFragment();
+    public DebugFragment debugfrag = new DebugFragment();
 
     public AddHostDialog addHost;
 
@@ -36,6 +37,7 @@ public class UI {
         lobbyfrag.build(menu);
         redfrag.build(hud);
         chatfrag.build(hud);
+        debugfrag.build(menu);
 
         // dialogs are created here because before the load() call, the styles have not yet been created
         addHost = new AddHostDialog();

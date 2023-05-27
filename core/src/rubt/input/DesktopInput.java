@@ -39,6 +39,8 @@ public class DesktopInput extends InputHandler {
 
             frag.scroll = (int) Mathf.clamp(frag.scroll + input.axis(KeyCode.scroll), 0, Math.max(0, frag.messages.size - ChatFragment.messagesShown));
         }
+
+        if (input.keyTap(KeyCode.f9)) ui.debugfrag.toggle();
     }
 
     @Override
