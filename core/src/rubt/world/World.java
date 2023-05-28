@@ -43,6 +43,7 @@ public class World {
         return maps.random().read();
     }
 
+    // TODO save Groups.sync
     public void load(InputStream input) throws IOException {
         for (byte b : header) {
             if (input.read() != b) throw new IOException("Invalid file header!");

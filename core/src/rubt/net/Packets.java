@@ -15,6 +15,8 @@ import rubt.types.TurretType;
 import rubt.types.UnitType;
 import rubt.world.*;
 
+import java.io.*;
+
 public class Packets {
 
     private static Seq<Prov<? extends Packet>> provs = new Seq<>();
@@ -124,6 +126,10 @@ public class Packets {
         public void read(Reads r) {
             amount = r.readInt();
         }
+
+        public WorldDataBuilder builder() {
+            return new WorldDataBuilder(amount);
+        }
     }
 
     /** World data packet containing one data chunk. */
@@ -146,6 +152,29 @@ public class Packets {
 
         public void read(Reads r) {
             r.readFully(data = new byte[r.readShort()]);
+        }
+    }
+
+    /** Builder for reading world data. */
+    public static class WorldDataBuilder {
+
+        public final int amount;
+        public final ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        public WorldDataBuilder(int amount) {
+            this.amount = amount;
+        }
+
+        public float progress() {
+            return (float) stream.size() / amount;
+        }
+
+        public void add(byte[] bytes) throws IOException {
+            stream.write(bytes);
+        }
+
+        public ByteArrayInputStream build() {
+            return new ByteArrayInputStream(stream.toByteArray());
         }
     }
 

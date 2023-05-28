@@ -27,6 +27,9 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     /** Input for reading snapshots. */
     public Reads sync = new Reads(null);
 
+    /** Builder for reading world data. */
+    public WorldDataBuilder builder;
+
     /** Statistics for debug fragment. */
     public int packetsReaded, packetsWritten;
     public long bytesReaded, bytesWritten; // TODO per second (how?)
@@ -36,6 +39,23 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         addListener(this);
 
         handler.register(Snapshot.class, this::readSnapshot);
+    
+        handler.register(WorldDataBegin.class, data -> {
+            builder = data.builder(); // TODO show load fragment
+        });
+        handler.register(WorldData.class, data -> {
+            try {
+                builder.add(data.data);
+
+                if (builder.progress() != 1f) return;
+
+                world.load(builder.build());
+                // hide load fragment
+            } catch (IOException ex) {
+                // TODO disconnect
+            }
+        });
+
         handler.register(UpdateState.class, data -> {
             state = data.state;
             ui.chatfrag.alpha = 1f;

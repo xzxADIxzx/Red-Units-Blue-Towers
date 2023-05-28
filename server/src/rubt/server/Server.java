@@ -13,8 +13,7 @@ import rubt.world.Unit;
 
 import static rubt.Vars.*;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 
 public class Server extends arc.net.Server implements NetListener {
@@ -110,7 +109,7 @@ public class Server extends arc.net.Server implements NetListener {
 
                 Send.worldData(connection, (short) bytes.length, bytes); // short because the chunk size does not exceed maxSnapshotSize
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             // TODO kick player
             return;
         }
