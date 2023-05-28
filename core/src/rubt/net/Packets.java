@@ -140,7 +140,7 @@ public class Packets {
         }
     }
 
-    /** Packet used to upload player datas. */
+    /** Packet used to upload player data. */
     public static class CreatePlayer extends PlayerData {
 
         public Team team;

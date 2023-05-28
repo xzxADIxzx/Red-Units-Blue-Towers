@@ -2,10 +2,12 @@ package rubt.input;
 
 import arc.input.KeyCode;
 import arc.math.Mathf;
+import arc.scene.ui.TextField;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
 import rubt.graphics.Drawf;
 import rubt.graphics.Palette;
+import rubt.logic.State;
 import rubt.net.Send;
 import rubt.ui.fragments.ChatFragment;
 import rubt.world.Tile;
@@ -20,7 +22,7 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateCamera() {
-        if (scene.hasMouse()) return;
+        if (state != State.game || scene.hasMouse()) return;
 
         if (Math.abs(input.axis(KeyCode.scroll)) > 0.2f && !scene.hasScroll()) renderer.zoom(input.axis(KeyCode.scroll));
         if (input.keyDown(KeyCode.mouseMiddle)) camera.position.add(
@@ -30,6 +32,12 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateMisc() {
+        if (input.keyTap(KeyCode.mouseLeft) && scene.hasField() && scene.hit(input.mouseX(), input.mouseY(), true) instanceof TextField == false)
+            scene.setKeyboardFocus(null); // reset keyboard focus on click
+
+        if (input.keyTap(KeyCode.f9)) ui.debugfrag.toggle();
+
+        if (state == State.menu) return; // chat isn't available in main menu
         var frag = ui.chatfrag;
 
         if (input.keyTap(KeyCode.enter)) frag.toggle();
@@ -39,8 +47,6 @@ public class DesktopInput extends InputHandler {
 
             frag.scroll = (int) Mathf.clamp(frag.scroll + input.axis(KeyCode.scroll), 0, Math.max(0, frag.messages.size - ChatFragment.messagesShown));
         }
-
-        if (input.keyTap(KeyCode.f9)) ui.debugfrag.toggle();
     }
 
     @Override
