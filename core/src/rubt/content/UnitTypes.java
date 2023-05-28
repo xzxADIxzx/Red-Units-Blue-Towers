@@ -36,7 +36,7 @@ public class UnitTypes {
         }};
     }
 
-    /** Load unit's textures. */
+    /** Load units textures. */
     public static void loadui() {
         all.each(UnitType::loadui);
     }

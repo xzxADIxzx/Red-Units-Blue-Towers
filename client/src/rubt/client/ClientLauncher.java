@@ -23,8 +23,7 @@ public abstract class ClientLauncher implements ApplicationListener {
     public long lastTime;
 
     public void init() {
-        UnitTypes.load();
-        TurretTypes.load();
+        ContentTypes.load();
 
         Logic.load();
         Packets.load();
@@ -48,9 +47,7 @@ public abstract class ClientLauncher implements ApplicationListener {
         Styles.load();
 
         ui.load();
-
-        UnitTypes.loadui();
-        TurretTypes.loadui();
+        ContentTypes.loadui();
     }
 
     public void limitFPS(int targetFPS) {

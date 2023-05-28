@@ -21,7 +21,7 @@ public class TurretTypes {
         }};
     }
 
-    /** Load turret's textures. */
+    /** Load turrets textures. */
     public static void loadui() {
         all.each(TurretType::loadui);
     }
