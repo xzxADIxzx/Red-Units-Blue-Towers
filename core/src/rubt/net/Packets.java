@@ -41,10 +41,11 @@ public class Packets {
 
     public static void load() {
         register(Snapshot::new);
+        register(WorldDataBegin::new);
+        register(WorldData::new);
         register(UpdateState::new);
         register(PlayerData::new);
         register(CreatePlayer::new);
-        register(CreateTile::new);
         register(CreateUnit::new);
         register(CreateTurret::new);
         register(CommandUnit::new);
@@ -91,6 +92,49 @@ public class Packets {
         public Snapshot() {}
 
         public Snapshot(short amount, byte[] data) {
+            this.amount = amount;
+            this.data = data;
+        }
+
+        public void write(Writes w) {
+            w.writeShort(amount);
+            w.write(data, 0, amount);
+        }
+
+        public void read(Reads r) {
+            r.readFully(data = new byte[r.readShort()]);
+        }
+    }
+
+    /** Packet used to initialize a loading of the world. */
+    public static class WorldDataBegin implements Packet {
+
+        public int amount;
+
+        public WorldDataBegin() {}
+
+        public WorldDataBegin(int amount) {
+            this.amount = amount;
+        }
+
+        public void write(Writes w) {
+            w.writeInt(amount);
+        }
+
+        public void read(Reads r) {
+            amount = r.readInt();
+        }
+    }
+
+    /** World data packet containing one data chunk. */
+    public static class WorldData implements Packet {
+
+        public short amount;
+        public byte[] data;
+
+        public WorldData() {}
+
+        public WorldData(short amount, byte[] data) {
             this.amount = amount;
             this.data = data;
         }
@@ -165,26 +209,6 @@ public class Packets {
             super.read(r);
             team = Team.values()[r.readByte()];
             admin = r.readBoolean();
-        }
-    }
-
-    /** Packet used to upload tiles. */
-    public static class CreateTile implements Packet {
-
-        public int pos;
-
-        public CreateTile() {}
-
-        public CreateTile(Tile tile) {
-            this.pos = tile.pack();
-        }
-
-        public void write(Writes w) {
-            w.writeInt(pos);
-        }
-
-        public void read(Reads r) {
-            pos = r.readInt();
         }
     }
 

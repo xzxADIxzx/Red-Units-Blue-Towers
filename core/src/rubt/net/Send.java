@@ -17,6 +17,14 @@ public class Send {
         new Snapshot(amount, data).sendUDP();
     }
 
+    public static void worldDataBegin(Connection connection, int amount) {
+        new WorldDataBegin(amount).sendTCP(connection);
+    }
+
+    public static void worldData(Connection connection, short amount, byte[] data) {
+        new WorldData(amount, data).sendTCP(connection);
+    }
+
     public static void updateState(Connection connection) {
         new UpdateState(state).sendTCP(connection);
     }
@@ -27,10 +35,6 @@ public class Send {
 
     public static void createPlayer(Connection connection, Player player) {
         new CreatePlayer(player).sendTCP(connection);
-    }
-
-    public static void createTile(Connection connection, Tile tile) {
-        new CreateTile(tile).sendTCP(connection);
     }
 
     public static void createUnit(Unit unit) {

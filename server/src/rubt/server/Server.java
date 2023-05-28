@@ -13,6 +13,8 @@ import rubt.world.Unit;
 
 import static rubt.Vars.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
 public class Server extends arc.net.Server implements NetListener {
@@ -92,11 +94,27 @@ public class Server extends arc.net.Server implements NetListener {
         if (sent > 0) Send.snapshot((short) sync.buffer.position(), sync.buffer.array());
     }
 
-    public void sendWorldData(Connection connection) {
-        Groups.tiles.each(tile -> Send.createTile(connection, tile));
-        Groups.units.each(unit -> Send.createUnit(connection, unit));
-        Groups.turrets.each(turret -> Send.createTurret(connection, turret));
-        Groups.players.each(player -> Send.createPlayer(connection, player));
+    public void sendWorldData(Connection connection) { // TODO replace connection by player
+        try {
+            // initialize new stream
+            var output = new ByteArrayOutputStream();
+            world.save(output);
+
+            var input = new ByteArrayInputStream(output.toByteArray());
+            Send.worldDataBegin(connection, input.available());
+
+            // send the stream
+            while (input.available() > 0) {
+                byte[] bytes = new byte[Math.min(maxSnapshotSize, input.available())];
+                input.read(bytes);
+
+                Send.worldData(connection, (short) bytes.length, bytes); // short because the chunk size does not exceed maxSnapshotSize
+            }
+        } catch (Exception ex) {
+            // TODO kick player
+            return;
+        }
+
         Send.updateState(connection);
     }
 
