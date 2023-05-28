@@ -6,8 +6,8 @@ import rubt.Groups.NetObject;
 
 import static rubt.Vars.*;
 
-/** 2D vector but also a NetObject. */
-public abstract class Body extends NetObject implements Position {
+/** Implementation of position and rotation over NetObject. */
+public abstract class Body extends NetObject {
 
     public float x, y;
     public float rotation;

@@ -6,11 +6,13 @@ import arc.graphics.g2d.Fill;
 import arc.math.geom.*;
 import arc.struct.Seq;
 import rubt.Groups;
-import rubt.Groups.GroupObject;
+import rubt.Groups.Entity;
+import rubt.net.PacketSerializer.Reads;
+import rubt.net.PacketSerializer.Writes;
 
 import static rubt.Vars.*;
 
-public class Tile extends GroupObject implements Position {
+public class Tile extends Entity {
 
     public final int x, y; // TODO replace by short?
 
@@ -57,4 +59,12 @@ public class Tile extends GroupObject implements Position {
 
         return neightbours;
     }
+
+    // region serialization
+
+    public void write(Writes w) {}
+
+    public void read(Reads r) {}
+
+    // endregion
 }

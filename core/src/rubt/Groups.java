@@ -1,5 +1,6 @@
 package rubt;
 
+import arc.math.geom.Position;
 import arc.net.Connection;
 import arc.struct.Seq;
 import rubt.logic.Player;
@@ -7,6 +8,7 @@ import rubt.net.PacketSerializer.Reads;
 import rubt.net.PacketSerializer.Writes;
 import rubt.world.*;
 
+@SuppressWarnings("unchecked")
 public class Groups {
 
     public static Seq<NetObject> sync = new Seq<>();
@@ -27,7 +29,7 @@ public class Groups {
         players.clear();
     }
 
-    @SuppressWarnings("unchecked")
+    /** Any object belonging to any group. Usually it's a content type or entity. */
     public static abstract class GroupObject {
 
         public final int id;
@@ -38,7 +40,20 @@ public class Groups {
         }
     }
 
-    public static abstract class NetObject extends GroupObject {
+    /** Layer between {@link GroupObject} and {@link NetObject}. Needed for tiles. */
+    public static abstract class Entity extends GroupObject implements Position {
+
+        public <T extends Entity> Entity(Seq<T> group) {
+            super(group);
+        }
+
+        public abstract void write(Writes w);
+
+        public abstract void read(Reads r);
+    }
+
+    /** Any entity that has updatable state synchronized across the network. */
+    public static abstract class NetObject extends Entity {
 
         public final int netId;
 
@@ -49,8 +64,8 @@ public class Groups {
             sync.add(this);
         }
 
-        public abstract void write(Writes w);
+        public abstract void writeSnapshot(Writes w);
 
-        public abstract void read(Reads r);
+        public abstract void readSnapshot(Reads r);
     }
 }

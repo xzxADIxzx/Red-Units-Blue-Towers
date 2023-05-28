@@ -81,13 +81,17 @@ public class Unit extends Body {
     // endregion
     // region serialization
 
-    public void write(Writes w) {
+    public void write(Writes w) {}
+
+    public void read(Reads r) {}
+
+    public void writeSnapshot(Writes w) {
         w.writePos(this);
         w.writePos(target);
         w.writeFloat(rotation);
     }
 
-    public void read(Reads r) {
+    public void readSnapshot(Reads r) {
         set(r.readPos());
         target = r.readPos();
         rotation = r.readFloat();

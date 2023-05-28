@@ -83,7 +83,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
             while (sync.buffer.hasRemaining()) {
                 var object = Groups.sync.get(sync.readInt());
-                object.read(sync);
+                object.readSnapshot(sync);
             }
         } catch (Exception ignored) {
             Log.err("Error reading snapshot", ignored);

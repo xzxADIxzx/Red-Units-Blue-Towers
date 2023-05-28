@@ -36,11 +36,15 @@ public class Turret extends Body {
 
     // region serialization
 
-    public void write(Writes w) {
+    public void write(Writes w) {}
+
+    public void read(Reads r) {}
+
+    public void writeSnapshot(Writes w) {
         w.writeFloat(rotation);
     }
 
-    public void read(Reads r) {
+    public void readSnapshot(Reads r) {
         rotation = r.readFloat();
     }
 

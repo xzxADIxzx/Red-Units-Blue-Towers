@@ -80,7 +80,7 @@ public class Server extends arc.net.Server implements NetListener {
             sent++;
 
             sync.writeInt(object.netId);
-            object.write(sync);
+            object.writeSnapshot(sync);
 
             if (sync.buffer.position() > maxSnapshotSize || sent >= 255) {
                 Send.snapshot((short) sync.buffer.position(), sync.buffer.array());
