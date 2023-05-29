@@ -13,10 +13,6 @@ public class Send {
 
     // region server
 
-    public static void snapshot(short amount, byte[] data) {
-        new Snapshot(amount, data).sendUDP();
-    }
-
     public static void worldDataBegin(Connection connection, int amount) {
         new WorldDataBegin(amount).sendTCP(connection);
     }
@@ -29,12 +25,12 @@ public class Send {
         new UpdateState(state).sendTCP(connection);
     }
 
-    public static void createPlayer(Player player) {
-        new CreatePlayer(player).sendTCP();
+    public static void snapshot(short amount, byte[] data) {
+        new Snapshot(amount, data).sendUDP();
     }
 
-    public static void createPlayer(Connection connection, Player player) {
-        new CreatePlayer(player).sendTCP(connection);
+    public static void createPlayer(Player player) {
+        new CreatePlayer(player).sendTCP();
     }
 
     public static void chatMessage(Player author, String message) {
