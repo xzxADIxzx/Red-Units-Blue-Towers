@@ -6,6 +6,7 @@ import arc.math.geom.Vec2;
 import arc.util.Time;
 import arc.util.Tmp;
 import rubt.Groups;
+import rubt.content.UnitTypes;
 import rubt.net.PacketSerializer.Reads;
 import rubt.net.PacketSerializer.Writes;
 import rubt.types.UnitType;
@@ -15,18 +16,15 @@ import static rubt.Vars.*;
 
 public class Unit extends Body {
 
-    public final UnitType type;
+    public UnitType type;
 
     public Position target;
     public Path path;
 
     public Vec2 vel = new Vec2();
 
-    public Unit(UnitType type, Position position) {
-        super(Groups.units, position);
-        this.type = type;
-
-        this.target = position;
+    public Unit() {
+        super(Groups.units);
     }
 
     public void update() {
@@ -81,9 +79,15 @@ public class Unit extends Body {
     // endregion
     // region serialization
 
-    public void write(Writes w) {}
+    public void write(Writes w) {
+        w.write(type.id);
+        w.writePos(this);
+    }
 
-    public void read(Reads r) {}
+    public void read(Reads r) {
+        type = UnitTypes.all.get(r.readByte());
+        set(r.readPos());
+    }
 
     public void writeSnapshot(Writes w) {
         w.writePos(this);

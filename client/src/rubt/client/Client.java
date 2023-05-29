@@ -72,8 +72,6 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             ui.lobbyfrag.rebuildList();
         });
 
-        handler.register(CreateUnit.class, CreateUnit::execute);
-        handler.register(CreateTurret.class, CreateTurret::execute);
         handler.register(ChatMessage.class, data -> ui.chatfrag.flush(data.message));
     }
 

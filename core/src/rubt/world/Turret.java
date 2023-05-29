@@ -1,25 +1,17 @@
 package rubt.world;
 
-import arc.math.geom.Position;
 import rubt.Groups;
+import rubt.content.TurretTypes;
 import rubt.net.PacketSerializer.Reads;
 import rubt.net.PacketSerializer.Writes;
 import rubt.types.TurretType;
 
-import static rubt.Vars.*;
-
 public class Turret extends Body {
 
-    public final TurretType type;
+    public TurretType type;
 
-    public Turret(TurretType type, Position position) {
-        super(Groups.turrets, position);
-        this.type = type;
-    }
-
-    public Turret(TurretType type, int x, int y) {
-        super(Groups.turrets, x * tilesize, y * tilesize);
-        this.type = type;
+    public Turret() {
+        super(Groups.turrets);
     }
 
     public void update() {
@@ -36,9 +28,15 @@ public class Turret extends Body {
 
     // region serialization
 
-    public void write(Writes w) {}
+    public void write(Writes w) {
+        w.write(type.id);
+        w.writePos(this);
+    }
 
-    public void read(Reads r) {}
+    public void read(Reads r) {
+        type = TurretTypes.all.get(r.readByte());
+        set(r.readPos());
+    }
 
     public void writeSnapshot(Writes w) {
         w.writeFloat(rotation);

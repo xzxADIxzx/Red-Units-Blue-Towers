@@ -56,7 +56,7 @@ public class World {
 
             int amount = stream.readInt();
             for (int i = 0; i < amount; i++)
-                set(new Tile(stream.readInt(), stream.readInt()));
+                set(new Tile() {{ read(null); }}); // TODO do something with PacketSerializer.Reads/Writes because of cringe
         }
     }
 

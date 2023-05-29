@@ -12,13 +12,8 @@ public abstract class Body extends NetObject {
     public float x, y;
     public float rotation;
 
-    public Body(Seq<? extends NetObject> group, float x, float y) {
+    public Body(Seq<? extends NetObject> group) {
         super(group);
-        set(x, y);
-    }
-
-    public Body(Seq<? extends NetObject> group, Position position) {
-        this(group, position.getX(), position.getY());
     }
 
     @Override

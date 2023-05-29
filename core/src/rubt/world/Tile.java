@@ -14,16 +14,10 @@ import static rubt.Vars.*;
 
 public class Tile extends Entity {
 
-    public final int x, y; // TODO replace by short?
+    public short x, y;
 
-    public Tile(int x, int y) {
+    public Tile() {
         super(Groups.tiles);
-        this.x = x;
-        this.y = y;
-    }
-
-    public Tile(int pos) {
-        this(Point2.x(pos), Point2.y(pos));
     }
 
     // region position
@@ -62,9 +56,15 @@ public class Tile extends Entity {
 
     // region serialization
 
-    public void write(Writes w) {}
+    public void write(Writes w) {
+        w.writeShort(x);
+        w.writeShort(y);
+    }
 
-    public void read(Reads r) {}
+    public void read(Reads r) {
+        x = r.readShort();
+        y = r.readShort();
+    }
 
     // endregion
 }

@@ -7,12 +7,8 @@ import arc.net.Connection;
 import arc.struct.ObjectIntMap;
 import arc.struct.Seq;
 import rubt.Groups;
-import rubt.content.TurretTypes;
-import rubt.content.UnitTypes;
 import rubt.logic.*;
 import rubt.net.PacketSerializer.*;
-import rubt.types.TurretType;
-import rubt.types.UnitType;
 import rubt.world.*;
 
 import java.io.*;
@@ -48,8 +44,6 @@ public class Packets {
         register(UpdateState::new);
         register(PlayerData::new);
         register(CreatePlayer::new);
-        register(CreateUnit::new);
-        register(CreateTurret::new);
         register(CommandUnit::new);
         register(ChatMessage::new);
     }
@@ -86,7 +80,7 @@ public class Packets {
     }
 
     /** Packet used to update net objects. */
-    public static class Snapshot implements Packet {
+    public static class Snapshot implements Packet { // TODO DataPacket with byte[]?
 
         public short amount;
         public byte[] data;
@@ -238,62 +232,6 @@ public class Packets {
             super.read(r);
             team = Team.values()[r.readByte()];
             admin = r.readBoolean();
-        }
-    }
-
-    /** Packet used to upload units. */
-    public static class CreateUnit implements Packet {
-
-        public UnitType type;
-        public Position position;
-
-        public CreateUnit() {}
-
-        public CreateUnit(Unit unit) {
-            this.type = unit.type;
-            this.position = unit;
-        }
-
-        public void execute() {
-            new Unit(type, position);
-        }
-
-        public void write(Writes w) {
-            w.write(type.id);
-            w.writePos(position);
-        }
-
-        public void read(Reads r) {
-            type = UnitTypes.all.get(r.readByte());
-            position = r.readPos();
-        }
-    }
-
-    /** Packet used to upload turrets. */
-    public static class CreateTurret implements Packet {
-
-        public TurretType type;
-        public Position position;
-
-        public CreateTurret() {}
-
-        public CreateTurret(Turret turret) {
-            this.type = turret.type;
-            this.position = turret;
-        }
-
-        public void execute() {
-            new Turret(type, position);
-        }
-
-        public void write(Writes w) {
-            w.write(type.id);
-            w.writePos(position);
-        }
-
-        public void read(Reads r) {
-            type = TurretTypes.all.get(r.readByte());
-            position = r.readPos();
         }
     }
 

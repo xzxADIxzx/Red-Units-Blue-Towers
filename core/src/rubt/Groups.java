@@ -43,8 +43,11 @@ public class Groups {
     /** Layer between {@link GroupObject} and {@link NetObject}. Needed for tiles. */
     public static abstract class Entity extends GroupObject implements Position {
 
+        public final int typeId;
+
         public <T extends Entity> Entity(Seq<T> group) {
             super(group);
+            this.typeId = 0; // TODO assign via ContentTypes
         }
 
         public abstract void write(Writes w);

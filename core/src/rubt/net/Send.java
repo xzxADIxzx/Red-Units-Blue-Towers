@@ -37,22 +37,6 @@ public class Send {
         new CreatePlayer(player).sendTCP(connection);
     }
 
-    public static void createUnit(Unit unit) {
-        new CreateUnit(unit).sendTCP();
-    }
-
-    public static void createUnit(Connection connection, Unit unit) {
-        new CreateUnit(unit).sendTCP(connection);
-    }
-
-    public static void createTurret(Turret turret) {
-        new CreateTurret(turret).sendTCP();
-    }
-
-    public static void createTurret(Connection connection, Turret Turret) {
-        new CreateTurret(Turret).sendTCP(connection);
-    }
-
     public static void chatMessage(Player author, String message) {
         new ChatMessage(author.name + "[coral]:[white] " + message).sendTCP();
     }
@@ -64,19 +48,19 @@ public class Send {
         player.sendTCP(clientCon);
     }
 
-    public static void createUnit(UnitType unit, Position pos) {
+    public static void createUnit(UnitType unit, Position pos) {/*
         var packet = new CreateUnit();
         packet.type = unit;
         packet.position = pos;
         packet.sendTCP(clientCon);
-    }
+    */}
 
-    public static void createTurret(TurretType turret, Position pos) {
+    public static void createTurret(TurretType turret, Position pos) {/*
         var packet = new CreateTurret();
         packet.type = turret;
         packet.position = pos;
         packet.sendTCP(clientCon);
-    }
+    */}
 
     public static void commandUnit(Unit unit, Position target) {
         new CommandUnit(unit, target).sendTCP(clientCon);

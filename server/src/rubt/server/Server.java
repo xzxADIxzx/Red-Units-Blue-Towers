@@ -51,16 +51,6 @@ public class Server extends arc.net.Server implements NetListener {
             Send.createPlayer(player);
         });
 
-        handler.register(CreateUnit.class, (con, data) -> {
-            data.execute();
-            Send.createUnit(Groups.units.peek());
-        });
-
-        handler.register(CreateTurret.class, (con, data) -> {
-            data.execute();
-            Send.createTurret(Groups.turrets.peek());
-        });
-
         handler.register(CommandUnit.class, (con, data) -> {
             var object = Groups.sync.get(data.netId);
             if (object instanceof Unit unit) unit.target = data.target;
