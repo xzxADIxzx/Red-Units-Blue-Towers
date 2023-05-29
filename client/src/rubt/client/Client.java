@@ -7,11 +7,11 @@ import arc.net.NetListener;
 import arc.util.Log;
 import arc.util.Threads;
 import rubt.Groups;
+import rubt.io.Reads;
 import rubt.logic.Player;
 import rubt.logic.State;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;
-import rubt.net.PacketSerializer.Reads;
 import rubt.net.Packets.*;
 
 import java.io.IOException;
@@ -23,9 +23,6 @@ import static rubt.Vars.*;
 public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     public PacketHandler handler = new PacketHandler();
-
-    /** Input for reading snapshots. */
-    public Reads sync = new Reads(null);
 
     /** Builder for reading world data. */
     public WorldDataBuilder builder;
@@ -67,11 +64,12 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     public void readSnapshot(Snapshot snapshot) {
         try {
-            sync.setBuffer(ByteBuffer.wrap(snapshot.data));
+            ByteBuffer buffer = ByteBuffer.wrap(snapshot.data);
+            Reads reads = Reads.of(buffer);
 
-            while (sync.buffer.hasRemaining()) {
-                var object = Groups.sync.get(sync.readInt());
-                object.readSnapshot(sync);
+            while (buffer.hasRemaining()) {
+                var object = Groups.sync.get(reads.i());
+                object.readSnapshot(reads);
             }
         } catch (Exception ignored) {
             Log.err("Error reading snapshot", ignored);

@@ -5,9 +5,9 @@ import arc.net.DcReason;
 import arc.net.NetListener;
 import arc.util.Log;
 import rubt.Groups;
+import rubt.io.Writes;
 import rubt.logic.*;
 import rubt.net.*;
-import rubt.net.PacketSerializer.Writes;
 import rubt.net.Packets.*;
 import rubt.world.Unit;
 
@@ -21,7 +21,7 @@ public class Server extends arc.net.Server implements NetListener {
     public PacketHandler handler = new PacketHandler();
 
     /** Output for writing snapshots. */
-    public Writes sync = new Writes(ByteBuffer.allocate(1024));
+    public ByteBuffer sync = ByteBuffer.allocate(2048);
 
     public Server() {
         super(32768, 8192, new PacketSerializer());
@@ -30,7 +30,7 @@ public class Server extends arc.net.Server implements NetListener {
         setMulticast(multicast, multicastPort);
         setDiscoveryHandler((address, handler) -> {
             ByteBuffer buffer = ByteBuffer.allocate(256);
-            Host.write(new Writes(buffer));
+            Host.write(Writes.of(buffer));
 
             buffer.position(0);
             handler.respond(buffer);
@@ -63,24 +63,24 @@ public class Server extends arc.net.Server implements NetListener {
     }
 
     public void sendSnapshot() {
-        sync.buffer.clear();
+        Writes writes = Writes.of(sync.clear());
         byte sent = 0;
 
         for (var object : Groups.sync) {
             sent++;
 
-            sync.writeInt(object.netId);
-            object.writeSnapshot(sync);
+            writes.i(object.netId);
+            object.writeSnapshot(writes);
 
-            if (sync.buffer.position() > maxSnapshotSize || sent >= 255) {
-                Send.snapshot((short) sync.buffer.position(), sync.buffer.array());
+            if (sync.position() > maxSnapshotSize || sent >= 255) {
+                Send.snapshot((short) sync.position(), sync.array());
 
-                sync.buffer.clear();
+                sync.clear();
                 sent = 0;
             }
         }
 
-        if (sent > 0) Send.snapshot((short) sync.buffer.position(), sync.buffer.array());
+        if (sent > 0) Send.snapshot((short) sync.position(), sync.array());
     }
 
     public void sendWorldData(Connection connection) { // TODO replace connection by player
