@@ -47,7 +47,7 @@ public class Groups {
 
         public <T extends Entity> Entity(Seq<T> group) {
             super(group);
-            this.typeId = 0; // TODO assign via ContentTypes
+            this.typeId = Entities.typeId(this);
         }
 
         public abstract void write(Writes w);

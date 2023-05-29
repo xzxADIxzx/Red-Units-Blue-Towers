@@ -14,6 +14,7 @@ import rubt.logic.Logic;
 import rubt.net.Packets;
 import rubt.net.Packets.PlayerData;
 import rubt.ui.*;
+import rubt.world.Entities;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -27,6 +28,7 @@ public abstract class ClientLauncher implements ApplicationListener {
 
         Logic.load();
         Packets.load();
+        Entities.load();
 
         if (headless) return;
 
