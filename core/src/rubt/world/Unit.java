@@ -7,8 +7,8 @@ import arc.util.Time;
 import arc.util.Tmp;
 import rubt.Groups;
 import rubt.content.UnitTypes;
-import rubt.net.PacketSerializer.Reads;
-import rubt.net.PacketSerializer.Writes;
+import rubt.io.Reads;
+import rubt.io.Writes;
 import rubt.types.UnitType;
 import rubt.world.Pathfinder.Path;
 
@@ -80,25 +80,25 @@ public class Unit extends Body {
     // region serialization
 
     public void write(Writes w) {
-        w.write(type.id);
-        w.writePos(this);
+        w.b(type.id);
+        w.p(this);
     }
 
     public void read(Reads r) {
-        type = UnitTypes.all.get(r.readByte());
-        set(r.readPos());
+        type = UnitTypes.all.get(r.b());
+        set(r.p());
     }
 
     public void writeSnapshot(Writes w) {
-        w.writePos(this);
-        w.writePos(target);
-        w.writeFloat(rotation);
+        w.p(this);
+        w.p(target);
+        w.f(rotation);
     }
 
     public void readSnapshot(Reads r) {
-        set(r.readPos());
-        target = r.readPos();
-        rotation = r.readFloat();
+        set(r.p());
+        target = r.p();
+        rotation = r.f();
     }
 
     // endregion

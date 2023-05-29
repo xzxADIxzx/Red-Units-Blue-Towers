@@ -1,11 +1,9 @@
 package rubt.net;
 
-import arc.math.geom.Position;
-import arc.math.geom.Vec2;
 import arc.net.FrameworkMessage;
 import arc.net.FrameworkMessage.*;
-import arc.util.io.ByteBufferInput;
-import arc.util.io.ByteBufferOutput;
+import rubt.io.Reads;
+import rubt.io.Writes;
 import rubt.net.Packets.*;
 import arc.net.NetSerializer;
 
@@ -73,55 +71,15 @@ public class PacketSerializer implements NetSerializer {
 
     public void writePacket(ByteBuffer buffer, Packet packet) {
         buffer.put(Packets.packetId(packet));
-        packet.write(new Writes(buffer));
+        packet.write(Writes.of(buffer));
     }
 
     public Packet readPacket(ByteBuffer buffer) {
         Packet packet = Packets.newPacket(buffer.get());
-        packet.read(new Reads(buffer));
+        packet.read(Reads.of(buffer));
 
         return packet;
     }
 
     // endregion
-
-    public static class Writes extends ByteBufferOutput {
-
-        public Writes(ByteBuffer buffer) {
-            super(buffer);
-        }
-
-        public void writeStr(String str) {
-            try {
-                writeBoolean(str == null);
-                if (str != null) writeUTF(str);
-            } catch (Exception ignored) {}
-        }
-
-        public void writePos(Position pos) {
-            writeBoolean(pos == null);
-            if (pos != null) buffer.putFloat(pos.getX()).putFloat(pos.getY());
-        }
-    }
-
-    public static class Reads extends ByteBufferInput {
-
-        public Reads(ByteBuffer buffer) {
-            super(buffer);
-        }
-
-        public String readStr() {
-            try {
-                if (readBoolean()) return null;
-                return readUTF();
-            } catch (Exception ignored) {
-                return null;
-            }
-        }
-
-        public Position readPos() {
-            if (readBoolean()) return null;
-            return new Vec2(buffer.getFloat(), buffer.getFloat());
-        }
-    }
 }

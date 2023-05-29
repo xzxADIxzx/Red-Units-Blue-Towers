@@ -3,9 +3,9 @@ package rubt;
 import arc.math.geom.Position;
 import arc.net.Connection;
 import arc.struct.Seq;
+import rubt.io.Reads;
+import rubt.io.Writes;
 import rubt.logic.Player;
-import rubt.net.PacketSerializer.Reads;
-import rubt.net.PacketSerializer.Writes;
 import rubt.world.*;
 
 @SuppressWarnings("unchecked")

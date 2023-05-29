@@ -7,8 +7,9 @@ import arc.net.Connection;
 import arc.struct.ObjectIntMap;
 import arc.struct.Seq;
 import rubt.Groups;
+import rubt.io.Reads;
+import rubt.io.Writes;
 import rubt.logic.*;
-import rubt.net.PacketSerializer.*;
 import rubt.world.*;
 
 import java.io.*;
@@ -94,12 +95,12 @@ public class Packets {
         }
 
         public void write(Writes w) {
-            w.writeShort(amount);
-            w.write(data, 0, amount);
+            w.s(amount);
+            w.b(data, 0, amount);
         }
 
         public void read(Reads r) {
-            r.readFully(data = new byte[r.readShort()]);
+            r.b(data = new byte[r.s()]);
         }
     }
 
@@ -110,11 +111,11 @@ public class Packets {
         public String name;
 
         public void write(Writes w) {
-            w.writeStr(name);
+            w.str(name);
         }
 
         public void read(Reads r) {
-            name = r.readStr();
+            name = r.str();
         }
     }
 
@@ -130,11 +131,11 @@ public class Packets {
         }
 
         public void write(Writes w) {
-            w.writeInt(amount);
+            w.i(amount);
         }
 
         public void read(Reads r) {
-            amount = r.readInt();
+            amount = r.i();
         }
 
         public WorldDataBuilder builder() {
@@ -187,11 +188,11 @@ public class Packets {
         }
 
         public void write(Writes w) {
-            w.write(state.ordinal());
+            w.b(state.ordinal());
         }
 
         public void read(Reads r) {
-            state = State.values()[r.readByte()];
+            state = State.values()[r.b()];
         }
     }
 
@@ -222,14 +223,14 @@ public class Packets {
 
         public void write(Writes w) {
             super.write(w);
-            w.write(team.ordinal());
-            w.writeBoolean(admin);
+            w.b(team.ordinal());
+            w.bool(admin);
         }
 
         public void read(Reads r) {
             super.read(r);
-            team = Team.values()[r.readByte()];
-            admin = r.readBoolean();
+            team = Team.values()[r.b()];
+            admin = r.bool();
         }
     }
 
@@ -247,13 +248,13 @@ public class Packets {
         }
 
         public void write(Writes w) {
-            w.writeInt(netId);
-            w.writePos(target);
+            w.i(netId);
+            w.p(target);
         }
 
         public void read(Reads r) {
-            netId = r.readInt();
-            target = r.readPos();
+            netId = r.i();
+            target = r.p();
         }
     }
 
@@ -269,11 +270,11 @@ public class Packets {
         }
 
         public void write(Writes w) {
-            w.writeStr(message);
+            w.str(message);
         }
 
         public void read(Reads r) {
-            message = r.readStr();
+            message = r.str();
         }
     }
 }

@@ -2,8 +2,8 @@ package rubt.world;
 
 import rubt.Groups;
 import rubt.content.TurretTypes;
-import rubt.net.PacketSerializer.Reads;
-import rubt.net.PacketSerializer.Writes;
+import rubt.io.Reads;
+import rubt.io.Writes;
 import rubt.types.TurretType;
 
 public class Turret extends Body {
@@ -29,21 +29,21 @@ public class Turret extends Body {
     // region serialization
 
     public void write(Writes w) {
-        w.write(type.id);
-        w.writePos(this);
+        w.b(type.id);
+        w.p(this);
     }
 
     public void read(Reads r) {
-        type = TurretTypes.all.get(r.readByte());
-        set(r.readPos());
+        type = TurretTypes.all.get(r.b());
+        set(r.p());
     }
 
     public void writeSnapshot(Writes w) {
-        w.writeFloat(rotation);
+        w.f(rotation);
     }
 
     public void readSnapshot(Reads r) {
-        rotation = r.readFloat();
+        rotation = r.f();
     }
 
     // endregion

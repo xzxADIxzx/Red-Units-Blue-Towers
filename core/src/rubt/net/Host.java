@@ -1,7 +1,8 @@
 package rubt.net;
 
 import rubt.Vars;
-import rubt.net.PacketSerializer.*;
+import rubt.io.Reads;
+import rubt.io.Writes;
 
 /** Represents a remote server. */
 public class Host {
@@ -42,15 +43,15 @@ public class Host {
     // region serialization
 
     public static void write(Writes w) { // TODO take this value from settings
-        w.writeInt(Vars.port);
-        w.writeStr("Test Server");
-        w.writeStr("He's testing a game, be quiet...");
+        w.i(Vars.port);
+        w.str("Test Server");
+        w.str("He's testing a game, be quiet...");
     }
 
     public static Host read(String ip, Reads r) {
-        return new Host(ip, r.readInt()) {{
-            name = r.readStr();
-            desc = r.readStr();
+        return new Host(ip, r.i()) {{
+            name = r.str();
+            desc = r.str();
         }};
     }
 

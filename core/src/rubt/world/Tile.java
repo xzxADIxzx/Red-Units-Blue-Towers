@@ -7,8 +7,8 @@ import arc.math.geom.*;
 import arc.struct.Seq;
 import rubt.Groups;
 import rubt.Groups.Entity;
-import rubt.net.PacketSerializer.Reads;
-import rubt.net.PacketSerializer.Writes;
+import rubt.io.Reads;
+import rubt.io.Writes;
 
 import static rubt.Vars.*;
 
@@ -57,13 +57,13 @@ public class Tile extends Entity {
     // region serialization
 
     public void write(Writes w) {
-        w.writeShort(x);
-        w.writeShort(y);
+        w.s(x);
+        w.s(y);
     }
 
     public void read(Reads r) {
-        x = r.readShort();
-        y = r.readShort();
+        x = r.s();
+        y = r.s();
     }
 
     // endregion
