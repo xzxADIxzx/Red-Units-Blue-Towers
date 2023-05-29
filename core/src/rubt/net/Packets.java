@@ -38,16 +38,17 @@ public class Packets {
     }
 
     public static void load() {
-        register(Snapshot::new);
+        register(PlayerData::new);
         register(WorldDataBegin::new);
         register(WorldData::new);
         register(UpdateState::new);
-        register(PlayerData::new);
+        register(Snapshot::new);
         register(CreatePlayer::new);
         register(CommandUnit::new);
         register(ChatMessage::new);
     }
 
+    /** Packet containing any data to be sent over the network. */
     public static interface Packet {
 
         default void sendTCP(Connection connection) {
@@ -79,15 +80,15 @@ public class Packets {
         void read(Reads r);
     }
 
-    /** Packet used to update net objects. */
-    public static class Snapshot implements Packet { // TODO DataPacket with byte[]?
+    /** Packet containing data in the form of bytes. Usually it is world or entity data. */
+    public static abstract class DataPacket implements Packet {
 
         public short amount;
         public byte[] data;
 
-        public Snapshot() {}
+        public DataPacket() {}
 
-        public Snapshot(short amount, byte[] data) {
+        public DataPacket(short amount, byte[] data) {
             this.amount = amount;
             this.data = data;
         }
@@ -102,7 +103,22 @@ public class Packets {
         }
     }
 
-    /** Packet used to initialize a loading of the world. */
+    /** Packet used to confirm the connection by the client. */
+    public static class PlayerData implements Packet {
+
+        public Pixmap avatar;
+        public String name;
+
+        public void write(Writes w) {
+            w.writeStr(name);
+        }
+
+        public void read(Reads r) {
+            name = r.readStr();
+        }
+    }
+
+    /** Packet used to initialize the loading of the world. */
     public static class WorldDataBegin implements Packet {
 
         public int amount;
@@ -126,30 +142,17 @@ public class Packets {
         }
     }
 
-    /** World data packet containing one data chunk. */
-    public static class WorldData implements Packet {
-
-        public short amount;
-        public byte[] data;
+    /** Packet containing one world data chunk. */
+    public static class WorldData extends DataPacket {
 
         public WorldData() {}
 
         public WorldData(short amount, byte[] data) {
-            this.amount = amount;
-            this.data = data;
-        }
-
-        public void write(Writes w) {
-            w.writeShort(amount);
-            w.write(data, 0, amount);
-        }
-
-        public void read(Reads r) {
-            r.readFully(data = new byte[r.readShort()]);
+            super(amount, data);
         }
     }
 
-    /** Builder for reading world data. */
+    /** Builder for reading world data. It's not a packet, but for convenience I have put it here. */
     public static class WorldDataBuilder {
 
         public final int amount;
@@ -159,12 +162,12 @@ public class Packets {
             this.amount = amount;
         }
 
-        public float progress() {
-            return (float) stream.size() / amount;
-        }
-
         public void add(byte[] bytes) throws IOException {
             stream.write(bytes);
+        }
+
+        public float progress() {
+            return (float) stream.size() / amount;
         }
 
         public ByteArrayInputStream build() {
@@ -192,18 +195,13 @@ public class Packets {
         }
     }
 
-    /** Player data packet that clients sends to confirm the connection. */
-    public static class PlayerData implements Packet {
+    /** Packet used to update net objects. */
+    public static class Snapshot extends DataPacket {
 
-        public Pixmap avatar;
-        public String name;
+        public Snapshot() {}
 
-        public void write(Writes w) {
-            w.writeStr(name);
-        }
-
-        public void read(Reads r) {
-            name = r.readStr();
+        public Snapshot(short amount, byte[] data) {
+            super(amount, data);
         }
     }
 
