@@ -2,6 +2,8 @@ package rubt.world;
 
 import arc.math.Mathf;
 import arc.math.geom.Position;
+import rubt.Groups;
+import rubt.Groups.Entity;
 import rubt.io.Reads;
 import rubt.io.Writes;
 
@@ -41,7 +43,6 @@ public class World {
         return maps.random().read();
     }
 
-    // TODO save Groups.sync
     public void load(InputStream input) throws IOException {
         for (byte b : header) {
             if (input.read() != b) throw new IOException("Invalid file header!");
@@ -54,7 +55,13 @@ public class World {
 
             int amount = reads.i();
             for (int i = 0; i < amount; i++)
-                set(new Tile() {{ read(reads); }});
+                new Tile().read(reads);
+
+            amount = reads.i();
+            for (int i = 0; i < amount; i++) {
+                var entity = Entities.newEntity(reads.b());
+                entity.read(reads);
+            }
         }
     }
 
@@ -68,6 +75,12 @@ public class World {
             writes.i(tiles.length);
             for (Tile tile : tiles)
                 tile.write(writes);
+
+            writes.i(Groups.sync.size);
+            for (Entity entity : Groups.sync) {
+                writes.b(entity.typeId);
+                entity.write(writes);
+            }
         }
     }
 }

@@ -64,6 +64,8 @@ public class Tile extends Entity {
     public void read(Reads r) {
         x = r.s();
         y = r.s();
+
+        world.set(this);
     }
 
     // endregion
