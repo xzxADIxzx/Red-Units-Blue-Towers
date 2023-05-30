@@ -71,7 +71,7 @@ public class DesktopInput extends InputHandler {
 
         if (input.keyTap(KeyCode.mouseRight)) controlled.each(unit -> Send.commandUnit(unit, input.mouseWorld()));
 
-        if (input.keyTap(KeyCode.v)) Send.createUnit(tileOn() == null ? UnitTypes.sunbeam : UnitTypes.furbo, input.mouseWorld());
+        if (input.keyTap(KeyCode.v)) Send.spawnUnit(tileOn() == null ? UnitTypes.sunbeam : UnitTypes.furbo, input.mouseWorld());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class DesktopInput extends InputHandler {
         Tile tile = tileOn();
         if (tile == null) return;
 
-        if (input.keyTap(KeyCode.b)) Send.createTurret(TurretTypes.imat, tile);
+        if (input.keyTap(KeyCode.b)) Send.buildTurret(TurretTypes.imat, tile);
     }
 
     @Override

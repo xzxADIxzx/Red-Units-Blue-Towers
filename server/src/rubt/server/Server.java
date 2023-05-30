@@ -49,7 +49,7 @@ public class Server extends arc.net.Server implements NetListener {
             player.team = Logic.nextTeam();
             player.admin = false; // TODO admin system?
 
-            Send.createPlayer(player);
+            Send.player(player);
         });
 
         handler.register(CommandUnit.class, (con, data) -> {
@@ -114,7 +114,7 @@ public class Server extends arc.net.Server implements NetListener {
             return;
         }
 
-        Send.updateState(connection);
+        Send.state(connection);
     }
 
     // region listeners

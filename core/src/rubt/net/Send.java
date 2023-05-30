@@ -21,7 +21,7 @@ public class Send {
         new WorldData(amount, data).sendTCP(connection);
     }
 
-    public static void updateState(Connection connection) {
+    public static void state(Connection connection) {
         new UpdateState(state).sendTCP(connection);
     }
 
@@ -29,7 +29,7 @@ public class Send {
         new Snapshot(amount, data).sendUDP();
     }
 
-    public static void createPlayer(Player player) {
+    public static void player(Player player) {
         new CreatePlayer(player).sendTCP();
     }
 
@@ -48,19 +48,13 @@ public class Send {
         player.sendTCP(clientCon);
     }
 
-    public static void createUnit(UnitType unit, Position pos) {/*
-        var packet = new CreateUnit();
-        packet.type = unit;
-        packet.position = pos;
-        packet.sendTCP(clientCon);
-    */}
+    public static void spawnUnit(UnitType type, Position position) {
+        new SpawnUnit(type, position).sendTCP(clientCon);
+    }
 
-    public static void createTurret(TurretType turret, Position pos) {/*
-        var packet = new CreateTurret();
-        packet.type = turret;
-        packet.position = pos;
-        packet.sendTCP(clientCon);
-    */}
+    public static void buildTurret(TurretType type, Tile tile) {
+        new BuildTurret(type, tile).sendTCP(clientCon);
+    }
 
     public static void commandUnit(Unit unit, Position target) {
         new CommandUnit(unit, target).sendTCP(clientCon);

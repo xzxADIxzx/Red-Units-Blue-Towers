@@ -7,9 +7,13 @@ import arc.net.Connection;
 import arc.struct.ObjectIntMap;
 import arc.struct.Seq;
 import rubt.Groups;
+import rubt.content.TurretTypes;
+import rubt.content.UnitTypes;
 import rubt.io.Reads;
 import rubt.io.Writes;
 import rubt.logic.*;
+import rubt.types.TurretType;
+import rubt.types.UnitType;
 import rubt.world.*;
 
 import java.io.*;
@@ -242,6 +246,54 @@ public class Packets {
 
         public CreateEntity(short amount, byte[] data) {
             super(amount, data);
+        }
+    }
+
+    /** Packet used to request a unit spawn. */
+    public static class SpawnUnit implements Packet {
+
+        public UnitType type;
+        public Position position;
+
+        public SpawnUnit() {}
+
+        public SpawnUnit(UnitType type, Position position) {
+            this.type = type;
+            this.position = position;
+        }
+
+        public void write(Writes w) {
+            w.b(type.id);
+            w.p(position);
+        }
+
+        public void read(Reads r) {
+            type = UnitTypes.all.get(r.b());
+            position = r.p();
+        }
+    }
+
+    /** Packet used to request a tower build. */
+    public static class BuildTurret implements Packet {
+
+        public TurretType type;
+        public Tile tile;
+
+        public BuildTurret() {}
+
+        public BuildTurret(TurretType type, Tile tile) {
+            this.type = type;
+            this.tile = tile;
+        }
+
+        public void write(Writes w) {
+            w.b(type.id);
+            w.i(tile.id);
+        }
+
+        public void read(Reads r) {
+            type = TurretTypes.all.get(r.b());
+            tile = Groups.tiles.get(r.i());
         }
     }
 
