@@ -13,6 +13,7 @@ import rubt.logic.State;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;
 import rubt.net.Packets.*;
+import rubt.world.Entities;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -57,6 +58,14 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             player.admin = data.admin;
 
             ui.lobbyfrag.rebuildList();
+        });
+
+        handler.register(CreateEntity.class, data -> {
+            ByteBuffer buffer = ByteBuffer.wrap(data.data);
+            Reads reads = Reads.of(buffer);
+
+            var entity = Entities.newEntity(reads.b());
+            entity.read(reads);
         });
 
         handler.register(ChatMessage.class, data -> ui.chatfrag.flush(data.message));

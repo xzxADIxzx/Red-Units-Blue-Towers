@@ -5,6 +5,7 @@ import arc.net.DcReason;
 import arc.net.NetListener;
 import arc.util.Log;
 import rubt.Groups;
+import rubt.Groups.Entity;
 import rubt.io.Writes;
 import rubt.logic.*;
 import rubt.net.*;
@@ -60,6 +61,15 @@ public class Server extends arc.net.Server implements NetListener {
             var player = Groups.players.find(p -> p.con == con);
             if (player != null && !data.message.isBlank() && data.message.length() <= maxMessageLength) Send.chatMessage(player, data.message);
         });
+    }
+
+    public void sendEntity(Entity entity) {
+        Writes writes = Writes.of(sync.clear());
+
+        writes.b(entity.typeId);
+        entity.write(writes);
+
+        Send.entity((short) sync.position(), sync.array());
     }
 
     public void sendSnapshot() {

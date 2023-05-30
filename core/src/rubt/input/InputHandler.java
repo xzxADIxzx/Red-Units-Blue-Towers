@@ -39,6 +39,7 @@ public abstract class InputHandler {
     }
 
     public void draw() {
+        if (state != State.game) return;
         Draw.reset();
 
         drawRed();

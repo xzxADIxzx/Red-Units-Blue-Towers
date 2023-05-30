@@ -33,6 +33,10 @@ public class Send {
         new CreatePlayer(player).sendTCP();
     }
 
+    public static void entity(short amount, byte[] data) {
+        new CreateEntity(amount, data).sendTCP();
+    }
+
     public static void chatMessage(Player author, String message) {
         new ChatMessage(author.name + "[coral]:[white] " + message).sendTCP();
     }

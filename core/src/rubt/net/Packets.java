@@ -45,6 +45,7 @@ public class Packets {
         register(UpdateState::new);
         register(Snapshot::new);
         register(CreatePlayer::new);
+        register(CreateEntity::new);
         register(CommandUnit::new);
         register(ChatMessage::new);
     }
@@ -231,6 +232,16 @@ public class Packets {
             super.read(r);
             team = Team.values()[r.b()];
             admin = r.bool();
+        }
+    }
+
+    /** Packet used to upload entities. */
+    public static class CreateEntity extends DataPacket {
+
+        public CreateEntity() {}
+
+        public CreateEntity(short amount, byte[] data) {
+            super(amount, data);
         }
     }
 
