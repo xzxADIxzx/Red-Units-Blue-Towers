@@ -2,6 +2,7 @@ package rubt.world;
 
 import arc.math.Mathf;
 import arc.math.geom.Position;
+import arc.util.Structs;
 import rubt.Groups;
 import rubt.Groups.Entity;
 import rubt.io.Reads;
@@ -63,6 +64,9 @@ public class World {
                 entity.read(reads);
             }
         }
+
+        if (Structs.contains(tiles, (Object) null))
+            throw new IOException("Corrupted or invalid save file: some tile is null");
     }
 
     public void save(OutputStream output) throws IOException {
