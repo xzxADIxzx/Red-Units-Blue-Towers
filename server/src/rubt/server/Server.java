@@ -10,6 +10,7 @@ import rubt.io.Writes;
 import rubt.logic.*;
 import rubt.net.*;
 import rubt.net.Packets.*;
+import rubt.world.Turret;
 import rubt.world.Unit;
 
 import static rubt.Vars.*;
@@ -50,6 +51,27 @@ public class Server extends arc.net.Server implements NetListener {
             player.admin = false; // TODO admin system?
 
             Send.player(player);
+        });
+
+        handler.register(SpawnUnit.class, (con, data) -> {
+            // TODO check player's team, unit's cost and spawn position
+
+            Unit unit = new Unit();
+            unit.type = data.type;
+            unit.set(data.position);
+            unit.target = data.position;
+
+            sendEntity(unit);
+        });
+
+        handler.register(BuildTurret.class, (con, data) -> {
+            // TODO check player's team, turret's cost and tile
+
+            Turret turret = new Turret();
+            turret.type = data.type;
+            turret.set(data.tile);
+
+            sendEntity(turret);
         });
 
         handler.register(CommandUnit.class, (con, data) -> {

@@ -50,6 +50,8 @@ public class Packets {
         register(Snapshot::new);
         register(CreatePlayer::new);
         register(CreateEntity::new);
+        register(SpawnUnit::new);
+        register(BuildTurret::new);
         register(CommandUnit::new);
         register(ChatMessage::new);
     }
