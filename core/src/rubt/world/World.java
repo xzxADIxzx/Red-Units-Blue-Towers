@@ -2,15 +2,13 @@ package rubt.world;
 
 import arc.math.Mathf;
 import arc.math.geom.Position;
+import rubt.io.Reads;
+import rubt.io.Writes;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 
 public class World {
 
@@ -49,29 +47,27 @@ public class World {
             if (input.read() != b) throw new IOException("Invalid file header!");
         }
 
-        try (var stream = new DataInputStream(input)) {
-            width = stream.readInt();
-            height = stream.readInt();
+        try (var reads = Reads.of(input)) {
+            width = reads.i();
+            height = reads.i();
             tiles = new Tile[width * height];
 
-            int amount = stream.readInt();
+            int amount = reads.i();
             for (int i = 0; i < amount; i++)
-                set(new Tile() {{ read(null); }}); // TODO do something with PacketSerializer.Reads/Writes because of cringe
+                set(new Tile() {{ read(reads); }});
         }
     }
 
     public void save(OutputStream output) throws IOException {
         output.write(header);
 
-        try (var stream = new DataOutputStream(output)) {
-            stream.writeInt(width);
-            stream.writeInt(height);
+        try (var writes = Writes.of(output)) {
+            writes.i(width);
+            writes.i(height);
 
-            stream.writeInt(tiles.length);
-            for (Tile tile : tiles) {
-                stream.writeInt(tile.x);
-                stream.writeInt(tile.y);
-            }
+            writes.i(tiles.length);
+            for (Tile tile : tiles)
+                tile.write(writes);
         }
     }
 }
