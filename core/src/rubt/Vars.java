@@ -11,6 +11,8 @@ import rubt.net.Packets.PlayerData;
 import rubt.ui.UI;
 import rubt.world.*;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -47,7 +49,13 @@ public class Vars {
     public static PlayerData player;
 
     public static void loadLogger() {
-        ArcNet.errorHandler = Log::debug;
+        ArcNet.errorHandler = ex -> {
+            StringWriter writer = new StringWriter();
+            ex.printStackTrace(new PrintWriter(writer));
+
+            Log.debug(writer.toString());
+        };
+
         Log.logger = (level, text) -> { // this is how fashionable I am
             String result = Log.format("&lk&fb[" + dateTime.format(LocalDateTime.now()) + "]&fr " + tags[level.ordinal()] + " " + text + "&fr");
             System.out.println(result);
