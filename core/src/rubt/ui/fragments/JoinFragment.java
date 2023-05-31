@@ -52,7 +52,7 @@ public class JoinFragment {
                 info.button("Join", () -> {
                     try {
                         Net.connect(selected);
-                    } catch (Throwable error) {
+                    } catch (Exception error) {
                         Log.err("Could not to join server", error);
                     }
                 }).disabled(b -> selected == null);

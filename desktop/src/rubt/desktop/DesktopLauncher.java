@@ -25,17 +25,13 @@ public class DesktopLauncher extends ClientLauncher {
                 maximized = true;
             }});
         } catch (Throwable error) {
-            crashed("Oh no, critical error", error);
+            Log.err("Could not to startup client application", error);
+            SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MESSAGEBOX_ERROR, "Oh no, critical error", error.getMessage());
         }
     }
 
     public DesktopLauncher(String[] args) {
         if (args.length != 0 && args[0].equals("-debug")) Log.level = LogLevel.debug;
-    }
-
-    public static void crashed(String title, Throwable error) {
-        Log.err(title, error);
-        SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MESSAGEBOX_ERROR, title, error.getMessage());
     }
 
     @Override
