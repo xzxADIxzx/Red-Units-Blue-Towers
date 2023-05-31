@@ -39,8 +39,8 @@ public class ServerLauncher extends ClientLauncher {
 
             world.load(World.random());
             state = State.lobby;
-        } catch (Throwable error) {
-            Log.err("Could not to startup server", error);
+        } catch (Exception ex) {
+            Log.err("Could not to startup server", ex);
             exit();
             return;
         }

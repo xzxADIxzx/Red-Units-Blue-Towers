@@ -4,6 +4,8 @@ import rubt.Vars;
 import rubt.io.Reads;
 import rubt.io.Writes;
 
+import static arc.Core.*;
+
 /** Represents a remote server. */
 public class Host {
 
@@ -42,10 +44,10 @@ public class Host {
     // endregion
     // region serialization
 
-    public static void write(Writes w) { // TODO take this value from settings
+    public static void write(Writes w) {
         w.i(Vars.port);
-        w.str("Test Server");
-        w.str("He's testing a game, be quiet...");
+        w.str(settings.getString("server-name", "Server"));
+        w.str(settings.getString("server-desc", "He's testing a game, be quiet..."));
     }
 
     public static Host read(String ip, Reads r) {

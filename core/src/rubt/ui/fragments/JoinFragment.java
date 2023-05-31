@@ -11,6 +11,7 @@ import rubt.logic.State;
 import rubt.net.Host;
 import rubt.net.Net;
 
+import static arc.Core.*;
 import static rubt.Vars.*;
 
 public class JoinFragment {
@@ -39,7 +40,7 @@ public class JoinFragment {
                 info.name = "Nickname & Server Info";
                 info.defaults().height(64f).growX().padBottom(8f);
 
-                info.field("[#0096FF]xzxADIxzx", name -> player.name = name).padBottom(16f).row();
+                info.field(player.name, name -> settings.put("player-name", player.name = name)).padBottom(16f).row();
 
                 info.table(Textures.alphabg, name -> {
                     name.label(() -> selected == null ? "Server name" : selected.name()).growX();

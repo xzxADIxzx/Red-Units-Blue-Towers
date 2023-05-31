@@ -14,7 +14,7 @@ public class ContentTypes {
         TurretTypes.load();
 
         all = Seq.with(UnitTypes.all, TurretTypes.all);
-        Log.info("[APP] Loaded @ items of content.", all.sum(seq -> seq.size));
+        Log.info("[App] Loaded @ items of content.", all.sum(seq -> seq.size));
     }
 
     public static void loadui() {

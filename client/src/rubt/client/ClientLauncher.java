@@ -5,8 +5,7 @@ import arc.graphics.Camera;
 import arc.graphics.g2d.SortedSpriteBatch;
 import arc.graphics.g2d.TextureAtlas;
 import arc.scene.Scene;
-import arc.util.Threads;
-import arc.util.Time;
+import arc.util.*;
 import rubt.content.*;
 import rubt.graphics.*;
 import rubt.input.DesktopInput;
@@ -30,6 +29,15 @@ public abstract class ClientLauncher implements ApplicationListener {
         Packets.load();
         Entities.load();
 
+        settings.setAppName("rubt");
+        settings.load();
+
+        // save settings once a minute
+        settings.setAutosave(false);
+        Timer.schedule(() -> {
+            if (settings.modified()) settings.forceSave();
+        }, 60f, 60f);
+
         if (headless) return;
 
         camera = new Camera();
@@ -41,7 +49,9 @@ public abstract class ClientLauncher implements ApplicationListener {
         renderer = new Renderer();
         ui = new UI();
         handler = mobile ? null : new DesktopInput();
-        player = new PlayerData(); // TODO load from settings, i guess
+
+        player = new PlayerData();
+        player.name = settings.getString("player-name", "Nooby");
 
         Shaders.load();
         Fonts.load();
@@ -50,6 +60,10 @@ public abstract class ClientLauncher implements ApplicationListener {
 
         ui.load();
         ContentTypes.loadui();
+    }
+
+    public void dispose() {
+        settings.forceSave();
     }
 
     public void limitFPS(int targetFPS) {
