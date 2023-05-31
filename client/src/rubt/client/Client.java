@@ -41,7 +41,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         addListener(this);
 
         handler.register(WorldDataBegin.class, data -> {
-            builder = data.builder(); // TODO show load fragment
+            builder = data.builder();
+            ui.loadfrag.show(builder::progress);
         });
 
         handler.register(WorldData.class, this::readWorldData);
@@ -98,7 +99,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             world.load(builder.build());
             builder = null;
 
-            // hide load fragment
+            ui.loadfrag.hide();
         } catch (IOException ex) {
             // TODO disconnect
         }
