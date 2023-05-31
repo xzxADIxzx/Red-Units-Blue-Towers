@@ -14,6 +14,7 @@ import rubt.net.Net;
 import static arc.Core.*;
 import static rubt.Vars.*;
 
+@SuppressWarnings("unchecked")
 public class JoinFragment {
 
     public Seq<Host> saved, local = new Seq<>();
@@ -61,9 +62,13 @@ public class JoinFragment {
 
     // region hosts
 
-    public void loadSavedHosts() { // TODO load from settings
-        saved = Seq.with(new Host("localhost", 6567));
+    public void loadSavedHosts() {
+        saved = settings.getJson("saved-servers", Seq.class, Seq::new);
         saved.each(Host::fetchServerInfo); // refresh servers info
+    }
+
+    public void saveHosts() {
+        settings.putJson("saved-servers", saved);
     }
 
     public void discoverLocalHosts() {
@@ -75,8 +80,6 @@ public class JoinFragment {
             rebuildList();
         }, () -> discovering = false);
     }
-
-    public void saveHosts() {}
 
     public void addHost(Host host) {
         saved.add(host);

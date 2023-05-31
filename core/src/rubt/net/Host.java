@@ -9,10 +9,12 @@ import static arc.Core.*;
 /** Represents a remote server. */
 public class Host {
 
-    public final String ip;
-    public final int port;
+    public String ip;
+    public int port;
 
-    public String name, desc;
+    public transient String name, desc;
+
+    public Host() {} // for json
 
     public Host(String ip, int port) {
         if (ip.isBlank()) throw new RuntimeException("IP address cannot be blank!");
@@ -23,7 +25,7 @@ public class Host {
 
     // region info
 
-    public void fetchServerInfo() {}
+    public void fetchServerInfo() {} // TODO fetch
 
     public String address() {
         return ip + ":" + port;
