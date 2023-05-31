@@ -25,7 +25,9 @@ public class Host {
 
     // region info
 
-    public void fetchServerInfo() {} // TODO fetch
+    public void fetchServerInfo() {
+        Net.fetchServerInfo(this);
+    }
 
     public String address() {
         return ip + ":" + port;

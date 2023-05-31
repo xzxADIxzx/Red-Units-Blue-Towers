@@ -16,8 +16,9 @@ import rubt.net.Packets.*;
 import rubt.world.Entities;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
+import java.net.*;
 import java.nio.ByteBuffer;
+import java.util.concurrent.ExecutorService;
 
 import static rubt.Vars.*;
 
@@ -27,6 +28,9 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     /** Builder for reading world data. */
     public WorldDataBuilder builder;
+
+    /** Executor for fetching server info. */
+    public final ExecutorService fetchExecutor = Threads.unboundedExecutor("Fetch Servers");
 
     /** Statistics for debug fragment. */
     public int packetsReaded, packetsWritten;
@@ -92,6 +96,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             if (builder.progress() != 1f) return;
 
             world.load(builder.build());
+            builder = null;
+
             // hide load fragment
         } catch (IOException ex) {
             // TODO disconnect
@@ -112,6 +118,22 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     public void discover(Cons<DatagramPacket> cons, Runnable done) {
         discoverHosts(port, multicast, multicastPort, 5000, cons, done);
+    }
+
+    public void fetchServerInfo(String ip, int port, Cons<DatagramPacket> cons) {
+        fetchExecutor.submit(() -> {
+            try (var socket = new DatagramSocket()) {
+                socket.send(new DatagramPacket(new byte[] { 1, 4 }, 2, InetAddress.getByName(ip), port));
+                socket.setSoTimeout(2000);
+
+                var packet = new DatagramPacket(new byte[256], 256);
+                socket.receive(packet);
+
+                cons.get(packet);
+            } catch (Exception ignored) {
+                Log.debug("Unable to fetch server datagram packet.");
+            }
+        });
     }
 
     public void readed(long bytes) {

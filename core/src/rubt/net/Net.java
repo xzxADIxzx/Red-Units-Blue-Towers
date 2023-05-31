@@ -6,10 +6,7 @@ import arc.util.Log;
 import rubt.io.Reads;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.nio.ByteBuffer;
+import java.net.*;
 
 public class Net {
 
@@ -37,14 +34,27 @@ public class Net {
 
                 try {
                     String ip = isLocal(packet.getAddress()) ? "localhost" : packet.getAddress().getHostAddress();
-                    ByteBuffer buffer = ByteBuffer.wrap(packet.getData());
 
-                    cons.get(Host.read(ip, Reads.of(buffer)));
+                    cons.get(Host.read(ip, Reads.of(packet.getData())));
                 } catch (Exception ignored) { // don't crash when there is an error parsing data
                     Log.err("Unable to process server datagram packet", ignored);
                 }
             }
         }, done);
+    }
+
+    public static void fetchServerInfo(Host host) {
+        provider.fetchServerInfo(host.ip, host.port, packet -> {
+            try {
+                Reads reads = Reads.of(packet.getData());
+                reads.skip(4); // skip ip
+
+                host.name = reads.str();
+                host.desc = reads.str();
+            } catch (Exception ignored) {
+                Log.err("Unable to process server datagram packet", ignored);
+            }
+        });
     }
 
     public static boolean isLocal(InetAddress addr) {
@@ -73,6 +83,9 @@ public class Net {
          * @param done is the callback that should run after discovery.
          */
         public void discover(Cons<DatagramPacket> cons, Runnable done);
+
+        /** Fetch data about a specific server. */
+        public void fetchServerInfo(String ip, int port, Cons<DatagramPacket> cons);
 
         public void readed(long bytes);
         public void written(long bytes);

@@ -31,6 +31,10 @@ public class Reads extends arc.util.io.Reads {
         return instance;
     }
 
+    public static Reads of(byte[] bytes) {
+        return of(ByteBuffer.wrap(bytes));
+    }
+
     public Position p() {
         return new Vec2(f(), f());
     }

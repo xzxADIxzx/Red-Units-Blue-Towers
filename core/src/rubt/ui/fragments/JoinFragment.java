@@ -85,6 +85,8 @@ public class JoinFragment {
         saved.add(host);
         saveHosts();
         rebuildList();
+
+        host.fetchServerInfo();
     }
 
     public void removeHost(Host host) {
