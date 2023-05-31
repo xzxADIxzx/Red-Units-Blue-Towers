@@ -5,6 +5,7 @@ import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
 import arc.scene.Group;
+import arc.scene.actions.Actions;
 import arc.scene.ui.layout.Table;
 import rubt.graphics.Palette;
 import rubt.graphics.Textures;
@@ -27,14 +28,16 @@ public class LoadingFragment extends Table {
         setFillParent(true);
 
         name = "Loading Fragment";
-        hide();
+        superHide();
 
         label(() -> (int) (progress.get() * 100) + "%").style(Styles.tech);
     }
 
     @Override
     public void draw() {
+        Draw.color(Color.white, color.a);
         Textures.darkbg.draw(0f, 0f, graphics.getWidth(), graphics.getHeight());
+
         super.draw();
 
         float progress = this.progress.get();
@@ -45,7 +48,8 @@ public class LoadingFragment extends Table {
         float w = graphics.getWidth(), h = graphics.getHeight();
         float x = w / 2f, y = h / 2f;
 
-        Lines.stroke(10f, Palette.accent); // TODO replace this square by hexes filling the screen
+        Lines.stroke(10f); // TODO replace this square by hexes filling the screen
+        Draw.color(Palette.accent, color.a);
         Lines.square(x, y, 210f, 45f);
 
         Fill.square(x, y, progress * 130f, 45f);
@@ -60,7 +64,7 @@ public class LoadingFragment extends Table {
             float fract = 1f - (i - 2f) / (bars - 1f);
             float alpha = progress >= fract ? 1f : Mathf.clamp(1f - (fract - progress) * bars);
 
-            Draw.color(Palette.accent, alpha);
+            Draw.color(Palette.accent, alpha * color.a);
 
             for (int side : Mathf.signs) {
                 float bx = x + i * space * side - width / 2f;
@@ -76,10 +80,16 @@ public class LoadingFragment extends Table {
     public void show(Floatp progress) {
         this.progress = progress;
         this.visible = true;
+
+        actions(Actions.alpha(0f), Actions.alpha(1f, 1f));
+    }
+
+    public void superHide() {
+        this.progress = () -> 1f;
+        this.visible = false;
     }
 
     public void hide() {
-        this.progress = () -> 1f;
-        this.visible = false; // TODO decrease alpha via Actions
+        actions(Actions.alpha(0f, 1f), Actions.run(this::superHide));
     }
 }
