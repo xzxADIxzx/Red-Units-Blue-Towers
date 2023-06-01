@@ -53,6 +53,7 @@ public class UI {
 
     public void resize(int width, int height) {
         scene.resize(width, height);
+        loadfrag.resize(width, height);
     }
 
     // region build

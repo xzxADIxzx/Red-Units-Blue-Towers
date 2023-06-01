@@ -4,9 +4,11 @@ import arc.func.Floatp;
 import arc.graphics.Color;
 import arc.graphics.g2d.*;
 import arc.math.Mathf;
+import arc.math.geom.Vec2;
 import arc.scene.Group;
 import arc.scene.actions.Actions;
 import arc.scene.ui.layout.Table;
+import arc.struct.Seq;
 import rubt.graphics.Palette;
 import rubt.graphics.Textures;
 import rubt.ui.Styles;
@@ -21,6 +23,8 @@ public class LoadingFragment extends Table {
     public static final float skew = size / 2f;
     public static final float width = size / 1.7f;
 
+    public static final Seq<Vec2> hexes = new Seq<>();
+
     public Floatp progress;
 
     public void build(Group parent) {
@@ -31,6 +35,22 @@ public class LoadingFragment extends Table {
         superHide();
 
         label(() -> (int) (progress.get() * 100) + "%").style(Styles.tech);
+    }
+
+    public void resize(int width, int height) {
+        hexes.clear(); // TODO optimize
+
+        int spacing = 150;
+        float h = Mathf.sqrt3 * spacing / 4f;
+
+        for (int x = 0; x < width / spacing; x++) {
+            for (int y = 0; y < height / h; y++) {
+                int cx = (int) (x * spacing * 1.5f + (y % 2) * spacing * 0.75f) + spacing / 2;
+                int cy = (int) (y * h) + spacing / 2;
+
+                hexes.add(new Vec2(cx - skew, cy - size));
+            }
+        }
     }
 
     @Override
@@ -48,15 +68,25 @@ public class LoadingFragment extends Table {
         float w = graphics.getWidth(), h = graphics.getHeight();
         float x = w / 2f, y = h / 2f;
 
-        Lines.stroke(10f); // TODO replace this square by hexes filling the screen
         Draw.color(Palette.accent, color.a);
-        Lines.square(x, y, 210f, 45f);
 
-        Fill.square(x, y, progress * 130f, 45f);
-        Fill.rect(x, y, graphics.getWidth(), 100f);
+        for (int i = 0; i < hexes.size; i++) {
+
+            float alpha = Mathf.clamp(progress * hexes.size - i);
+            if (alpha == 0f) break; // the rest of the hexes will have the same result
+
+            Draw.color(Palette.accent, alpha * color.a);
+
+            Vec2 hex = hexes.get(i);
+            Fill.poly(hex.x, hex.y, 6, size);
+        }
 
         Draw.color(Color.black);
-        Fill.rect(x, y, graphics.getWidth(), 80f);
+        Fill.rect(x, y, w, 120f);
+
+        Draw.color(Palette.accent, color.a);
+        Fill.rect(x, y + 45f, w, 10f);
+        Fill.rect(x, y - 45f, w, 10f);
 
         int bars = (int) (w / size / 2);
         for (int i = 2; i < bars; i++) {
@@ -81,6 +111,7 @@ public class LoadingFragment extends Table {
         this.progress = progress;
         this.visible = true;
 
+        hexes.shuffle();
         actions(Actions.alpha(0f), Actions.alpha(1f, 1f));
     }
 
