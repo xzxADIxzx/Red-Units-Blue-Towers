@@ -18,11 +18,15 @@ import static rubt.Vars.*;
 
 public class LoadingFragment extends Table {
 
+    // arrows
     public static final float size = 60f;
     public static final float space = 80f;
     public static final float skew = size / 2f;
     public static final float width = size / 1.7f;
 
+    // hexes
+    public static final float spacing = 150f;
+    public static final float height = Mathf.sqrt3 * spacing / 4f;
     public static final Seq<Vec2> hexes = new Seq<>();
 
     public Floatp progress;
@@ -37,20 +41,12 @@ public class LoadingFragment extends Table {
         label(() -> (int) (progress.get() * 100) + "%").style(Styles.tech);
     }
 
-    public void resize(int width, int height) {
-        hexes.clear(); // TODO optimize
+    public void resized() {
+        hexes.clear();
 
-        int spacing = 150;
-        float h = Mathf.sqrt3 * spacing / 4f;
-
-        for (int x = 0; x < width / spacing; x++) {
-            for (int y = 0; y < height / h; y++) {
-                int cx = (int) (x * spacing * 1.5f + (y % 2) * spacing * 0.75f) + spacing / 2;
-                int cy = (int) (y * h) + spacing / 2;
-
-                hexes.add(new Vec2(cx - skew, cy - size));
-            }
-        }
+        for (int x = 0; x < graphics.getWidth() / spacing; x++)
+            for (int y = 0; y < graphics.getHeight() / height; y++)
+                hexes.add(new Vec2((x * 1.5f + (y % 2) * 0.75f) * spacing, y * height + 15f));
     }
 
     @Override
