@@ -31,6 +31,16 @@ public class SendableProc extends BaseProcessor {
             }
         }
 
+        // add some extra methods
+        /*
+         * public static void chatMessage(Player author, String message) {
+         * new ChatMessage(author.name + "[coral]:[white] " + message).sendTCP();
+         * }
+         * public static void player() {
+         * player.sendTCP(clientCon);
+         * }
+         */
+
         // sort methods
         root.methodSpecs.sort((m1, m2) -> m1.toString().compareTo(m2.toString()));
 

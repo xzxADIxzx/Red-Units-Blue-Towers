@@ -7,6 +7,8 @@ import arc.net.Connection;
 import arc.struct.ObjectIntMap;
 import arc.struct.Seq;
 import rubt.Groups;
+import rubt.annotations.Annotations.Con;
+import rubt.annotations.Annotations.Sendable;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
 import rubt.io.Reads;
@@ -127,6 +129,7 @@ public class Packets {
     }
 
     /** Packet used to initialize the loading of the world. */
+    @Sendable
     public static class WorldDataBegin implements Packet {
 
         public int amount;
@@ -151,6 +154,7 @@ public class Packets {
     }
 
     /** Packet containing one world data chunk. */
+    @Sendable
     public static class WorldData extends DataPacket {
 
         public WorldData() {}
@@ -184,6 +188,7 @@ public class Packets {
     }
 
     /** Packet used to update game state. */
+    @Sendable
     public static class UpdateState implements Packet {
 
         public State state;
@@ -204,6 +209,7 @@ public class Packets {
     }
 
     /** Packet used to update net objects. */
+    @Sendable(connection = Con.server, reliable = false)
     public static class Snapshot extends DataPacket {
 
         public Snapshot() {}
@@ -214,6 +220,7 @@ public class Packets {
     }
 
     /** Packet used to upload player data. */
+    @Sendable(connection = Con.server)
     public static class CreatePlayer extends PlayerData {
 
         public Team team;
@@ -242,6 +249,7 @@ public class Packets {
     }
 
     /** Packet used to upload entities. */
+    @Sendable(connection = Con.server)
     public static class CreateEntity extends DataPacket {
 
         public CreateEntity() {}
@@ -252,6 +260,7 @@ public class Packets {
     }
 
     /** Packet used to request a unit spawn. */
+    @Sendable(connection = Con.client)
     public static class SpawnUnit implements Packet {
 
         public UnitType type;
@@ -276,6 +285,7 @@ public class Packets {
     }
 
     /** Packet used to request a tower build. */
+    @Sendable(connection = Con.client)
     public static class BuildTurret implements Packet {
 
         public TurretType type;
@@ -300,6 +310,7 @@ public class Packets {
     }
 
     /** Packet used to command units. */
+    @Sendable(connection = Con.client)
     public static class CommandUnit implements Packet {
 
         public int netId;
@@ -324,6 +335,7 @@ public class Packets {
     }
 
     /** Package used for communication between players. */
+    @Sendable(connection = Con.client)
     public static class ChatMessage implements Packet {
 
         public String message;
