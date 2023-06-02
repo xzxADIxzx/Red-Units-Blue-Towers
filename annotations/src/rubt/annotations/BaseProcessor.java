@@ -7,8 +7,7 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic.Kind;
 
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 
 public abstract class BaseProcessor extends AbstractProcessor {
 
@@ -50,7 +49,7 @@ public abstract class BaseProcessor extends AbstractProcessor {
     public void write(String packageName, TypeSpec.Builder builder) throws Exception {
         JavaFile.builder(packageName, builder.build())
                 .skipJavaLangImports(true)
-                .indent("    ")
+                .addStaticImport(ClassName.get("rubt", "Vars"), "*")
                 .build().writeTo(filer);
     }
 }

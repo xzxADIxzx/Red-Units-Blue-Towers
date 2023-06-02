@@ -3,7 +3,8 @@ apply plugin: 'java'
 sourceSets.main.java.srcDirs = ['src']
 
 dependencies {
-    compileOnly "com.github.Anuken.Arc:arc-core:$arcVersion"
+    implementation "com.github.Anuken.Arc:arc-core:$arcVersion"
+    implementation "com.github.Anuken.Arc:arcnet:$arcVersion"
     implementation 'com.squareup:javapoet:1.13.0'
 
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc5'

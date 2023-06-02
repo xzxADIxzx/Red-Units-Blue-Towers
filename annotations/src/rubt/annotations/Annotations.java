@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 public class Annotations {
 
-    /** Annotation generating constructors for packets. */
+    /** Annotation generating methods for Send class. */
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.SOURCE)
     public @interface Sendable {
@@ -17,6 +17,12 @@ public class Annotations {
     }
 
     public enum Con {
-        custom, server, client;
+        custom("connection"), server(""), client("clientCon");
+
+        public final String code;
+
+        private Con(String code) {
+            this.code = code;
+        }
     }
 }
