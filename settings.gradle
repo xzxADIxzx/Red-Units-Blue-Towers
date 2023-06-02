@@ -1,4 +1,5 @@
 include 'core'
+include 'annotations'
 include 'desktop'
 include 'server'
 include 'client'

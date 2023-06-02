@@ -6,4 +6,10 @@ dependencies {
     compileOnly "com.github.Anuken.Arc:arc-core:$arcVersion"
     compileOnly "com.github.Anuken.Arc:arcnet:$arcVersion"
     compileOnly "com.github.Anuken.Arc:freetype:$arcVersion"
+
+    annotationProcessor project(":annotations")
+    compileOnly project(':annotations')
+
+    // import generated classes 
+    compileOnly files('build/libs/core.jar')
 }
