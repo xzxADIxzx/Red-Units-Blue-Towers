@@ -81,7 +81,8 @@ public class Server extends arc.net.Server implements NetListener {
 
         handler.register(ChatMessage.class, (con, data) -> {
             var player = Groups.players.find(p -> p.con == con);
-            if (player != null && !data.message.isBlank() && data.message.length() <= maxMessageLength) Send.chatMessage(player, data.message);
+            if (player != null && !data.message.isBlank() && data.message.length() <= maxMessageLength)
+                Send.chatMessage(player.name, data.message);
         });
     }
 
@@ -136,7 +137,7 @@ public class Server extends arc.net.Server implements NetListener {
             return;
         }
 
-        Send.state(connection);
+        Send.state(connection, state);
     }
 
     // region listeners
