@@ -50,10 +50,7 @@ public class SendableProc extends BaseProcessor {
     public MethodSpec build(String className, Sendable annotation, ExecutableElement constructor) {
         className = className.substring(className.lastIndexOf(".") + 1);
 
-        String firstChar = String.valueOf(className.charAt(0));
-        String methodName = className.replaceFirst(firstChar, firstChar.toLowerCase());
-
-        var method = MethodSpec.methodBuilder(methodName).addModifiers(Modifier.PUBLIC, Modifier.STATIC);
+        var method = MethodSpec.methodBuilder(methodName(className)).addModifiers(Modifier.PUBLIC, Modifier.STATIC);
         var params = Seq.with(constructor.getParameters());
 
         if (annotation.connection() == Con.custom) // add an argument for connection
@@ -68,5 +65,12 @@ public class SendableProc extends BaseProcessor {
                 annotation.connection().code);                                // connection
 
         return method.build();
+    }
+
+    public String methodName(String className) {
+        className = className.replaceFirst("Update", "").replaceFirst("Create", "");
+
+        // change first char to lowercase letter
+        return Character.toLowerCase(className.charAt(0)) + className.substring(1);
     }
 }
