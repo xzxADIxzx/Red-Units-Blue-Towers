@@ -69,7 +69,7 @@ public class Styles {
         }});
 
         scene.addStyle(DialogStyle.class, dialog = new DialogStyle() {{
-            titleFont = Fonts.aldrich;
+            titleFont = Fonts.tech;
 
             titleFontColor = Palette.accent;
             background = Textures.alphabg;

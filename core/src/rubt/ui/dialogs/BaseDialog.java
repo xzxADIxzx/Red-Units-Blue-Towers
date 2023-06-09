@@ -9,6 +9,7 @@ public class BaseDialog extends Dialog {
 
     public BaseDialog(String title, DialogStyle style) {
         super(title, style);
+        this.title.setEllipsis(false);
 
         titleTable.clear();
         titleTable.image().color(Palette.accent).height(4f).growX();
