@@ -56,6 +56,7 @@ public abstract class ClientLauncher implements ApplicationListener {
         Shaders.load();
         Fonts.load();
         Textures.load();
+        Icons.load();
         Styles.load();
 
         ui.load();
