@@ -3,6 +3,7 @@ package rubt.ui;
 import arc.graphics.Color;
 import arc.scene.ui.Button.ButtonStyle;
 import arc.scene.ui.Dialog.DialogStyle;
+import arc.scene.ui.ImageButton.ImageButtonStyle;
 import arc.scene.ui.Label.LabelStyle;
 import arc.scene.ui.ScrollPane.ScrollPaneStyle;
 import arc.scene.ui.TextButton.TextButtonStyle;
@@ -16,6 +17,7 @@ public class Styles {
 
     public static ButtonStyle button, emptyButton;
     public static TextButtonStyle textButton;
+    public static ImageButtonStyle imageButton;
 
     public static LabelStyle label, tech;
     public static TextFieldStyle field;
@@ -37,6 +39,13 @@ public class Styles {
         scene.addStyle(TextButtonStyle.class, textButton = new TextButtonStyle() {{
             font = Fonts.aldrich;
 
+            up = Textures.alphabg;
+            over = Textures.mainbg;
+            down = Textures.accentbg;
+            disabled = Textures.mainbg;
+        }});
+
+        scene.addStyle(ImageButtonStyle.class, imageButton = new ImageButtonStyle() {{
             up = Textures.alphabg;
             over = Textures.mainbg;
             down = Textures.accentbg;
