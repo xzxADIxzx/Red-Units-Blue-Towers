@@ -6,6 +6,7 @@ import arc.graphics.g2d.TextureRegion;
 import arc.scene.style.Drawable;
 import arc.util.serialization.JsonReader;
 import arc.util.serialization.JsonValue;
+import rubt.annotations.Annotations.IconLoader;
 
 import static arc.Core.*;
 
@@ -47,6 +48,12 @@ public class Textures {
 
     public static Drawable loadIcon(String name) {
         load("sprites/icons/", name);
+        return atlas.drawable(name);
+    }
+
+    @IconLoader
+    public static Drawable icon(String name) {
+        load("icons/", name);
         return atlas.drawable(name);
     }
 }

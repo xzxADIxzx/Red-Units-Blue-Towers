@@ -4,6 +4,11 @@ import java.lang.annotation.*;
 
 public class Annotations {
 
+    /** Annotation generating Icons class. */
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface IconLoader {}
+
     /** Annotation generating methods for Send class. */
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.SOURCE)
