@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-sourceSets.main.java.srcDirs = ['src']
+sourceSets.main.java.srcDirs = ['src', 'build/generated/sources/annotationProcessor/java/main']
 
 dependencies {
     compileOnly "com.github.Anuken.Arc:arc-core:$arcVersion"
@@ -9,7 +9,4 @@ dependencies {
 
     annotationProcessor project(":annotations")
     compileOnly project(':annotations')
-
-    // import generated classes 
-    compileOnly files('build/libs/core.jar')
 }
