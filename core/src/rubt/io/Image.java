@@ -2,30 +2,20 @@ package rubt.io;
 
 import arc.files.Fi;
 import arc.graphics.Pixmap;
+import arc.graphics.Pixmaps;
 import arc.struct.Seq;
-import arc.util.Tmp;
-
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Image {
 
     public static final Seq<String> extensions = Seq.with("png", "jpg", "jpeg", "bmp");
 
-    public static Pixmap read(Fi file) throws IOException {
-        return switch (file.extension()) {
-            case "png" -> new Pixmap(file);
-            case "jpg", "jpeg", "bmp" -> readNonPng(file);
-            default -> throw new IOException("Unsupported image format");
-        };
-    }
+    /** Reads an image, scales it to 48x48 pixels and returns it as a byte[]. */
+    public static byte[] read(Fi file) {
+        var pixmap = Pixmaps.scale(new Pixmap(file), 48, 48, true);
 
-    public static Pixmap readNonPng(Fi file) throws IOException {
-        var image = ImageIO.read(file.file());
-        var pixmap = new Pixmap(image.getWidth(), image.getHeight());
+        byte[] output = new byte[48 * 48 * 4]; // 48x48 pixels * 4 byte
+        pixmap.pixels.position(0).get(output); // 9KiB is quite a lot
 
-        pixmap.each((x, y) -> pixmap.set(x, y, Tmp.c1.rgb888(image.getRGB(x, y)).rgba()));
-        return pixmap;
+        return output;
     }
 }

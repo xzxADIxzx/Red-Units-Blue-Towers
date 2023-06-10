@@ -46,7 +46,14 @@ public class JoinFragment {
                 info.table(nick -> {
                     nick.field(player.name, name -> settings.put("player-name", player.name = name)).grow().padRight(8f);
                     nick.button(Icons.avatar, () -> {
-                        ui.openFile("Select avatar", Image.extensions, file -> {/* TODO save to settings */});
+                        ui.openFile("Select avatar", Image.extensions, file -> {
+                            try {
+                                settings.put("player-avatar", Image.read(file));
+                            } catch (Exception error) {
+                                Log.err("Could not to load image", error);
+                                // TODO ui.announce("corrupt img")
+                            }
+                        });
                     }).size(64f);
                 }).padBottom(16f).row();
 
