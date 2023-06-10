@@ -7,6 +7,7 @@ import arc.net.NetListener;
 import arc.util.Log;
 import arc.util.Threads;
 import rubt.Groups;
+import rubt.io.Image;
 import rubt.io.Reads;
 import rubt.logic.State;
 import rubt.net.*;
@@ -44,6 +45,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         handler.register(WorldDataBegin.class, data -> {
             builder = data.builder();
             ui.loadfrag.show(builder::progress);
+
+            Image.clearTemp(); // delete old avatars TODO should it be here?
         });
 
         handler.register(WorldData.class, this::readWorldData);

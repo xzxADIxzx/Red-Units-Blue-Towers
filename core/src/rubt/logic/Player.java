@@ -4,8 +4,7 @@ import arc.graphics.g2d.TextureRegion;
 import arc.net.Connection;
 import rubt.Groups;
 import rubt.Groups.Entity;
-import rubt.io.Reads;
-import rubt.io.Writes;
+import rubt.io.*;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -32,7 +31,7 @@ public class Player extends Entity {
     }
 
     public TextureRegion avatar() {
-        return avatar == null ? atlas.find("avatar") : null /* Image.wrap */;
+        return avatar == null ? atlas.find("avatar") : Image.wrap(avatar, name);
     }
 
     public boolean red() {
