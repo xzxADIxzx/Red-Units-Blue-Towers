@@ -18,6 +18,7 @@ public class FileChooserDialog extends BaseDialog {
     public static final Fi homeDirectory = files.absolute(externalStorage);
 
     public Fi dir = files.absolute(settings.getString("last-dir", externalStorage));
+    public FileHistory history = new FileHistory();
 
     public boolean open;
     public Seq<String> extensions;
@@ -45,6 +46,8 @@ public class FileChooserDialog extends BaseDialog {
             nav.defaults().size(48f).padRight(8f);
 
             nav.button(Icons.home, this::openHomeDirectory);
+            nav.button(Icons.arrow_left, history::back).disabled(b -> !history.hasBack());
+            nav.button(Icons.arrow_right, history::forward).disabled(b -> !history.hasForward());
             nav.button(Icons.arrow_up, this::openParentDirectory);
         }).growX().row();
 
@@ -84,6 +87,7 @@ public class FileChooserDialog extends BaseDialog {
     }
 
     public void updateFiles(boolean push) {
+        if (push) history.push();
         settings.put("last-dir", dir.absolutePath());
 
         list.clear();
@@ -122,4 +126,37 @@ public class FileChooserDialog extends BaseDialog {
     }
 
     // endregion
+
+    public class FileHistory extends Seq<Fi> {
+
+        public static final int max = 64;
+        public int index;
+
+        public void push() {
+            if (index != size) truncate(index); // new element is added not to the end
+
+            add(dir);
+
+            if (size > max) remove(0);
+            else index++;
+        }
+
+        public void back() {
+            dir = get(--index - 1);
+            updateFiles(false);
+        }
+
+        public void forward() {
+            dir = get(index++);
+            updateFiles(false);
+        }
+
+        public boolean hasBack() {
+            return index > 1;
+        }
+
+        public boolean hasForward() {
+            return index < size;
+        }
+    }
 }
