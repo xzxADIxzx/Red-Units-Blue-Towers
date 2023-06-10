@@ -44,7 +44,7 @@ public class JoinFragment {
                 info.defaults().height(64f).growX().padBottom(8f);
 
                 info.table(nick -> {
-                    nick.field(player.name, name -> settings.put("player-name", player.name = name)).grow().padRight(8f);
+                    nick.field(settings.getString("player-name", "Nooby"), name -> settings.put("player-name", name)).grow().padRight(8f);
                     nick.button(Icons.avatar, () -> {
                         ui.openFile("Select avatar", Image.extensions, file -> {
                             try {

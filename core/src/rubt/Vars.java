@@ -7,7 +7,6 @@ import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
 import rubt.logic.Rules;
 import rubt.logic.State;
-import rubt.net.Packets.PlayerData;
 import rubt.ui.UI;
 import rubt.world.*;
 
@@ -46,7 +45,6 @@ public class Vars {
 
     public static Connection clientCon;
     public static Thread thread;
-    public static PlayerData player;
 
     public static void loadLogger() {
         ArcNet.errorHandler = ex -> {

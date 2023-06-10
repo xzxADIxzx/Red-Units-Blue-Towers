@@ -31,17 +31,12 @@ public class SendableProc extends BaseProcessor {
             }
         }
 
-        // add some extra methods
+        // add extra method
         root.addMethod(MethodSpec.methodBuilder("chatMessage")
                 .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
                 .addParameter(String.class, "author")
                 .addParameter(String.class, "message")
                 .addStatement("new ChatMessage(author + $S + message).sendTCP()", "[coral]:[white] ")
-                .build());
-
-        root.addMethod(MethodSpec.methodBuilder("player")
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                .addStatement("player.sendTCP(clientCon)")
                 .build());
 
         // sort methods

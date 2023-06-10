@@ -15,6 +15,8 @@ import rubt.net.Net.NetProvider;
 import rubt.net.Packets.*;
 import rubt.world.Entities;
 
+import static arc.Core.*;
+
 import java.io.IOException;
 import java.net.*;
 import java.nio.ByteBuffer;
@@ -170,7 +172,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         var tcp = connection.getRemoteAddressTCP();
         Log.info("Connected to @:@", tcp.getHostName(), tcp.getPort());
 
-        Send.player();
+        Send.playerData(settings.getBytes("player-avatar"), settings.getString("player-name"));
     }
 
     public void disconnected(Connection connection, DcReason reason) {

@@ -114,16 +114,26 @@ public class Packets {
     }
 
     /** Packet used to confirm the connection by the client. */
+    @Sendable(connection = Con.client)
     public static class PlayerData implements Packet {
 
-        public Pixmap avatar;
+        public byte[] avatar;
         public String name;
 
+        public PlayerData() {}
+
+        public PlayerData(byte[] avatar, String name) {
+            this.avatar = avatar;
+            this.name = name;
+        }
+
         public void write(Writes w) {
+            w.b(avatar);
             w.str(name);
         }
 
         public void read(Reads r) {
+            avatar = r.b(48 * 48 * 4);
             name = r.str();
         }
     }

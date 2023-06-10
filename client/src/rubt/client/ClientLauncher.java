@@ -11,7 +11,6 @@ import rubt.graphics.*;
 import rubt.input.DesktopInput;
 import rubt.logic.Logic;
 import rubt.net.Packets;
-import rubt.net.Packets.PlayerData;
 import rubt.ui.*;
 import rubt.world.Entities;
 
@@ -49,9 +48,6 @@ public abstract class ClientLauncher implements ApplicationListener {
         renderer = new Renderer();
         ui = new UI();
         handler = mobile ? null : new DesktopInput();
-
-        player = new PlayerData();
-        player.name = settings.getString("player-name", "Nooby");
 
         Shaders.load();
         Fonts.load();
