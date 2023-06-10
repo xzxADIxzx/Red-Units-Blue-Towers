@@ -8,7 +8,6 @@ import arc.util.Log;
 import arc.util.Threads;
 import rubt.Groups;
 import rubt.io.Reads;
-import rubt.logic.Player;
 import rubt.logic.State;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;

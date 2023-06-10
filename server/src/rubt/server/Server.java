@@ -23,7 +23,7 @@ public class Server extends arc.net.Server implements NetListener {
     public PacketHandler handler = new PacketHandler();
 
     /** Output for writing snapshots. */
-    public ByteBuffer sync = ByteBuffer.allocate(2048);
+    public ByteBuffer sync = ByteBuffer.allocate(8192);
 
     public Server() {
         super(32768, 8192, new PacketSerializer());
@@ -43,15 +43,19 @@ public class Server extends arc.net.Server implements NetListener {
         handler.register(PlayerData.class, (con, data) -> {
             if (rules.strict && Groups.players.contains(player -> con.getRemoteAddressTCP().getAddress().getHostName().equals(player.ip()))) return;
 
+            String name = data.name.trim();
+            if (name.length() > maxNameLength) name = name.substring(0, maxNameLength);
+            if (name.isBlank()) name = "Nooby";
+
             Player player = new Player();
 
             player.con = con;
             player.avatar = data.avatar;
-            player.name = data.name;
+            player.name = name;
             player.team = Logic.nextTeam();
             player.admin = false; // TODO admin system?
 
-            Send.player(player);
+            sendEntity(player);
         });
 
         handler.register(SpawnUnit.class, (con, data) -> {
