@@ -49,6 +49,7 @@ public class FileChooserDialog extends BaseDialog {
             nav.button(Icons.arrow_left, history::back).disabled(b -> !history.hasBack());
             nav.button(Icons.arrow_right, history::forward).disabled(b -> !history.hasForward());
             nav.button(Icons.arrow_up, this::openParentDirectory);
+            nav.button(Icons.refresh, () -> updateFiles(false));
         }).growX().row();
 
         cont.pane(l -> this.list = l.top()).size(550f, 700f).with(p -> this.pane = p).row();
