@@ -1,10 +1,13 @@
 package rubt.ui;
 
+import arc.files.Fi;
+import arc.func.Cons;
 import arc.graphics.Color;
 import arc.scene.event.Touchable;
 import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
-import rubt.ui.dialogs.AddHostDialog;
+import arc.struct.Seq;
+import rubt.ui.dialogs.*;
 import rubt.ui.fragments.*;
 
 import static arc.Core.*;
@@ -21,6 +24,7 @@ public class UI {
     public LoadingFragment loadfrag = new LoadingFragment();
     public DebugFragment debugfrag = new DebugFragment();
 
+    public FileChooserDialog fileChooser;
     public AddHostDialog addHost;
 
     public void load() {
@@ -42,6 +46,7 @@ public class UI {
         debugfrag.build(menu);
 
         // dialogs are created here because before the load() call, the styles have not yet been created
+        fileChooser = new FileChooserDialog();
         addHost = new AddHostDialog();
 
         app.post(() -> app.post(() -> app.post(() -> app.post(() -> { // TODO load & discover on fragment opened
@@ -57,6 +62,15 @@ public class UI {
     }
 
     // region build
+
+    public void openFile(String title, Seq<String> extensions, Cons<Fi> cons) {
+        fileChooser.show(title, true, extensions, cons);
+    }
+
+    public void saveFile(String title, String extension, Cons<Fi> cons) {
+        fileChooser.show(title, false, Seq.with(extension), cons);
+    }
+
     // TODO add something like announce(String text)
 
     public void partition(Table list, String name) {
