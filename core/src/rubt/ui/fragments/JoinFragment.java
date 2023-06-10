@@ -1,5 +1,6 @@
 package rubt.ui.fragments;
 
+import arc.graphics.Pixmap;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
@@ -10,6 +11,7 @@ import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.net.Host;
 import rubt.net.Net;
+import rubt.ui.Icons;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -41,7 +43,12 @@ public class JoinFragment {
                 info.name = "Nickname & Server Info";
                 info.defaults().height(64f).growX().padBottom(8f);
 
-                info.field(player.name, name -> settings.put("player-name", player.name = name)).padBottom(16f).row();
+                info.table(nick -> {
+                    nick.field(player.name, name -> settings.put("player-name", player.name = name)).grow().padRight(8f);
+                    nick.button(Icons.avatar, () -> {
+                        ui.openFile("Select avatar", Seq.with("png", "jpg", "jpeg", "bmp"), file -> {/* TODO save to settings */});
+                    }).size(64f);
+                }).padBottom(16f).row();
 
                 info.table(Textures.alphabg, name -> {
                     name.label(() -> selected == null ? "Server name" : selected.name()).growX();

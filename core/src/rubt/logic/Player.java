@@ -29,7 +29,7 @@ public class Player extends GroupObject {
     }
 
     public TextureRegion avatar() {
-        return avatar == null ? atlas.find("redbg") : new TextureRegion(new Texture(avatar));
+        return avatar == null ? atlas.find("avatar") : new TextureRegion(new Texture(avatar));
     }
 
     public boolean red() {
