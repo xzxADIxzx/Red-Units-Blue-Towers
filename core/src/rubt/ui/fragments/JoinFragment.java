@@ -1,6 +1,5 @@
 package rubt.ui.fragments;
 
-import arc.graphics.Pixmap;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
@@ -8,6 +7,7 @@ import arc.util.Log;
 import arc.util.Strings;
 import arc.util.Time;
 import rubt.graphics.Textures;
+import rubt.io.Image;
 import rubt.logic.State;
 import rubt.net.Host;
 import rubt.net.Net;
@@ -46,7 +46,7 @@ public class JoinFragment {
                 info.table(nick -> {
                     nick.field(player.name, name -> settings.put("player-name", player.name = name)).grow().padRight(8f);
                     nick.button(Icons.avatar, () -> {
-                        ui.openFile("Select avatar", Seq.with("png", "jpg", "jpeg", "bmp"), file -> {/* TODO save to settings */});
+                        ui.openFile("Select avatar", Image.extensions, file -> {/* TODO save to settings */});
                     }).size(64f);
                 }).padBottom(16f).row();
 
