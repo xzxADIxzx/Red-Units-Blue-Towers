@@ -1,27 +1,30 @@
 package rubt.logic;
 
-import arc.graphics.Pixmap;
-import arc.graphics.Texture;
 import arc.graphics.g2d.TextureRegion;
 import arc.net.Connection;
 import rubt.Groups;
-import rubt.Groups.GroupObject;
+import rubt.Groups.Entity;
+import rubt.io.Reads;
+import rubt.io.Writes;
 
 import static arc.Core.*;
+import static rubt.Vars.*;
 
-public class Player extends GroupObject {
+public class Player extends Entity {
 
-    public final Connection con;
+    public Connection con;
 
-    public Pixmap avatar;
+    public byte[] avatar;
     public String name;
 
     public Team team = Team.observers;
     public boolean admin;
 
-    public Player(Connection con) {
+    /** TODO sync cursor position so teammates can see you. */
+    public float cursorX, cursorY;
+
+    public Player() {
         super(Groups.players);
-        this.con = con;
     }
 
     public String ip() {
@@ -29,7 +32,7 @@ public class Player extends GroupObject {
     }
 
     public TextureRegion avatar() {
-        return avatar == null ? atlas.find("avatar") : new TextureRegion(new Texture(avatar));
+        return avatar == null ? atlas.find("avatar") : null /* Image.wrap */;
     }
 
     public boolean red() {
@@ -43,4 +46,32 @@ public class Player extends GroupObject {
     public boolean observer() {
         return team == Team.observers;
     }
+
+    public float getX() {
+        return cursorX;
+    }
+
+    public float getY() {
+        return cursorY;
+    }
+
+    // region serialization
+
+    public void write(Writes w) {
+        w.b(avatar);
+        w.str(name);
+        w.b(team.ordinal());
+        w.bool(admin);
+    }
+
+    public void read(Reads r) {
+        avatar = r.b(40 * 40 * 4);
+        name = r.str();
+        team = Team.values()[r.b()];
+        admin = r.bool();
+
+        ui.lobbyfrag.rebuildList();
+    }
+
+    // endregion
 }

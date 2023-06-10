@@ -56,17 +56,6 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
         handler.register(Snapshot.class, this::readSnapshot);
 
-        handler.register(CreatePlayer.class, data -> {
-            Player player = new Player(null);
-
-            player.avatar = data.avatar;
-            player.name = data.name;
-            player.team = data.team;
-            player.admin = data.admin;
-
-            ui.lobbyfrag.rebuildList();
-        });
-
         handler.register(CreateEntity.class, data -> {
             ByteBuffer buffer = ByteBuffer.wrap(data.data);
             Reads reads = Reads.of(buffer);

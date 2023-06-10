@@ -1,7 +1,6 @@
 package rubt.net;
 
 import arc.func.Prov;
-import arc.graphics.Pixmap;
 import arc.math.geom.Position;
 import arc.net.Connection;
 import arc.struct.ObjectIntMap;
@@ -50,7 +49,6 @@ public class Packets {
         register(WorldData::new);
         register(UpdateState::new);
         register(Snapshot::new);
-        register(CreatePlayer::new);
         register(CreateEntity::new);
         register(SpawnUnit::new);
         register(BuildTurret::new);
@@ -226,35 +224,6 @@ public class Packets {
 
         public Snapshot(short amount, byte[] data) {
             super(amount, data);
-        }
-    }
-
-    /** Packet used to upload player data. */
-    @Sendable(connection = Con.server)
-    public static class CreatePlayer extends PlayerData {
-
-        public Team team;
-        public boolean admin;
-
-        public CreatePlayer() {}
-
-        public CreatePlayer(Player player) {
-            this.avatar = player.avatar;
-            this.name = player.name;
-            this.team = player.team;
-            this.admin = player.admin;
-        }
-
-        public void write(Writes w) {
-            super.write(w);
-            w.b(team.ordinal());
-            w.bool(admin);
-        }
-
-        public void read(Reads r) {
-            super.read(r);
-            team = Team.values()[r.b()];
-            admin = r.bool();
         }
     }
 

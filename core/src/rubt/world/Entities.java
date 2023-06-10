@@ -4,6 +4,7 @@ import arc.func.Prov;
 import arc.struct.ObjectIntMap;
 import arc.struct.Seq;
 import rubt.Groups.Entity;
+import rubt.logic.Player;
 
 public class Entities {
 
@@ -30,6 +31,7 @@ public class Entities {
     }
 
     public static void load() {
+        register(Player::new, Player.class);
         register(Unit::new, Unit.class);
         register(Turret::new, Turret.class);
         register(Tile::new, Tile.class);

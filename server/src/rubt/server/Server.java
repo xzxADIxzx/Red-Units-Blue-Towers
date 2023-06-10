@@ -43,8 +43,9 @@ public class Server extends arc.net.Server implements NetListener {
         handler.register(PlayerData.class, (con, data) -> {
             if (rules.strict && Groups.players.contains(player -> con.getRemoteAddressTCP().getAddress().getHostName().equals(player.ip()))) return;
 
-            Player player = new Player(con);
+            Player player = new Player();
 
+            player.con = con;
             player.avatar = data.avatar;
             player.name = data.name;
             player.team = Logic.nextTeam();
