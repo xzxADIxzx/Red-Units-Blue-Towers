@@ -133,7 +133,7 @@ public class Packets {
         }
 
         public void read(Reads r) {
-            avatar = r.b(48 * 48 * 4);
+            avatar = r.b(40 * 40 * 4);
             name = r.str();
         }
     }
