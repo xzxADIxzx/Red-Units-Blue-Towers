@@ -46,10 +46,16 @@ public abstract class BaseProcessor extends AbstractProcessor {
         }
     }
 
+    public void write(String packageName, TypeSpec.Builder builder, boolean importCore, boolean importVars) throws Exception {
+        var file = JavaFile.builder(packageName, builder.build()).skipJavaLangImports(true);
+
+        if (importCore) file.addStaticImport(ClassName.get("arc", "Core"), "*");
+        if (importVars) file.addStaticImport(ClassName.get("rubt", "Vars"), "*");
+
+        file.build().writeTo(filer);
+    }
+
     public void write(String packageName, TypeSpec.Builder builder) throws Exception {
-        JavaFile.builder(packageName, builder.build())
-                .skipJavaLangImports(true)
-                .addStaticImport(ClassName.get("rubt", "Vars"), "*")
-                .build().writeTo(filer);
+        write(packageName, builder, false, false);
     }
 }

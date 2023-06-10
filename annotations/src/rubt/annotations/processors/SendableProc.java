@@ -47,7 +47,7 @@ public class SendableProc extends BaseProcessor {
         // sort methods
         root.methodSpecs.sort((m1, m2) -> m1.toString().compareTo(m2.toString()));
 
-        write("rubt.net", root);
+        write("rubt.net", root, false, true);
     }
 
     public MethodSpec build(String className, Sendable annotation, ExecutableElement constructor) {
