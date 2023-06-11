@@ -2,6 +2,7 @@ package rubt.ui;
 
 import arc.graphics.Color;
 import arc.scene.ui.Button.ButtonStyle;
+import arc.scene.ui.CheckBox.CheckBoxStyle;
 import arc.scene.ui.Dialog.DialogStyle;
 import arc.scene.ui.ImageButton.ImageButtonStyle;
 import arc.scene.ui.Label.LabelStyle;
@@ -21,6 +22,7 @@ public class Styles {
 
     public static LabelStyle label, tech;
     public static TextFieldStyle field;
+    public static CheckBoxStyle check;
     public static ScrollPaneStyle scroll;
     public static DialogStyle dialog;
 
@@ -62,12 +64,20 @@ public class Styles {
 
         scene.addStyle(TextFieldStyle.class, field = new TextFieldStyle() {{
             font = Fonts.aldrich;
-
             fontColor = Color.white;
+
             background = Textures.mainbg;
             invalidBackground = Textures.redbg;
             cursor = Textures.whiteui;
             selection = Textures.accentbg;
+        }});
+
+        scene.addStyle(CheckBoxStyle.class, check = new CheckBoxStyle() {{
+            font = Fonts.aldrich;
+
+            checkboxOn = Textures.accentbg;
+            checkboxOver = Textures.mainbg;
+            checkboxOff = Textures.alphabg;
         }});
 
         scene.addStyle(ScrollPaneStyle.class, scroll = new ScrollPaneStyle() {{

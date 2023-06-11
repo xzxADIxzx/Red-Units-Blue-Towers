@@ -3,7 +3,7 @@ package rubt.ui.dialogs;
 import arc.util.Strings;
 import rubt.net.Host;
 
-import static rubt.Vars.ui;
+import static rubt.Vars.*;
 
 public class AddHostDialog extends BaseDialog {
 
