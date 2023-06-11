@@ -64,7 +64,7 @@ public class Player extends Entity {
     }
 
     public void read(Reads r) {
-        avatar = r.b(40 * 40 * 4);
+        avatar = r.b(Image.rgbSize);
         name = r.str();
         team = Team.values()[r.b()];
         admin = r.bool();

@@ -14,11 +14,16 @@ public class Image { // TODO increase size up to 48px by saving only RGB
 
     public static final Seq<String> extensions = Seq.with("png", "jpg", "jpeg", "bmp");
 
+    /** 40x40 pixels * 4 byte. */
+    public static final int rgbaSize = 40 * 40 * 4;
+    /** 40x40 pixels * 3 byte. */
+    public static final int rgbSize = 40 * 40 * 3;
+
     /** Reads an image, scales it to 40x40 pixels and returns it as a byte[]. */
     public static byte[] read(Fi file) {
         var pixmap = Pixmaps.scale(new Pixmap(file), 40, 40, true);
 
-        byte[] output = new byte[40 * 40 * 4]; // 40x40 pixels * 4 byte
+        byte[] output = new byte[rgbaSize];
         pixmap.pixels.position(0).get(output); // 6KiB is quite a lot but tolerable
 
         return output;

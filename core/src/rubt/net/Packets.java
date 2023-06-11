@@ -10,8 +10,7 @@ import rubt.annotations.Annotations.Con;
 import rubt.annotations.Annotations.Sendable;
 import rubt.content.TurretTypes;
 import rubt.content.UnitTypes;
-import rubt.io.Reads;
-import rubt.io.Writes;
+import rubt.io.*;
 import rubt.logic.*;
 import rubt.types.TurretType;
 import rubt.types.UnitType;
@@ -131,7 +130,7 @@ public class Packets {
         }
 
         public void read(Reads r) {
-            avatar = r.b(40 * 40 * 4);
+            avatar = r.b(Image.rgbSize);
             name = r.str();
         }
     }
