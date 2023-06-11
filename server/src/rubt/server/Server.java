@@ -58,6 +58,14 @@ public class Server extends arc.net.Server implements NetListener {
             sendEntity(player);
         });
 
+        handler.register(UpdateCursor.class, (con, data) -> {
+            var player = Groups.players.find(p -> p.con == con);
+            if (player != null) {
+                player.cursorX = data.cursor.getX();
+                player.cursorY = data.cursor.getY();
+            }
+        });
+
         handler.register(SpawnUnit.class, (con, data) -> {
             // TODO check player's team, unit's cost and spawn position
 

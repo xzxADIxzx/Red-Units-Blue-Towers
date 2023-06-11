@@ -4,6 +4,7 @@ import arc.graphics.g2d.Draw;
 import arc.struct.Seq;
 import rubt.Groups;
 import rubt.logic.State;
+import rubt.net.Send;
 import rubt.world.*;
 
 import static arc.Core.*;
@@ -36,6 +37,8 @@ public abstract class InputHandler {
 
         updateRed();
         updateBlue();
+
+        Send.cursor(input.mouseWorld()); // TODO move to Timer.schedule
     }
 
     public void draw() {

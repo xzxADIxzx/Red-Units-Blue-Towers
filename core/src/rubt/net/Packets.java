@@ -47,6 +47,7 @@ public class Packets {
         register(WorldDataBegin::new);
         register(WorldData::new);
         register(UpdateState::new);
+        register(UpdateCursor::new);
         register(Snapshot::new);
         register(CreateEntity::new);
         register(SpawnUnit::new);
@@ -212,6 +213,27 @@ public class Packets {
 
         public void read(Reads r) {
             state = State.values()[r.b()];
+        }
+    }
+
+    /** Packet used to update cursor position. */
+    @Sendable(connection = Con.client, reliable = false)
+    public static class UpdateCursor implements Packet {
+
+        public Position cursor;
+
+        public UpdateCursor() {}
+
+        public UpdateCursor(Position cursor) {
+            this.cursor = cursor;
+        }
+
+        public void write(Writes w) {
+            w.p(cursor);
+        }
+
+        public void read(Reads r) {
+            cursor = r.p();
         }
     }
 
