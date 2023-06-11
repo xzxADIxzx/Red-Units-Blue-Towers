@@ -5,6 +5,7 @@ import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.Mathf;
 import rubt.Groups;
+import rubt.logic.Player;
 import rubt.world.*;
 
 import static arc.Core.*;
@@ -70,6 +71,13 @@ public class Renderer {
             bloom.capture();
 
             handler.draw();
+
+            Draw.color(Palette.red); // TODO hide enemies cursors? + don't draw local player's cursor
+            Groups.players.each(Player::red, Player::drawCursor);
+
+            Draw.color(Palette.blue);
+            Groups.players.each(Player::blue, Player::drawCursor);
+
             bloom.render();
         });
 

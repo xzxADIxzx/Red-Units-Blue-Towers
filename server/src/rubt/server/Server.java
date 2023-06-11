@@ -142,7 +142,6 @@ public class Server extends arc.net.Server implements NetListener {
             return;
         }
 
-        Groups.players.each(this::sendEntity); // TODO remove when Player inherits NetObject
         Send.state(connection, state);
     }
 
