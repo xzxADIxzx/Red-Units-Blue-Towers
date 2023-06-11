@@ -9,14 +9,13 @@ import static arc.Core.*;
 
 import java.util.Arrays;
 
-public class Image { // TODO increase size up to 48px by saving only RGB
-
+public class Image {
     public static final Seq<String> extensions = Seq.with("png", "jpg", "jpeg", "bmp");
 
-    /** 40x40 pixels * 4 byte. */
-    public static final int rgbaSize = 40 * 40 * 4;
-    /** 40x40 pixels * 3 byte. */
-    public static final int rgbSize = 40 * 40 * 3;
+    /** 48x48 pixels * 4 byte. */
+    public static final int rgbaSize = 48 * 48 * 4;
+    /** 48x48 pixels * 3 byte. */
+    public static final int rgbSize = 48 * 48 * 3;
 
     // region rgb/rgba
 
@@ -30,7 +29,7 @@ public class Image { // TODO increase size up to 48px by saving only RGB
 
     /** Converts a byte image from RGB to RGBA and writes into {@link Pixmap}. */
     public static Pixmap rgb2rgba(byte[] data) {
-        var pixmap = new Pixmap(40, 40);
+        var pixmap = new Pixmap(48, 48);
 
         for (int i = 0; i < data.length; i++) {
             pixmap.pixels.put(data[i]);
@@ -43,9 +42,10 @@ public class Image { // TODO increase size up to 48px by saving only RGB
     // endregion
     // region read/wrap
 
-    /** Reads an image, scales it to 40x40 pixels and returns it as a byte[]. */
+    /** Reads an image, scales it to 48x48 pixels and returns it as a byte[]. */
     public static byte[] read(Fi file) {
-        var pixmap = Pixmaps.scale(new Pixmap(file), 40, 40, true);
+        var pixmap = Pixmaps.scale(new Pixmap(file), 48, 48, false);
+        Pixmaps.antialias(pixmap); // TODO dialog with some settings and preview
 
         byte[] output = new byte[rgbaSize];
         pixmap.pixels.position(0).get(output); // 6KiB is quite a lot but tolerable
