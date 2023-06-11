@@ -61,6 +61,18 @@ public class Player extends NetObject {
 
     public void drawCursor() {
         Icons.cursor.draw(cursorX - 2f, cursorY - 7f, 8f, 8f);
+
+        // draw nickname
+        Fonts.aldrich.setUseIntegerPositions(false);
+        Fonts.aldrich.getData().setScale(.15f);
+
+        var cache = Fonts.aldrich.getCache();
+        cache.clear();
+        cache.addText(name, cursorX + 4f, cursorY - 8f, 0f, Align.center, false);
+        cache.draw();
+
+        Fonts.aldrich.setUseIntegerPositions(true);
+        Fonts.aldrich.getData().setScale(1f);
     }
 
     // endregion
