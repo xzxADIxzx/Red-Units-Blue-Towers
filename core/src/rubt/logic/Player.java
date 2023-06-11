@@ -31,7 +31,7 @@ public class Player extends Entity {
     }
 
     public TextureRegion avatar() {
-        return avatar == null ? atlas.find("avatar") : Image.wrap(avatar, name);
+        return avatar == null ? atlas.find("avatar") : Image.wrap(avatar, id);
     }
 
     public boolean red() {

@@ -62,8 +62,8 @@ public class Image {
     }
 
     /** Creates an image from the raw data and wraps it into {@link TextureRegion}. */
-    public static TextureRegion wrap(byte[] data, String fileName) {
-        Fi temp = getTemp(fileName);
+    public static TextureRegion wrap(byte[] data, int id) {
+        Fi temp = getTemp(id);
 
         if (temp.exists()) return wrap(temp); // use an already uploaded avatar if possible
         temp.writePng(rgb2rgba(data)); // save avatar
@@ -75,8 +75,8 @@ public class Image {
     // region temp
 
     /** Returns a file for temporary storage of an avatar. */
-    public static Fi getTemp(String fileName) {
-        return settings.getDataDirectory().child("avatars/" + fileName); // TODO use id instead of name?
+    public static Fi getTemp(int id) {
+        return settings.getDataDirectory().child("avatars/" + id);
     }
 
     /** Removes all uploaded avatars. */
