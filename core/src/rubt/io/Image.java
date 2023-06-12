@@ -10,6 +10,7 @@ import static arc.Core.*;
 import java.util.Arrays;
 
 public class Image {
+
     public static final Seq<String> extensions = Seq.with("png", "jpg", "jpeg", "bmp");
 
     /** 48x48 pixels * 4 byte. */
@@ -40,20 +41,22 @@ public class Image {
     }
 
     // endregion
-    // region read/wrap
+    // region write/wrap
 
-    /** Reads an image, scales it to 48x48 pixels and returns it as a byte[]. */
-    public static byte[] read(Fi file) {
-        var pixmap = Pixmaps.scale(new Pixmap(file), 48, 48, false);
-        Pixmaps.antialias(pixmap); // TODO dialog with some settings and preview
-
+    /** Writes the rgb channels of an image to byte[]. */
+    public static byte[] write(Pixmap pixmap) {
         byte[] output = new byte[rgbaSize];
         pixmap.pixels.position(0).get(output); // 6KiB is quite a lot but tolerable
 
         return rgba2rgb(output);
     }
 
-    /** Wraps an image into {@link TextureRegion}. */
+    /** Wraps a pixmap into {@link TextureRegion}. */
+    public static TextureRegion wrap(Pixmap pixmap) {
+        return new TextureRegion(new Texture(pixmap));
+    }
+
+    /** Reads an image from a file and wraps it into {@link TextureRegion}. */
     public static TextureRegion wrap(Fi file) {
         var texture = new Texture(file); // some magic to update the texture
         app.post(() -> texture.load(texture.getTextureData()));
@@ -61,7 +64,7 @@ public class Image {
         return new TextureRegion(texture);
     }
 
-    /** Creates an image from the raw data and wraps it into {@link TextureRegion}. */
+    /** Creates an image from a raw data and wraps it into {@link TextureRegion}. */
     public static TextureRegion wrap(byte[] data, int id) {
         Fi temp = getTemp(id);
 
