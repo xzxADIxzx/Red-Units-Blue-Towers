@@ -2,6 +2,7 @@ package rubt.ui.fragments;
 
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
+import arc.util.Timer;
 import rubt.Groups;
 import rubt.graphics.Textures;
 import rubt.logic.State;
@@ -13,8 +14,13 @@ import static rubt.Vars.*;
 public class LobbyFragment {
 
     public Table list;
+    public boolean needRebuilding;
 
     public void build(Group parent) {
+        Timer.schedule(() -> { // TODO looks bad
+            if (needRebuilding) rebuildList();
+        }, 0f, .5f);
+
         parent.fill(cont -> {
             cont.name = "Lobby Fragment";
             cont.visible(() -> state == State.lobby);

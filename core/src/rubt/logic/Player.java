@@ -91,7 +91,7 @@ public class Player extends NetObject {
         team = Team.values()[r.b()];
         admin = r.bool();
 
-        ui.lobbyfrag.rebuildList();
+        ui.lobbyfrag.needRebuilding = true;
     }
 
     public void writeSnapshot(Writes w) {
