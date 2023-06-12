@@ -126,12 +126,13 @@ public class Packets {
         }
 
         public void write(Writes w) {
-            w.b(avatar);
+            w.bool(avatar != null);
+            if (avatar != null) w.b(avatar);
             w.str(name);
         }
 
         public void read(Reads r) {
-            avatar = r.b(Image.rgbSize);
+            if (r.bool()) avatar = r.b(Image.rgbSize);
             name = r.str();
         }
     }

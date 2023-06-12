@@ -43,7 +43,7 @@ public class JoinFragment {
                 info.defaults().height(64f).growX().padBottom(8f);
 
                 info.table(nick -> {
-                    nick.field(settings.getString("player-name", "Nooby"), name -> settings.put("player-name", name))
+                    nick.field(settings.getString("player-name"), name -> settings.put("player-name", name))
                             .grow().padRight(8f).maxTextLength(maxNameLength);
 
                     nick.button(Icons.avatar, () -> ui.avatar.show()).size(64f);

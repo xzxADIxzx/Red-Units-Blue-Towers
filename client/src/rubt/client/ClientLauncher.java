@@ -30,6 +30,7 @@ public abstract class ClientLauncher implements ApplicationListener {
 
         settings.setAppName("rubt");
         settings.load();
+        settings.defaults("player-name", "Nooby");
 
         // save settings once a minute
         settings.setAutosave(false);
