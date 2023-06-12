@@ -26,6 +26,7 @@ public class UI {
 
     public FileChooserDialog fileChooser;
     public AddHostDialog addHost;
+    public AvatarDialog avatar;
 
     public void load() {
         input.addProcessor(scene);
@@ -48,6 +49,7 @@ public class UI {
         // dialogs are created here because before the load() call, the styles have not yet been created
         fileChooser = new FileChooserDialog();
         addHost = new AddHostDialog();
+        avatar = new AvatarDialog();
 
         app.post(() -> app.post(() -> app.post(() -> app.post(() -> { // TODO load & discover on fragment opened
             joinfrag.loadSavedHosts();

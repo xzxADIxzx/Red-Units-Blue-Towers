@@ -7,7 +7,6 @@ import arc.util.Log;
 import arc.util.Strings;
 import arc.util.Time;
 import rubt.graphics.Textures;
-import rubt.io.Image;
 import rubt.logic.State;
 import rubt.net.Host;
 import rubt.net.Net;
@@ -47,16 +46,7 @@ public class JoinFragment {
                     nick.field(settings.getString("player-name", "Nooby"), name -> settings.put("player-name", name))
                             .grow().padRight(8f).maxTextLength(maxNameLength);
 
-                    nick.button(Icons.avatar, () -> {
-                        ui.openFile("Select avatar", Image.extensions, file -> {
-                            try {
-                                settings.put("player-avatar", Image.read(file));
-                            } catch (Exception error) {
-                                Log.err("Could not to load image", error);
-                                // TODO ui.announce("corrupt img")
-                            }
-                        });
-                    }).size(64f);
+                    nick.button(Icons.avatar, () -> ui.avatar.show()).size(64f);
                 }).padBottom(16f).row();
 
                 info.table(Textures.alphabg, name -> {
