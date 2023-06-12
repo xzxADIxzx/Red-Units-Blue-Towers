@@ -34,7 +34,7 @@ public class Player extends NetObject {
     }
 
     public TextureRegion avatar() {
-        return avatar == null ? atlas.find("avatar") : Image.wrap(avatar, id);
+        return avatar == null ? atlas.find("avatar") : Image.read(avatar);
     }
 
     public boolean red() {

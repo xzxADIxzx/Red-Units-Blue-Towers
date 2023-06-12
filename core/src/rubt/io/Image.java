@@ -1,11 +1,8 @@
 package rubt.io;
 
-import arc.files.Fi;
 import arc.graphics.*;
 import arc.graphics.g2d.TextureRegion;
 import arc.struct.Seq;
-
-import static arc.Core.*;
 
 import java.util.Arrays;
 
@@ -41,50 +38,24 @@ public class Image {
     }
 
     // endregion
-    // region write/wrap
+    // region read/write
 
     /** Writes the rgb channels of an image to byte[]. */
     public static byte[] write(Pixmap pixmap) {
         byte[] output = new byte[rgbaSize];
-        pixmap.pixels.position(0).get(output); // 6KiB is quite a lot but tolerable
+        pixmap.pixels.position(0).get(output); // 9KiB is quite a lot but tolerable
 
         return rgba2rgb(output);
     }
 
-    /** Wraps a pixmap into {@link TextureRegion}. */
+    /** Wraps an image into {@link TextureRegion}. */
     public static TextureRegion wrap(Pixmap pixmap) {
         return new TextureRegion(new Texture(pixmap));
     }
 
-    /** Reads an image from a file and wraps it into {@link TextureRegion}. */
-    public static TextureRegion wrap(Fi file) {
-        var texture = new Texture(file); // some magic to update the texture
-        app.post(() -> texture.load(texture.getTextureData()));
-
-        return new TextureRegion(texture);
-    }
-
-    /** Creates an image from a raw data and wraps it into {@link TextureRegion}. */
-    public static TextureRegion wrap(byte[] data, int id) {
-        Fi temp = getTemp(id);
-
-        if (temp.exists()) return wrap(temp); // use an already uploaded avatar if possible
-        temp.writePng(rgb2rgba(data)); // save avatar
-
-        return wrap(temp);
-    }
-
-    // endregion
-    // region temp
-
-    /** Returns a file for temporary storage of an avatar. */
-    public static Fi getTemp(int id) {
-        return settings.getDataDirectory().child("avatars/" + id);
-    }
-
-    /** Removes all uploaded avatars. */
-    public static void clearTemp() {
-        settings.getDataDirectory().child("avatars").deleteDirectory();
+    /** Reads an image from a raw data. */
+    public static TextureRegion read(byte[] data) {
+        return wrap(rgb2rgba(data));
     }
 
     // endregion
