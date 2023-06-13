@@ -6,7 +6,7 @@ import arc.struct.Seq;
 import rubt.content.UnitTypes;
 import rubt.world.Unit;
 
-public abstract class UnitType extends ContentType {
+public abstract class UnitType extends ContentType<Unit> {
 
     public int health;
     public int damage;
@@ -25,12 +25,6 @@ public abstract class UnitType extends ContentType {
     public UnitType(String name) {
         super(UnitTypes.all, name);
     }
-
-    public abstract void update(Unit unit);
-
-    public abstract void draw(Unit unit);
-
-    public abstract void drawGlow(Unit unit);
 
     public void addEngine(float x, float y, float rotation) {
         engines.add(new Vec3(x, y, rotation));

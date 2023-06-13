@@ -7,7 +7,7 @@ import rubt.graphics.Textures;
 
 import static arc.Core.*;
 
-public abstract class ContentType extends GroupObject {
+public abstract class ContentType<T> extends GroupObject {
 
     /** Internal name used to find textures, bundles and etc. */
     public final String name;
@@ -30,4 +30,13 @@ public abstract class ContentType extends GroupObject {
     public void loadui() {
         icon = Textures.loadIcon(name);
     }
+
+    /** Any logic: from units AI to turrets targeting. */
+    public abstract void update(T turret);
+
+    /** Rendering of all non-luminous details. */
+    public abstract void draw(T turret);
+
+    /** Rendering of luminous details. */
+    public abstract void drawGlow(T turret);
 }

@@ -7,17 +7,19 @@ import rubt.types.ContentType;
 @SuppressWarnings("unchecked")
 public class ContentTypes {
 
-    public static Seq<Seq<? extends ContentType>> all;
+    public static Seq<Seq<? extends ContentType<?>>> all;
 
     public static void load() {
+        TileTypes.load();
         UnitTypes.load();
         TurretTypes.load();
 
-        all = Seq.with(UnitTypes.all, TurretTypes.all);
+        all = Seq.with(TileTypes.all, UnitTypes.all, TurretTypes.all);
         Log.info("[App] Loaded @ items of content.", all.sum(seq -> seq.size));
     }
 
     public static void loadui() {
+        TileTypes.loadui();
         UnitTypes.loadui();
         TurretTypes.loadui();
     }
