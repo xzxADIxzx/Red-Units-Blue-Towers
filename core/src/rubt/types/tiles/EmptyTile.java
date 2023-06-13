@@ -9,9 +9,12 @@ public class EmptyTile extends TileType {
         super(name);
     }
 
-    public void update(Tile unit) {}
+    @Override
+    public void loadui() {}
 
-    public void draw(Tile unit) {}
+    public void update(Tile tile) {}
 
-    public void drawGlow(Tile unit) {}
+    public void draw(Tile tile) {}
+
+    public void drawGlow(Tile tile) {}
 }
