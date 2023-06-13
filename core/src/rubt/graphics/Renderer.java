@@ -40,7 +40,17 @@ public class Renderer {
             Fill.light(camera.position.x, camera.position.y, 64, graphics.getHeight() / current * .8f, Palette.lightbg, Palette.background);
         });
 
-        Draw.draw(Layers.tiles, () -> Groups.tiles.each(Tile::draw));
+        Draw.draw(Layers.tiles, () -> {
+            Draw.color();
+            Groups.tiles.each(Tile::draw);
+
+            bloom.setBloomIntesity(2.8f);
+            bloom.capture();
+
+            Groups.tiles.each(Tile::drawGlow);
+
+            bloom.render();
+        });
         Draw.draw(Layers.units, () -> {
             Draw.color();
             Groups.units.each(Unit::draw);

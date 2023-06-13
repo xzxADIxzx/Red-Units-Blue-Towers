@@ -43,6 +43,8 @@ public class Tile extends Entity {
         Fill.rect(getX(), getY(), tilesize, tilesize);
     }
 
+    public void drawGlow() {}
+
     public Seq<Tile> neightbours() {
         Seq<Tile> neightbours = new Seq<>();
 
