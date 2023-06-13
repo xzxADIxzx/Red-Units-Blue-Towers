@@ -4,9 +4,10 @@ import rubt.Groups;
 import rubt.content.TurretTypes;
 import rubt.io.Reads;
 import rubt.io.Writes;
+import rubt.types.ContentType;
 import rubt.types.TurretType;
 
-public class Turret extends Body {
+public class Turret extends Body implements ContentType.Provider<Turret> {
 
     public TurretType type;
 
@@ -14,16 +15,12 @@ public class Turret extends Body {
         super(Groups.turrets);
     }
 
+    public ContentType<Turret> type() {
+        return type;
+    }
+
     public void update() {
         type.update(this);
-    }
-
-    public void draw() {
-        type.draw(this);
-    }
-
-    public void drawGlow() {
-        type.drawGlow(this);
     }
 
     // region serialization

@@ -1,12 +1,14 @@
 package rubt.graphics;
 
+import arc.graphics.Color;
 import arc.graphics.g2d.Bloom;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.Fill;
 import arc.math.Mathf;
+import arc.struct.Seq;
 import rubt.Groups;
 import rubt.logic.Player;
-import rubt.world.*;
+import rubt.types.ContentType;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -21,6 +23,19 @@ public class Renderer {
     public void zoom(float amount) {
         target *= (amount / 4) + 1;
         target = Mathf.clamp(target, minZoom, maxZoom);
+    }
+
+    public <T extends ContentType.Provider<T>> void drawContent(Seq<T> items, Color glow) {
+        Draw.color();
+        items.each(i -> i.type().draw(i));
+
+        bloom.setBloomIntesity(2.8f);
+        bloom.capture();
+
+        Draw.color(glow);
+        items.each(i -> i.type().drawGlow(i));
+
+        bloom.render();
     }
 
     public void draw() {
@@ -40,41 +55,9 @@ public class Renderer {
             Fill.light(camera.position.x, camera.position.y, 64, graphics.getHeight() / current * .8f, Palette.lightbg, Palette.background);
         });
 
-        Draw.draw(Layers.tiles, () -> {
-            Draw.color();
-            Groups.tiles.each(Tile::draw);
-
-            bloom.setBloomIntesity(2.8f);
-            bloom.capture();
-
-            Groups.tiles.each(Tile::drawGlow);
-
-            bloom.render();
-        });
-        Draw.draw(Layers.units, () -> {
-            Draw.color();
-            Groups.units.each(Unit::draw);
-
-            bloom.setBloomIntesity(2.8f);
-            bloom.capture();
-
-            Draw.color(Palette.red);
-            Groups.units.each(Unit::drawGlow);
-
-            bloom.render();
-        });
-        Draw.draw(Layers.turrets, () -> {
-            Draw.color();
-            Groups.turrets.each(Turret::draw);
-
-            bloom.setBloomIntesity(2.8f);
-            bloom.capture();
-
-            Draw.color(Palette.blue);
-            Groups.turrets.each(Turret::drawGlow);
-
-            bloom.render();
-        });
+        Draw.draw(Layers.tiles, () -> drawContent(Groups.tiles, Color.white));
+        Draw.draw(Layers.units, () -> drawContent(Groups.units, Palette.red));
+        Draw.draw(Layers.turrets, () -> drawContent(Groups.turrets, Palette.blue));
 
         Draw.draw(Layers.overlay, () -> {
             bloom.setBloomIntesity(1.8f);

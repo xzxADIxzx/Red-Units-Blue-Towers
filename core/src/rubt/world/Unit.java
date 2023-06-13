@@ -9,12 +9,13 @@ import rubt.Groups;
 import rubt.content.UnitTypes;
 import rubt.io.Reads;
 import rubt.io.Writes;
+import rubt.types.ContentType;
 import rubt.types.UnitType;
 import rubt.world.Pathfinder.Path;
 
 import static rubt.Vars.*;
 
-public class Unit extends Body {
+public class Unit extends Body implements ContentType.Provider<Unit> {
 
     public UnitType type;
 
@@ -27,6 +28,10 @@ public class Unit extends Body {
         super(Groups.units);
     }
 
+    public ContentType<Unit> type() {
+        return type;
+    }
+
     public void update() {
         // logical update
         type.update(this);
@@ -35,14 +40,6 @@ public class Unit extends Body {
         // physical update
         move(vel);
         collisions.checkUnit(this);
-    }
-
-    public void draw() {
-        type.draw(this);
-    }
-
-    public void drawGlow() {
-        type.drawGlow(this);
     }
 
     // region movement

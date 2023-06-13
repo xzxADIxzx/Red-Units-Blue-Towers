@@ -1,23 +1,28 @@
 package rubt.world;
 
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
 import arc.math.geom.*;
 import arc.struct.Seq;
 import rubt.Groups;
 import rubt.Groups.Entity;
 import rubt.io.Reads;
 import rubt.io.Writes;
+import rubt.types.ContentType;
+import rubt.types.TileType;
 
 import static rubt.Vars.*;
 
-public class Tile extends Entity {
+public class Tile extends Entity implements ContentType.Provider<Tile> {
+
+    public TileType type;
 
     public short x, y;
 
     public Tile() {
         super(Groups.tiles);
+    }
+
+    public ContentType<Tile> type() {
+        return type;
     }
 
     // region position
@@ -35,15 +40,6 @@ public class Tile extends Entity {
     }
 
     // endregion
-
-    public void draw() {
-        Draw.reset();
-
-        Draw.color(Color.gray);
-        Fill.rect(getX(), getY(), tilesize, tilesize);
-    }
-
-    public void drawGlow() {}
 
     public Seq<Tile> neightbours() {
         Seq<Tile> neightbours = new Seq<>();

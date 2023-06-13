@@ -32,11 +32,16 @@ public abstract class ContentType<T> extends GroupObject {
     }
 
     /** Any logic: from units AI to turrets targeting. */
-    public abstract void update(T turret);
+    public abstract void update(T item);
 
     /** Rendering of all non-luminous details. */
-    public abstract void draw(T turret);
+    public abstract void draw(T item);
 
     /** Rendering of luminous details. */
-    public abstract void drawGlow(T turret);
+    public abstract void drawGlow(T item);
+
+    /** Used to abstract away from the implementation of an entity. */
+    public interface Provider<T> {
+        ContentType<T> type();
+    }
 }
