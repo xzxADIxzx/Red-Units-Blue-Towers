@@ -8,7 +8,7 @@ import static rubt.Vars.*;
 public class Collisions {
 
     public void checkTile(Unit unit) {
-        Groups.tiles.each(tile -> tile.within(unit, tilesize + unit.type.size), tile -> {
+        Groups.tiles.each(tile -> tile.within(unit, tilesize + unit.type.size) && tile.type.solid, tile -> {
 
             // check whether unit collides with tile
             float x = Math.max(tile.getX() - 8f, Math.min(unit.x, tile.getX() + 8f));

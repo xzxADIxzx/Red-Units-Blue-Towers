@@ -2,6 +2,7 @@ package rubt.world;
 
 import arc.struct.Seq;
 
+// TODO remake
 public class Pathfinder {
 
     public static final int maxDatasSize = 1000;
@@ -33,7 +34,7 @@ public class Pathfinder {
         Seq<PathData> datas = new Seq<>();
 
         parent.from.neightbours().each(tile -> {
-            if (parent.tiles.contains(tile)) return;
+            if (parent.tiles.contains(tile) || tile.type.solid) return;
             datas.add(parent.copy(tile));
         });
 

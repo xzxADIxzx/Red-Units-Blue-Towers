@@ -4,6 +4,7 @@ import arc.math.geom.*;
 import arc.struct.Seq;
 import rubt.Groups;
 import rubt.Groups.Entity;
+import rubt.content.TileTypes;
 import rubt.io.Reads;
 import rubt.io.Writes;
 import rubt.types.ContentType;
@@ -55,11 +56,13 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
     // region serialization
 
     public void write(Writes w) {
+        w.b(type.id);
         w.s(x);
         w.s(y);
     }
 
     public void read(Reads r) {
+        type = TileTypes.all.get(r.b());
         x = r.s();
         y = r.s();
 

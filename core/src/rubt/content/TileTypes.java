@@ -21,6 +21,7 @@ public class TileTypes {
         floor = new BaseTile("floor");
 
         wall = new BaseTile("wall") {{
+            solid = true;
             choosable = true;
         }};
     }
