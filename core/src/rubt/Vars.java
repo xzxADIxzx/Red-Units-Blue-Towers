@@ -20,7 +20,7 @@ public class Vars {
     public static final String[] tags = { "&lc&fb[D]&fr", "&lb&fb[I]&fr", "&ly&fb[W]&fr", "&lr&fb[E]", "" };
     public static final DateTimeFormatter dateTime = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-    public static final float tilesize = 16f;
+    public static final float tilesize = 12f;
     public static final int maxSnapshotSize = 1200;
     public static final int maxNameLength = 80;
     public static final int maxMessageLength = 128;
