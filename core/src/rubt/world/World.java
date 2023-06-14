@@ -31,9 +31,9 @@ public class World {
         return set(tile);
     }
 
-    public Tile get(int x, int y) {
-        if (x < 0 || y < 0 || x >= width || y >= height) return null; // out of bounds
-        return tiles[x + y * width];
+    public Tile get(short q, short r) {
+        if (q < 0 || r < 0 || q >= width || r >= height) return null; // out of bounds
+        return tiles[q + r * width];
     }
 
     public Tile get(float x, float y) {
@@ -73,7 +73,7 @@ public class World {
         if (Structs.contains(tiles, (Object) null))
             throw new IOException("Corrupted or invalid save file: some tile is null");
 
-        // cache some info about tiles such as x, y and neighbors
+        // cache some info about tiles such as x, y and neighbours
         Structs.each(Tile::cache, tiles);
     }
 

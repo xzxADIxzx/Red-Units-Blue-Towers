@@ -1,7 +1,12 @@
 package rubt;
 
+import arc.func.Cons;
 import arc.math.Mathf;
 import arc.math.geom.*;
+import arc.struct.Seq;
+import rubt.world.Tile;
+
+import static rubt.Vars.*;
 
 /**
  * Implementation of some algorithms in the axial hexagonal coordinate system.
@@ -10,6 +15,13 @@ import arc.math.geom.*;
  * @author xzxADIxzx
  */
 public class Axial {
+
+    /** Array of offsets along which the tiles neighbours are located. */
+    public static final Point2[] neighbours = {
+            new Point2(+1, 0), new Point2(+1, -1), new Point2(0, -1),
+            new Point2(-1, 0), new Point2(-1, +1), new Point2(0, +1) };
+
+    // region world/hex coordinate conversion
 
     public static Position world(float size, int q, int r) {
         return new Vec2(worldX(size, q), worldY(size, q, r));
@@ -46,4 +58,21 @@ public class Axial {
         else
             return new Point2(roundQ, roundR + Mathf.round(r + q / 2f));
     }
+
+    // endregion
+    // region neighbours
+
+    public static void neighbours(Tile tile, Cons<Tile> cons) {
+        for (var neighbour : neighbours)
+            cons.get(world.get(tile.q + neighbour.x, tile.r + neighbour.y));
+    }
+
+    public static Seq<Tile> neighbours(Tile tile) {
+        var neighbours = new Seq<Tile>(6);
+        neighbours(tile, neighbours::add);
+
+        return neighbours;
+    }
+
+    // endregion
 }

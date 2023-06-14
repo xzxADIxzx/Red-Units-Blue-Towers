@@ -1,6 +1,5 @@
 package rubt.world;
 
-import arc.math.geom.*;
 import arc.struct.Seq;
 import rubt.Axial;
 import rubt.Groups;
@@ -20,6 +19,8 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
     public short q, r;
     public float x, y;
 
+    public Seq<Tile> neighbours;
+
     public Tile() {
         super(Groups.tiles);
     }
@@ -31,6 +32,7 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
     public void cache() {
         x = Axial.worldX(tilesize, q);
         y = Axial.worldY(tilesize, q, r);
+        neighbours = Axial.neighbours(this);
     }
 
     // region position
@@ -44,18 +46,6 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
     }
 
     // endregion
-
-    public Seq<Tile> neightbours() { // TODO cache
-        Seq<Tile> neightbours = new Seq<>();
-
-        for (var offset : Geometry.d4) {
-            Tile neightbour = world.get(q + offset.x, r + offset.y);
-            if (neightbour != null) neightbours.add(neightbour);
-        }
-
-        return neightbours;
-    }
-
     // region serialization
 
     public void write(Writes w) {

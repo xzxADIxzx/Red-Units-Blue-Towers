@@ -33,7 +33,7 @@ public class Pathfinder {
     private Seq<PathData> iteratePath(PathData parent) {
         Seq<PathData> datas = new Seq<>();
 
-        parent.from.neightbours().each(tile -> {
+        parent.from.neighbours.each(tile -> {
             if (parent.tiles.contains(tile) || tile.type.solid) return;
             datas.add(parent.copy(tile));
         });
