@@ -64,8 +64,6 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
 
     public void read(Reads r) {
         type = TileTypes.all.get(r.b());
-
-        world.set(this);
     }
 
     // endregion

@@ -15,13 +15,20 @@ import java.io.*;
 
 public class World {
 
-    public static byte[] header = { 'R', 'B', 'W', 'L', 'D' };
+    public static final byte[] header = { 'R', 'B', 'W', 'L', 'D' };
 
     public Tile[] tiles;
     public int width, height;
 
-    public void set(Tile tile) {
-        tiles[tile.q + tile.r * width] = tile;
+    public Tile set(Tile tile) {
+        return tiles[tile.q + tile.r * width] = tile;
+    }
+
+    public Tile set(Tile tile, short q, short r) {
+        tile.q = q;
+        tile.r = r;
+
+        return set(tile);
     }
 
     public Tile get(int x, int y) {
@@ -54,15 +61,13 @@ public class World {
             height = reads.i();
             tiles = new Tile[width * height];
 
+            for (short q = 0; q < width; q++)
+                for (short r = 0; r < height; r++)
+                    set(new Tile(), q, r).read(reads);
+
             int amount = reads.i();
             for (int i = 0; i < amount; i++)
-                new Tile().read(reads);
-
-            amount = reads.i();
-            for (int i = 0; i < amount; i++) {
-                var entity = Entities.newEntity(reads.b());
-                entity.read(reads);
-            }
+                Entities.newEntity(reads.b()).read(reads);
         }
 
         if (Structs.contains(tiles, (Object) null))
@@ -79,7 +84,6 @@ public class World {
             writes.i(width);
             writes.i(height);
 
-            writes.i(tiles.length);
             for (Tile tile : tiles)
                 tile.write(writes);
 
