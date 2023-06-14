@@ -114,6 +114,6 @@ public class DesktopInput extends InputHandler {
         if (tile == null) return;
 
         Lines.stroke(2f, Palette.blue);
-        Lines.square(tile.getX(), tile.getY(), 10f + Mathf.absin(4f, 2f));
+        Lines.poly(tile.getX(), tile.getY(), 6, 14f + Mathf.absin(4f, 2f));
     }
 }
