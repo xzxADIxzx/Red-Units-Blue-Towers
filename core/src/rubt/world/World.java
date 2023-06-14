@@ -31,13 +31,14 @@ public class World {
         return set(tile);
     }
 
-    public Tile get(short q, short r) {
+    public Tile get(int q, int r) {
         if (q < 0 || r < 0 || q >= width || r >= height) return null; // out of bounds
         return tiles[q + r * width];
     }
 
     public Tile get(float x, float y) {
-        return get(Axial.hexQ(tilesize, x, y), Axial.hexR(tilesize, x, y));
+        var hex = Axial.hex(tilesize, x, y);
+        return get(hex.x, hex.y);
     }
 
     public Tile get(Position position) {
