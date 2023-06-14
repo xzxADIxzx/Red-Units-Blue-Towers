@@ -2,6 +2,7 @@ package rubt.world;
 
 import arc.math.geom.*;
 import arc.struct.Seq;
+import rubt.Axial;
 import rubt.Groups;
 import rubt.Groups.Entity;
 import rubt.content.TileTypes;
@@ -16,7 +17,8 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
 
     public TileType type;
 
-    public short x, y;
+    public short q, r;
+    public float x, y;
 
     public Tile() {
         super(Groups.tiles);
@@ -26,27 +28,28 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
         return type;
     }
 
+    public void cache() {
+        x = Axial.worldX(tilesize, q);
+        y = Axial.worldY(tilesize, q, r);
+    }
+
     // region position
 
     public float getX() {
-        return x * tilesize;
+        return x;
     }
 
     public float getY() {
-        return y * tilesize;
-    }
-
-    public int pack() {
-        return Point2.pack(x, y);
+        return y;
     }
 
     // endregion
 
-    public Seq<Tile> neightbours() {
+    public Seq<Tile> neightbours() { // TODO cache
         Seq<Tile> neightbours = new Seq<>();
 
         for (var offset : Geometry.d4) {
-            Tile neightbour = world.get(x + offset.x, y + offset.y);
+            Tile neightbour = world.get(q + offset.x, r + offset.y);
             if (neightbour != null) neightbours.add(neightbour);
         }
 
@@ -57,14 +60,10 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
 
     public void write(Writes w) {
         w.b(type.id);
-        w.s(x);
-        w.s(y);
     }
 
     public void read(Reads r) {
         type = TileTypes.all.get(r.b());
-        x = r.s();
-        y = r.s();
 
         world.set(this);
     }

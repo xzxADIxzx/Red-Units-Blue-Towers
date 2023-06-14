@@ -1,8 +1,8 @@
 package rubt.world;
 
-import arc.math.Mathf;
 import arc.math.geom.Position;
 import arc.util.Structs;
+import rubt.Axial;
 import rubt.Groups;
 import rubt.Groups.Entity;
 import rubt.io.Reads;
@@ -21,7 +21,7 @@ public class World {
     public int width, height;
 
     public void set(Tile tile) {
-        tiles[tile.x + tile.y * width] = tile;
+        tiles[tile.q + tile.r * width] = tile;
     }
 
     public Tile get(int x, int y) {
@@ -30,7 +30,7 @@ public class World {
     }
 
     public Tile get(float x, float y) {
-        return get(Mathf.round(x / tilesize), Mathf.round(y / tilesize));
+        return get(Axial.hexQ(tilesize, x, y), Axial.hexR(tilesize, x, y));
     }
 
     public Tile get(Position position) {
@@ -67,6 +67,9 @@ public class World {
 
         if (Structs.contains(tiles, (Object) null))
             throw new IOException("Corrupted or invalid save file: some tile is null");
+
+        // cache some info about tiles such as x, y and neighbors
+        Structs.each(Tile::cache, tiles);
     }
 
     public void save(OutputStream output) throws IOException {
