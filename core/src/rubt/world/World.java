@@ -1,8 +1,8 @@
 package rubt.world;
 
-import arc.math.Mathf;
 import arc.math.geom.Position;
 import arc.util.Structs;
+import rubt.Axial;
 import rubt.Groups;
 import rubt.Groups.Entity;
 import rubt.io.Reads;
@@ -15,22 +15,30 @@ import java.io.*;
 
 public class World {
 
-    public static byte[] header = { 'R', 'B', 'W', 'L', 'D' };
+    public static final byte[] header = { 'R', 'B', 'W', 'L', 'D' };
 
     public Tile[] tiles;
     public int width, height;
 
-    public void set(Tile tile) {
-        tiles[tile.x + tile.y * width] = tile;
+    public Tile set(Tile tile) {
+        return tiles[tile.q + tile.r * width] = tile;
     }
 
-    public Tile get(int x, int y) {
-        if (x < 0 || y < 0 || x >= width || y >= height) return null; // out of bounds
-        return tiles[x + y * width];
+    public Tile set(Tile tile, short q, short r) {
+        tile.q = q;
+        tile.r = r;
+
+        return set(tile);
+    }
+
+    public Tile get(int q, int r) {
+        if (q < 0 || r < 0 || q >= width || r >= height) return null; // out of bounds
+        return tiles[q + r * width];
     }
 
     public Tile get(float x, float y) {
-        return get(Mathf.round(x / tilesize), Mathf.round(y / tilesize));
+        var hex = Axial.hex(tilesize, x, y);
+        return get(hex.x, hex.y);
     }
 
     public Tile get(Position position) {
@@ -54,19 +62,20 @@ public class World {
             height = reads.i();
             tiles = new Tile[width * height];
 
+            for (short q = 0; q < width; q++)
+                for (short r = 0; r < height; r++)
+                    set(new Tile(), q, r).read(reads);
+
             int amount = reads.i();
             for (int i = 0; i < amount; i++)
-                new Tile().read(reads);
-
-            amount = reads.i();
-            for (int i = 0; i < amount; i++) {
-                var entity = Entities.newEntity(reads.b());
-                entity.read(reads);
-            }
+                Entities.newEntity(reads.b()).read(reads);
         }
 
         if (Structs.contains(tiles, (Object) null))
             throw new IOException("Corrupted or invalid save file: some tile is null");
+
+        // cache some info about tiles such as x, y and neighbours
+        Structs.each(Tile::cache, tiles);
     }
 
     public void save(OutputStream output) throws IOException {
@@ -76,7 +85,6 @@ public class World {
             writes.i(width);
             writes.i(height);
 
-            writes.i(tiles.length);
             for (Tile tile : tiles)
                 tile.write(writes);
 

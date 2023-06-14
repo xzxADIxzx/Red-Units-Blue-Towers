@@ -31,9 +31,9 @@ public class Entities {
     }
 
     public static void load() {
-        register(Player::new, Player.class);
+        register(Tile::new, Tile.class);
         register(Unit::new, Unit.class);
         register(Turret::new, Turret.class);
-        register(Tile::new, Tile.class);
+        register(Player::new, Player.class);
     }
 }

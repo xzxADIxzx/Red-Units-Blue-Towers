@@ -23,13 +23,13 @@ public class BaseTile extends TileType {
         if (!solid) return;
 
         Draw.color(Color.gray);
-        Fill.rect(tile.getX(), tile.getY(), tilesize, tilesize);
+        Fill.poly(tile.getX(), tile.getY(), 6, tilesize);
     }
 
     public void drawGlow(Tile tile) { // temp
         if (solid) return;
 
         Draw.color();
-        Fill.rect(tile.getX(), tile.getY(), tilesize, tilesize);
+        Fill.poly(tile.getX(), tile.getY(), 6, tilesize);
     }
 }
