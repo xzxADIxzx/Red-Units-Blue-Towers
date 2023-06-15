@@ -2,63 +2,73 @@ package rubt.world;
 
 import arc.struct.Seq;
 
-// TODO remake
+/**
+ * Simple pathfinding algorithm, nothing interesting here.
+ *
+ * @author xzxADIxzx
+ */
 public class Pathfinder {
 
-    public static final int maxDatasSize = 1000;
+    /** Max number of tiles that will be iterated before {@link Pathfinder} gives up. */
+    public static final int maxTilesSize = 1024;
 
+    /** Finds a path from beginning to end, otherwise returns null. */
     public Path findPath(Tile from, Tile to) {
-        PathData winner = null;
-        Seq<PathData> datas = Seq.with(PathData.from(to));
+        Seq<Tile> iterated = Seq.with(to); // start looking for a way from the end
+        Seq<Path> paths = Seq.with(Path.with(to));
 
-        outer:
-        while (datas.size < maxDatasSize) { // if the size is more than a thousand, there is no way
+        while (iterated.size < maxTilesSize) { // if more than a thousand tiles are iterated, then there is no way
 
-            var old = datas;
-            datas = new Seq<>();
+            var old = paths;
+            paths = new Seq<>(old.size);
 
-            for (PathData data : old) {
-                if (data.from == from) {
-                    winner = data;
-                    break outer;
+            for (Path path : old) {
+                if (path.start() == from) return path;
+
+                for (Tile tile : path.start().neighbours) {
+                    if (iterated.contains(tile) || tile.type.solid) continue;
+                    iterated.add(tile); // save the tile in seq so that we don’t even remember about it anymore
+
+                    // create copies of the path on all non-iterated walkable tiles
+                    paths.add(path.copy(tile));
                 }
-
-                datas.addAll(iteratePath(data));
             }
         }
 
-        return winner == null ? null : new Path(winner.tiles);
+        return null;
     }
 
-    private Seq<PathData> iteratePath(PathData parent) {
-        Seq<PathData> datas = new Seq<>();
-
-        parent.from.neighbours.each(tile -> {
-            if (parent.tiles.contains(tile) || tile.type.solid) return;
-            datas.add(parent.copy(tile));
-        });
-
-        return datas;
-    }
-
+    /** Set of tiles with methods for traversing the path. */
     public static record Path(Seq<Tile> tiles) {
 
-        public Tile nextOnPath(Tile from) {
-            if (tiles.size == 1) return tiles.first();
+        /** Creates a path with a given set of tiles. */
+        public static Path with(Tile... tiles) {
+            return new Path(Seq.with(tiles));
+        }
 
-            if (tiles.peek() == from) tiles.pop();
+        /** Copies the path and adds a given tile to it. */
+        public Path copy(Tile tile) {
+            return new Path(tiles.copy().add(tile));
+        }
+
+        /**
+         * Returns the start of the path.
+         * <p>
+         * Note: with each tile passed, the start will move forward.
+         */
+        public Tile start() {
             return tiles.peek();
         }
-    }
 
-    public static record PathData(Seq<Tile> tiles, Tile from) {
-
-        public static PathData from(Tile tile) {
-            return new PathData(Seq.with(tile), tile);
+        /** Returns the end of the path. */
+        public Tile end() {
+            return tiles.first();
         }
 
-        public PathData copy(Tile tile) {
-            return new PathData(tiles.copy().add(tile), tile);
+        /** Returns the next tile on the path. */
+        public Tile nextTile(Tile current) {
+            if (tiles.peek() == current && tiles.size > 1) tiles.pop();
+            return tiles.peek();
         }
     }
 }

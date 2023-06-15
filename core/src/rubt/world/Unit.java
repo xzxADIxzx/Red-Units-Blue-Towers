@@ -59,13 +59,13 @@ public class Unit extends Body implements ContentType.Provider<Unit> {
 
     public void movePath(Position to) {
         Tile target = world.get(to);
-        if (target == null) return;
+        if (target == null || target.type.solid) return;
 
-        if (path == null || path.tiles().first() != target)
+        if (path == null || path.end() != target)
             path = pathfinder.findPath(tileOn(), target);
 
-        if (path == null) return;
-        moveTo(path.nextOnPath(tileOn()));
+        if (path == null) return; // no path found
+        moveTo(path.nextTile(tileOn()));
     }
 
     public void faceMovement() {
