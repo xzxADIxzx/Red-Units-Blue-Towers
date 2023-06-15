@@ -108,7 +108,7 @@ public class LoadingFragment extends Table {
         this.visible = true;
 
         hexes.shuffle();
-        actions(Actions.alpha(0f), Actions.alpha(1f, 1f));
+        actions(Actions.alpha(0f), Actions.alpha(1f, .8f));
     }
 
     public void superHide() {
@@ -117,6 +117,6 @@ public class LoadingFragment extends Table {
     }
 
     public void hide() {
-        actions(Actions.alpha(0f, 1f), Actions.run(this::superHide));
+        actions(Actions.after(getActions().peek()), Actions.alpha(0f, .8f), Actions.run(this::superHide));
     }
 }

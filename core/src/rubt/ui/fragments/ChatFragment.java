@@ -59,6 +59,7 @@ public class ChatFragment extends Table {
     @Override
     public void draw() {
         super.draw();
+        Draw.color();
 
         alpha = Mathf.lerpDelta(alpha, Mathf.num(shown || state == State.lobby), .005f);
         Draw.alpha(Interp.pow3In.apply(alpha));
