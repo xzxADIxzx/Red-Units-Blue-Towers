@@ -18,8 +18,8 @@ public class Axial {
 
     /** Array of offsets along which the tiles neighbours are located. */
     public static final Point2[] neighbours = {
-            new Point2(+1, 0), new Point2(+1, -1), new Point2(0, -1),
-            new Point2(-1, 0), new Point2(-1, +1), new Point2(0, +1) };
+            new Point2(+1, 0), new Point2(0, +1), new Point2(-1, +1),
+            new Point2(-1, 0), new Point2(0, -1), new Point2(+1, -1) };
 
     // region world/hex coordinate conversion
 
