@@ -20,8 +20,8 @@ import java.io.*;
 
 public class Packets {
 
-    private static Seq<Prov<? extends Packet>> provs = new Seq<>();
-    private static ObjectIntMap<Class<?>> packetToId = new ObjectIntMap<>();
+    private static final Seq<Prov<? extends Packet>> provs = new Seq<>();
+    private static final ObjectIntMap<Class<?>> packetToId = new ObjectIntMap<>();
 
     /** Registers a new packet type for serialization. */
     public static void register(Prov<? extends Packet> prov) {

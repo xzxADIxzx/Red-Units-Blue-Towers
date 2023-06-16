@@ -7,7 +7,7 @@ public abstract class TileType extends ContentType<Tile> {
 
     /** Whether ground units will collide with the tile or be able to walk on it. */
     public boolean solid;
-    /** Whether player can choose this tile to build something on it. */
+    /** Whether a player can choose this tile to build something on it. */
     public boolean choosable;
 
     public TileType(String name) {

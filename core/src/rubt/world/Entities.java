@@ -8,8 +8,8 @@ import rubt.logic.Player;
 
 public class Entities {
 
-    private static Seq<Prov<? extends Entity>> provs = new Seq<>();
-    private static ObjectIntMap<Class<?>> entityToId = new ObjectIntMap<>();
+    private static final Seq<Prov<? extends Entity>> provs = new Seq<>();
+    private static final ObjectIntMap<Class<?>> entityToId = new ObjectIntMap<>();
 
     /** Registers a new entity type for serialization. */
     public static void register(Prov<? extends Entity> prov, Class<? extends Entity> type) {
