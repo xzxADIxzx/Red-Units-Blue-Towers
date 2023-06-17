@@ -9,6 +9,7 @@ public class ContentTypes {
 
     public static Seq<Seq<? extends ContentType<?>>> all;
 
+    /** Create content types. */
     public static void load() {
         TileTypes.load();
         UnitTypes.load();
@@ -18,6 +19,7 @@ public class ContentTypes {
         Log.info("[App] Loaded @ items of content.", all.sum(seq -> seq.size));
     }
 
+    /** Load content textures. */
     public static void loadui() {
         TileTypes.loadui();
         UnitTypes.loadui();
