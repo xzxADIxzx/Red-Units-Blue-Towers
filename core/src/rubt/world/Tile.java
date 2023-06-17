@@ -9,6 +9,7 @@ import rubt.io.Reads;
 import rubt.io.Writes;
 import rubt.types.ContentType;
 import rubt.types.TileType;
+import rubt.types.drawers.TileDrawer;
 
 import static rubt.Vars.*;
 
@@ -20,6 +21,7 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
     public float x, y;
 
     public Seq<Tile> neighbours;
+    public int textureId, textureRotation;
 
     public Tile() {
         super(Groups.tiles);
@@ -32,7 +34,9 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
     public void cache() {
         x = Axial.worldX(tilesize, q);
         y = Axial.worldY(tilesize, q, r);
+
         neighbours = Axial.neighbours(this);
+        TileDrawer.cache(this);
     }
 
     // region position
