@@ -62,16 +62,18 @@ public class Axial {
     // endregion
     // region neighbours
 
+    /** Iterates over each neighbour of a tile. Includes null. */
     public static void neighbours(Tile tile, Cons<Tile> cons) {
         for (var neighbour : neighbours)
             cons.get(world.get(tile.q + neighbour.x, tile.r + neighbour.y));
     }
 
+    /** Returns a tile's neighbours. Doesn't include null. */
     public static Seq<Tile> neighbours(Tile tile) {
         var neighbours = new Seq<Tile>(6);
         neighbours(tile, neighbours::add);
 
-        return neighbours;
+        return neighbours.filter(t -> t != null);
     }
 
     // endregion
