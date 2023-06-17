@@ -7,9 +7,11 @@ import arc.scene.style.Drawable;
 import arc.util.serialization.JsonReader;
 import arc.util.serialization.JsonValue;
 import rubt.annotations.Annotations.IconLoader;
+import rubt.types.drawers.TileDrawer;
 
 import static arc.Core.*;
 
+// TODO remake
 public class Textures {
 
     public static JsonValue splits;
@@ -55,5 +57,10 @@ public class Textures {
     public static Drawable icon(String name) {
         load("icons/", name);
         return atlas.drawable(name);
+    }
+
+    public static TileDrawer tile(String name) {
+        Texture texture = new Texture("tiles/" + name + ".png");
+        return new TileDrawer(texture);
     }
 }

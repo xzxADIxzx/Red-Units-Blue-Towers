@@ -1,35 +1,30 @@
 package rubt.types.tiles;
 
-import arc.graphics.Color;
-import arc.graphics.g2d.Draw;
-import arc.graphics.g2d.Fill;
+import rubt.graphics.Textures;
 import rubt.types.TileType;
+import rubt.types.drawers.TileDrawer;
 import rubt.world.Tile;
 
-import static rubt.Vars.*;
-
 public class BaseTile extends TileType {
+
+    public TileDrawer drawer;
 
     public BaseTile(String name) {
         super(name);
     }
 
     @Override
-    public void loadui() {/* TODO add textures for tiles */}
+    public void loadui() {
+        drawer = Textures.tile(name); // TODO icon from last texture
+    }
 
     public void update(Tile tile) {}
 
-    public void draw(Tile tile) { // temp
-        if (!solid) return;
-
-        Draw.color(Color.gray);
-        Fill.poly(tile.getX(), tile.getY(), 6, tilesize);
+    public void draw(Tile tile) {
+        drawer.draw(tile);
     }
 
-    public void drawGlow(Tile tile) { // temp
-        if (solid) return;
-
-        Draw.color();
-        Fill.poly(tile.getX(), tile.getY(), 6, tilesize);
+    public void drawGlow(Tile tile) {
+        drawer.drawGlow(tile);
     }
 }
