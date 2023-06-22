@@ -47,11 +47,11 @@ public class RedHudFragment {
                         }, Styles.emptyButton, () -> {
                             // select units of this type (LMB)
                             handler.controlled.filter(unit -> unit.type.id == id);
-                            app.post(this::rebuild);
+                            app.post(rebuild);
                         }).margin(0f).get().clicked(KeyCode.mouseRight, () -> {
                             // unselect units of this type (RMB)
                             handler.controlled.removeAll(unit -> unit.type.id == id);
-                            app.post(this::rebuild);
+                            app.post(rebuild);
                         });
                     }
                 };

@@ -68,6 +68,8 @@ public class LobbyFragment {
             ui.partition(list, team.name());
             buildPlayers(team);
         }
+
+        needRebuilding = false;
     }
 
     // endregion
