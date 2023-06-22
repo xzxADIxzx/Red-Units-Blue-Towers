@@ -18,7 +18,7 @@ public class TileTypes {
             solid = true;
         }};
 
-        floor = new BaseTile("floor");
+        floor = new BaseTile("spawn");
 
         wall = new BaseTile("wall") {{
             solid = true;
