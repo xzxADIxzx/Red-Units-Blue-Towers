@@ -55,18 +55,24 @@ public class JoinFragment {
                 }).row();
                 info.table(Textures.alphabg).height(512f).row();
 
-                info.button("Join", () -> {
-                    try {
-                        Net.connect(selected);
-                    } catch (Exception error) {
-                        Log.err("Could not to join server", error);
-                    }
-                }).disabled(b -> selected == null);
+                info.table(btns -> {
+                    btns.defaults().grow();
+
+                    btns.button("Join", () -> {
+                        try {
+                            Net.connect(selected);
+                        } catch (Exception error) {
+                            Log.err("Could not to join server", error);
+                        }
+                    }).disabled(b -> selected == null).padRight(8f);
+
+                    btns.button("Back", () -> state = State.menu);
+                });
             }).growX().top();
         });
     }
 
-    public void show() { // TODO this great code sometimes breaks the game
+    public void show() {
         loadSavedHosts();
         discoverLocalHosts();
         rebuildList();
@@ -89,10 +95,10 @@ public class JoinFragment {
         local.clear();
         discovering = true;
 
-        Net.discover(host -> {
-            local.add(host);
+        Net.discover(local::add, () -> {
             rebuildList();
-        }, () -> discovering = false);
+            discovering = false;
+        });
     }
 
     public void addHost(Host host) {
