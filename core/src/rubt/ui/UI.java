@@ -17,6 +17,7 @@ public class UI {
     public final WidgetGroup hud = new WidgetGroup();
     public final WidgetGroup menu = new WidgetGroup();
 
+    public MenuFragment menufrag = new MenuFragment();
     public JoinFragment joinfrag = new JoinFragment();
     public LobbyFragment lobbyfrag = new LobbyFragment();
     public RedHudFragment redfrag = new RedHudFragment();
@@ -39,6 +40,7 @@ public class UI {
         menu.setFillParent(true);
         menu.touchable = Touchable.childrenOnly;
 
+        menufrag.build(menu);
         joinfrag.build(menu);
         lobbyfrag.build(menu);
         redfrag.build(hud);
@@ -50,12 +52,6 @@ public class UI {
         fileChooser = new FileChooserDialog();
         addHost = new AddHostDialog();
         avatar = new AvatarDialog();
-
-        app.post(() -> app.post(() -> app.post(() -> app.post(() -> { // TODO load & discover on fragment opened
-            joinfrag.loadSavedHosts();
-            joinfrag.discoverLocalHosts();
-            joinfrag.rebuildList();
-        }))));
     }
 
     public void resize(int width, int height) {

@@ -27,7 +27,7 @@ public class JoinFragment {
     public void build(Group parent) {
         parent.fill(cont -> {
             cont.name = "Join Fragment";
-            cont.visible(() -> state == State.menu);
+            cont.visible(() -> state == State.join);
 
             cont.margin(8f);
 
@@ -64,6 +64,14 @@ public class JoinFragment {
                 }).disabled(b -> selected == null);
             }).growX().top();
         });
+    }
+
+    public void show() { // TODO this great code sometimes breaks the game
+        loadSavedHosts();
+        discoverLocalHosts();
+        rebuildList();
+
+        state = State.join;
     }
 
     // region hosts

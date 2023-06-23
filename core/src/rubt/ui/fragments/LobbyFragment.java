@@ -34,7 +34,7 @@ public class LobbyFragment {
                 this.list = list.top();
             }).width(600f).growY().padRight(16f);
 
-            cont.table(info -> {
+            cont.table(info -> { // server info
                 info.name = "Server info";
                 info.defaults().height(64f).growX().padBottom(8f);
 

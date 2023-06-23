@@ -1,5 +1,5 @@
 package rubt.logic;
 
 public enum State {
-    menu, lobby, game;
+    menu, join, lobby, game;
 }
