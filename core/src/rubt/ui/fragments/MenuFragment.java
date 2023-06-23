@@ -29,10 +29,10 @@ public class MenuFragment {
                     title.image().color(Palette.blue).height(4f).growX();
                 }).row();
 
-                pane.button("Join", Icons.play, ui.joinfrag::show).row();
-                pane.button("Editor", Icons.plus, () -> {}).row();
-                pane.button("Settings", Icons.plus, () -> {}).row();
-                pane.button("Exit", Icons.home, app::exit);
+                pane.button("Play", Icons.play, ui.joinfrag::show).row();
+                pane.button("Editor", Icons.design, () -> {}).row();
+                pane.button("Settings", Icons.settings, () -> {}).row();
+                pane.button("Exit", Icons.exit, app::exit);
             }).growY();
         });
     }
