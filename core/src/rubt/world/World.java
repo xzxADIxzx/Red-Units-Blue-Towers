@@ -5,8 +5,10 @@ import arc.util.Structs;
 import rubt.Axial;
 import rubt.Groups;
 import rubt.Groups.Entity;
+import rubt.content.TileTypes;
 import rubt.io.Reads;
 import rubt.io.Writes;
+import rubt.types.TileType;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -19,6 +21,27 @@ public class World {
 
     public Tile[] tiles;
     public int width, height;
+
+    public void fill(TileType type) {
+        for (short q = 0; q < width; q++) {
+            for (short r = 0; r < height; r++) {
+                var tile = new Tile();
+                tile.type = type;
+
+                set(tile, q, r);
+            }
+        }
+    }
+
+    public void resize(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.tiles = new Tile[width * height];
+
+        fill(TileTypes.air);
+    }
+
+    // region setters/getters
 
     public Tile set(Tile tile) {
         return tiles[tile.q + tile.r * width] = tile;
@@ -44,6 +67,9 @@ public class World {
     public Tile get(Position position) {
         return get(position.getX(), position.getY());
     }
+
+    // endregion
+    // region io
 
     public static InputStream random() {
         var maps = files.local("maps").seq();
@@ -95,4 +121,6 @@ public class World {
             }
         }
     }
+
+    // endregion
 }

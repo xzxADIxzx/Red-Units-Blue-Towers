@@ -10,7 +10,7 @@ public class TileTypes {
     public static Seq<TileType> all = new Seq<>();
 
     public static EmptyTile air;
-    public static BaseTile floor, wall;
+    public static BaseTile spawn, floor, wall;
 
     /** Create tile types. */
     public static void load() {
@@ -18,7 +18,9 @@ public class TileTypes {
             solid = true;
         }};
 
-        floor = new BaseTile("spawn");
+        spawn = new BaseTile("spawn");
+
+        floor = new BaseTile("floor");
 
         wall = new BaseTile("wall") {{
             solid = true;

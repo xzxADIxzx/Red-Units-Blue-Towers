@@ -65,6 +65,10 @@ public class UI {
         fileChooser.show(title, true, extensions, cons);
     }
 
+    public void openFile(String title, String extension, Cons<Fi> cons) {
+        fileChooser.show(title, true, Seq.with(extension), cons);
+    }
+
     public void saveFile(String title, String extension, Cons<Fi> cons) {
         fileChooser.show(title, false, Seq.with(extension), cons);
     }

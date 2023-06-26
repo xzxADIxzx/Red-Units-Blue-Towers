@@ -2,6 +2,7 @@ package rubt.ui.dialogs;
 
 import arc.scene.ui.Dialog;
 import rubt.graphics.Palette;
+import rubt.ui.Icons;
 
 import static arc.Core.*;
 
@@ -24,7 +25,7 @@ public class BaseDialog extends Dialog {
     @Override
     public void addCloseButton() {
         buttons.defaults().size(200f, 64f);
-        buttons.button("Back", this::hide);
+        buttons.button("Back", Icons.close, this::hide);
 
         closeOnBack();
     }
