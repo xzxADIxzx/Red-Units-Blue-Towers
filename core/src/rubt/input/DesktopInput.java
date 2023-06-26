@@ -22,7 +22,7 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateCamera() {
-        if (state != State.game || scene.hasMouse()) return;
+        if ((state != State.game && state != State.editor) || scene.hasMouse()) return;
 
         if (Math.abs(input.axis(KeyCode.scroll)) > 0.2f && !scene.hasScroll()) renderer.zoom(input.axis(KeyCode.scroll));
         if (input.keyDown(KeyCode.mouseMiddle)) camera.position.add(

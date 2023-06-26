@@ -35,7 +35,7 @@ public class MenuFragment {
                 Cons<TextButton> anim = b -> b.translation.x = Mathf.lerpDelta(b.translation.x, b.hasMouse() ? 24f : 0f, .1f);
 
                 pane.button("Play", Icons.play, ui.joinfrag::show).update(anim).row();
-                pane.button("Editor", Icons.design, () -> {}).update(anim).row();
+                pane.button("Editor", Icons.design, () -> ui.openEditor.show()).update(anim).row();
                 pane.button("Settings", Icons.settings, () -> {}).update(anim).row();
                 pane.button("Exit", Icons.exit, app::exit).update(anim);
             }).growY();

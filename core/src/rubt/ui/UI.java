@@ -28,6 +28,7 @@ public class UI {
     public FileChooserDialog fileChooser;
     public AddHostDialog addHost;
     public AvatarDialog avatar;
+    public OpenEditorDialog openEditor;
 
     public void load() {
         input.addProcessor(scene);
@@ -52,6 +53,7 @@ public class UI {
         fileChooser = new FileChooserDialog();
         addHost = new AddHostDialog();
         avatar = new AvatarDialog();
+        openEditor = new OpenEditorDialog();
     }
 
     public void resize(int width, int height) {
