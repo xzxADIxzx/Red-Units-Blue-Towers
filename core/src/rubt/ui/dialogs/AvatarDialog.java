@@ -22,7 +22,7 @@ public class AvatarDialog extends BaseDialog {
         super("Avatar");
         addCloseButton();
 
-        buttons.button("Select file", () -> ui.openFile("Select avatar", Image.extensions, file -> {
+        buttons.button("Select file", Icons.file, () -> ui.openFile("Select avatar", Image.extensions, file -> {
             try {
                 original = new Pixmap(file);
                 rebuild();
@@ -31,7 +31,7 @@ public class AvatarDialog extends BaseDialog {
                 // TODO ui.announce("corrupt img")
             }
         }));
-        buttons.button("Apply", () -> {
+        buttons.button("Apply", Icons.done, () -> {
             settings.put("player-avatar", Image.write(image));
             hide();
         }).disabled(t -> image == null);

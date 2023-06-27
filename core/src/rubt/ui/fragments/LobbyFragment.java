@@ -8,6 +8,7 @@ import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.logic.Team;
 import rubt.net.Net;
+import rubt.ui.Icons;
 
 import static rubt.Vars.*;
 
@@ -56,7 +57,7 @@ public class LobbyFragment {
 
                 button.image(player.avatar()).size(48f).pad(8f);
                 button.add(player.name).growX();
-                button.image(Textures.redbg).size(48f).pad(8f).visible(() -> player.admin); // TODO icon
+                button.image(Icons.done).size(48f).pad(8f).visible(() -> player.admin);
             }, () -> {/* TODO information, change team, kick/ban and etc. */}).row();
         });
     }

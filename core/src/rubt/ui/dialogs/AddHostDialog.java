@@ -2,6 +2,7 @@ package rubt.ui.dialogs;
 
 import arc.util.Strings;
 import rubt.net.Host;
+import rubt.ui.Icons;
 
 import static rubt.Vars.*;
 
@@ -14,7 +15,7 @@ public class AddHostDialog extends BaseDialog {
         super("Add host");
         addCloseButton();
 
-        buttons.button("Add", () -> {
+        buttons.button("Add", Icons.done, () -> {
             String[] parts = address.split(":");
             ui.joinfrag.addHost(new Host(parts[0], Strings.parseInt(parts[1])));
 

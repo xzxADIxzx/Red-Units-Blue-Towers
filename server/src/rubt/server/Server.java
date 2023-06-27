@@ -53,7 +53,7 @@ public class Server extends arc.net.Server implements NetListener {
             player.avatar = data.avatar;
             player.name = name;
             player.team = Logic.nextTeam();
-            player.admin = false; // TODO admin system?
+            player.admin = false; // TODO replace by ready and move to snapshot
 
             sendEntity(player);
         });
