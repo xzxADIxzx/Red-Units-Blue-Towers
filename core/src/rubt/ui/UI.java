@@ -9,11 +9,11 @@ import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.struct.Seq;
 import arc.util.Log;
+import arc.util.Strings;
 import rubt.ui.dialogs.*;
 import rubt.ui.fragments.*;
 
 import static arc.Core.*;
-import static rubt.Vars.*;
 
 public class UI {
 
@@ -92,7 +92,7 @@ public class UI {
     }
 
     public void error(String title, Throwable error) {
-        announce(title, stackTrace(error), Styles.errorDialog);
+        announce(title, Strings.getStackTrace(error), Styles.errorDialog);
         Log.err(title, error);
     }
 

@@ -3,6 +3,7 @@ package rubt;
 import arc.net.ArcNet;
 import arc.net.Connection;
 import arc.util.Log;
+import arc.util.Strings;
 import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
 import rubt.logic.Rules;
@@ -10,8 +11,6 @@ import rubt.logic.State;
 import rubt.ui.UI;
 import rubt.world.*;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -46,15 +45,8 @@ public class Vars {
     public static Connection clientCon;
     public static Thread thread;
 
-    public static String stackTrace(Throwable error) {
-        StringWriter writer = new StringWriter();
-        error.printStackTrace(new PrintWriter(writer));
-
-        return writer.toString();
-    }
-
     public static void loadLogger() {
-        ArcNet.errorHandler = ex -> Log.debug(stackTrace(ex));
+        ArcNet.errorHandler = ex -> Log.debug(Strings.getStackTrace(ex));
         Log.logger = (level, text) -> { // this is how fashionable I am
             String result = Log.format("&lk&fb[" + dateTime.format(LocalDateTime.now()) + "]&fr " + tags[level.ordinal()] + " " + text + "&fr");
             System.out.println(result);
