@@ -3,7 +3,6 @@ package rubt.ui.fragments;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
-import arc.util.Log;
 import arc.util.Strings;
 import arc.util.Time;
 import rubt.graphics.Textures;
@@ -61,8 +60,8 @@ public class JoinFragment {
                     btns.button("Join", () -> {
                         try {
                             Net.connect(selected);
-                        } catch (Exception error) {
-                            Log.err("Could not to join server", error);
+                        } catch (Exception ex) {
+                            ui.error("Couldn't connect to the server", ex);
                         }
                     }).disabled(b -> selected == null).padRight(8f);
 

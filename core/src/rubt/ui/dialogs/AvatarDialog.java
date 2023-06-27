@@ -4,7 +4,6 @@ import arc.graphics.Pixmap;
 import arc.graphics.Pixmaps;
 import arc.scene.ui.Dialog;
 import arc.scene.ui.layout.Table;
-import arc.util.Log;
 import rubt.io.Image;
 import rubt.ui.Icons;
 
@@ -27,8 +26,7 @@ public class AvatarDialog extends BaseDialog {
                 original = new Pixmap(file);
                 rebuild();
             } catch (Exception ex) {
-                Log.err("Could not to load image", ex);
-                // TODO ui.announce("corrupt img")
+                ui.error("Couldn't load image", ex);
             }
         }));
         buttons.button("Apply", Icons.done, () -> {

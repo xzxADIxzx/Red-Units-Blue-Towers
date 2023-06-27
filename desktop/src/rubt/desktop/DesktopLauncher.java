@@ -25,7 +25,7 @@ public class DesktopLauncher extends ClientLauncher {
                 maximized = true;
             }});
         } catch (Throwable error) {
-            Log.err("Could not to startup client application", error);
+            Log.err("Couldn't startup client application", error);
             SDL.SDL_ShowSimpleMessageBox(SDL.SDL_MESSAGEBOX_ERROR, "Oh no, critical error", error.getMessage());
         }
     }

@@ -20,7 +20,7 @@ public class ServerLauncher extends ClientLauncher {
             loadLogger(); // pretty print
             new HeadlessApplication(new ServerLauncher(args), Log::err);
         } catch (Throwable error) {
-            Log.err("Could not to startup server application", error);
+            Log.err("Couldn't startup server application", error);
         }
     }
 
@@ -40,7 +40,7 @@ public class ServerLauncher extends ClientLauncher {
             world.load(World.random());
             state = State.lobby;
         } catch (Exception ex) {
-            Log.err("Could not to startup server", ex);
+            Log.err("Couldn't startup server", ex);
             exit();
             return;
         }

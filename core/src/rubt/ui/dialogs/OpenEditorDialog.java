@@ -1,12 +1,10 @@
 package rubt.ui.dialogs;
 
-import arc.util.Log;
+import rubt.Groups;
 import rubt.logic.State;
 import rubt.ui.Icons;
 
 import static rubt.Vars.*;
-
-import java.io.IOException;
 
 public class OpenEditorDialog extends BaseDialog {
 
@@ -20,9 +18,9 @@ public class OpenEditorDialog extends BaseDialog {
                     world.load(fi.read());
                     state = State.editor;
                     hide();
-                } catch (IOException ex) {
-                    Log.err(ex);
-                    // TODO ui.err
+                } catch (Exception ex) {
+                    ui.error("Couldn't load map", ex);
+                    Groups.clear(); // for safety
                 }
             });
         });
