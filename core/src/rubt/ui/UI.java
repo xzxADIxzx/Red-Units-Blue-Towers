@@ -4,13 +4,16 @@ import arc.files.Fi;
 import arc.func.Cons;
 import arc.graphics.Color;
 import arc.scene.event.Touchable;
+import arc.scene.ui.Dialog.DialogStyle;
 import arc.scene.ui.layout.Table;
 import arc.scene.ui.layout.WidgetGroup;
 import arc.struct.Seq;
+import arc.util.Log;
 import rubt.ui.dialogs.*;
 import rubt.ui.fragments.*;
 
 import static arc.Core.*;
+import static rubt.Vars.*;
 
 public class UI {
 
@@ -75,7 +78,23 @@ public class UI {
         fileChooser.show(title, false, Seq.with(extension), cons);
     }
 
-    // TODO add something like announce(String text)
+    public void announce(String title, String text, DialogStyle style) {
+        var dialog = new BaseDialog(title, style);
+
+        dialog.addCloseButton();
+        dialog.cont.add(text);
+
+        dialog.show();
+    }
+
+    public void announce(String title, String text) {
+        announce(title, text, Styles.dialog);
+    }
+
+    public void error(String title, Throwable error) {
+        announce(title, stackTrace(error), Styles.errorDialog);
+        Log.err(title, error);
+    }
 
     public void partition(Table list, String name) {
         list.table(gap -> {

@@ -46,14 +46,15 @@ public class Vars {
     public static Connection clientCon;
     public static Thread thread;
 
+    public static String stackTrace(Throwable error) {
+        StringWriter writer = new StringWriter();
+        error.printStackTrace(new PrintWriter(writer));
+
+        return writer.toString();
+    }
+
     public static void loadLogger() {
-        ArcNet.errorHandler = ex -> {
-            StringWriter writer = new StringWriter();
-            ex.printStackTrace(new PrintWriter(writer));
-
-            Log.debug(writer.toString());
-        };
-
+        ArcNet.errorHandler = ex -> Log.debug(stackTrace(ex));
         Log.logger = (level, text) -> { // this is how fashionable I am
             String result = Log.format("&lk&fb[" + dateTime.format(LocalDateTime.now()) + "]&fr " + tags[level.ordinal()] + " " + text + "&fr");
             System.out.println(result);
