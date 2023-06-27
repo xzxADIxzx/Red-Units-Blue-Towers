@@ -1,7 +1,6 @@
 package rubt.ui.dialogs;
 
 import arc.scene.ui.Dialog;
-import rubt.graphics.Palette;
 import rubt.ui.Icons;
 
 import static arc.Core.*;
@@ -13,9 +12,9 @@ public class BaseDialog extends Dialog {
         this.title.setEllipsis(false);
 
         titleTable.clear();
-        titleTable.image().color(Palette.accent).height(4f).growX();
+        titleTable.image().color(style.titleFontColor).height(4f).growX();
         titleTable.add(this.title).pad(4f);
-        titleTable.image().color(Palette.accent).height(4f).growX();
+        titleTable.image().color(style.titleFontColor).height(4f).growX();
     }
 
     public BaseDialog(String title) {

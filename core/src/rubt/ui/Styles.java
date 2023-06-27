@@ -24,7 +24,7 @@ public class Styles {
     public static TextFieldStyle field;
     public static CheckBoxStyle check;
     public static ScrollPaneStyle scroll;
-    public static DialogStyle dialog;
+    public static DialogStyle dialog, errorDialog;
 
     public static void load() {
         scene.addStyle(ButtonStyle.class, button = new ButtonStyle() {{
@@ -89,10 +89,18 @@ public class Styles {
 
         scene.addStyle(DialogStyle.class, dialog = new DialogStyle() {{
             titleFont = Fonts.tech;
-
             titleFontColor = Palette.accent;
+
             background = Textures.alphabg;
             stageBackground = Textures.darkbg;
         }});
+
+        errorDialog = new DialogStyle() {{
+            titleFont = Fonts.tech;
+            titleFontColor = Palette.red;
+
+            background = Textures.alphabg;
+            stageBackground = Textures.darkbg;
+        }};
     }
 }
