@@ -1,6 +1,5 @@
 package rubt.input;
 
-import arc.graphics.g2d.Draw;
 import arc.struct.Seq;
 import rubt.Groups;
 import rubt.logic.State;
@@ -33,20 +32,25 @@ public abstract class InputHandler {
         lastX = input.mouseWorldX();
         lastY = input.mouseWorldY();
 
-        if (state != State.game || scene.hasMouse() || scene.hasField()) return;
+        if (scene.hasMouse() || scene.hasField()) return;
 
-        updateRed();
-        updateBlue();
+        if (state == State.editor)
+            updateEditor();
+        else if (state == State.game) {
+            updateRed();
+            updateBlue();
+        }
 
-        Send.cursor(input.mouseWorld()); // TODO move to Timer.schedule
+        if (clientCon.isConnected()) Send.cursor(input.mouseWorld()); // TODO move to Timer.schedule
     }
 
     public void draw() {
-        if (state != State.game) return;
-        Draw.reset();
-
-        drawRed();
-        drawBlue();
+        if (state == State.editor)
+            drawEditor();
+        else if (state == State.game) {
+            drawRed();
+            drawBlue();
+        }
     }
 
     public Tile tileOn() {

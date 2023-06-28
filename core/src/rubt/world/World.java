@@ -31,6 +31,8 @@ public class World {
                 set(tile, q, r);
             }
         }
+
+        Structs.each(Tile::cache, tiles);
     }
 
     public void resize(int width, int height) {
