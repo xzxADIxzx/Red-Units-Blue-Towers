@@ -75,9 +75,9 @@ public class Styles {
         scene.addStyle(CheckBoxStyle.class, check = new CheckBoxStyle() {{
             font = Fonts.aldrich;
 
-            checkboxOn = Textures.mono_accent;
-            checkboxOver = Textures.mono_main;
-            checkboxOff = Textures.mono_alpha;
+            checkboxOn = Textures.slashed_accent;
+            checkboxOver = Textures.slashed_main;
+            checkboxOff = Textures.slashed_alpha;
         }});
 
         scene.addStyle(ScrollPaneStyle.class, scroll = new ScrollPaneStyle() {{
@@ -91,7 +91,7 @@ public class Styles {
             titleFont = Fonts.tech;
             titleFontColor = Palette.accent;
 
-            background = Textures.mono_alpha;
+            background = Textures.slashed_alpha;
             stageBackground = Textures.dark;
         }});
 
@@ -99,7 +99,7 @@ public class Styles {
             titleFont = Fonts.tech;
             titleFontColor = Palette.red;
 
-            background = Textures.mono_alpha;
+            background = Textures.slashed_alpha;
             stageBackground = Textures.dark;
         }};
     }

@@ -52,7 +52,7 @@ public class JoinFragment {
                     name.label(() -> selected == null ? "Server name" : selected.name()).growX();
                     name.label(() -> selected == null ? "" : selected.address());
                 }).row();
-                info.table(Textures.mono_alpha).height(512f).row();
+                info.table(Textures.slashed_alpha).height(512f).row();
 
                 info.table(btns -> {
                     btns.defaults().grow();

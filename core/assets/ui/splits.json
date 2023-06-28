@@ -1,6 +1,8 @@
 {
     "mono-white": [ 8, 8, 8, 8 ],
     "mono-white-pads": [ 8, 8, 8, 8 ],
+    "slashed-white": [ 8, 8, 23, 8 ],
+    "slashed-white-pads": [ 8, 8, 8, 8 ],
     "dotted-white": [ 21, 8, 8, 8 ],
     "dotted-white-pads": [ 8, 8, 8, 8 ]
 }

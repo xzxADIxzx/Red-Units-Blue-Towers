@@ -19,6 +19,8 @@ public class Textures {
 
     mono_white, mono_main, mono_alpha, mono_accent, mono_red,
 
+    slashed_white, slashed_main, slashed_alpha, slashed_accent,
+
     dotted_white, dotted_main, dotted_alpha, dotted_accent,
 
     white, dark, accent, circle;
@@ -33,6 +35,11 @@ public class Textures {
         mono_alpha = tint(mono_white, Palette.alpha);
         mono_accent = tint(mono_white, Palette.accent);
         mono_red = tint(mono_white, Palette.red);
+
+        slashed_white = ui("slashed-white");
+        slashed_main = tint(slashed_white, Palette.main);
+        slashed_alpha = tint(slashed_white, Palette.alpha);
+        slashed_accent = tint(slashed_white, Palette.accent);
 
         dotted_white = ui("dotted-white");
         dotted_main = tint(dotted_white, Palette.main);
