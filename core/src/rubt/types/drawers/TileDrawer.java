@@ -10,8 +10,8 @@ import rubt.world.Tile;
 
 public class TileDrawer {
 
-    /** All possible configurations of the presence or absence of neighbors. TODO I forgot one config*/
-    public static final byte[] configs = new byte[] { 0, 1, 3, 5, 9, 7, 11, 19, 15, 23, 27, 31, 63 };
+    /** All possible configurations of the presence or absence of neighbors. */
+    public static final byte[] configs = new byte[] { 0, 1, 3, 5, 9, 7, 11, 19, 21, 15, 23, 27, 31, 63 };
 
     /** Tile textures: normal in the first column, luminous in the second. */
     public TextureRegion[][] textures;

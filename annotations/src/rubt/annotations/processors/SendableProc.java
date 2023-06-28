@@ -2,6 +2,7 @@ package rubt.annotations.processors;
 
 import arc.net.Connection;
 import arc.struct.Seq;
+import arc.util.Structs;
 import rubt.annotations.BaseProcessor;
 import rubt.annotations.Annotations.Con;
 import rubt.annotations.Annotations.Sendable;
@@ -40,7 +41,7 @@ public class SendableProc extends BaseProcessor {
                 .build());
 
         // sort methods
-        root.methodSpecs.sort((m1, m2) -> m1.toString().compareTo(m2.toString()));
+        root.methodSpecs.sort(Structs.comparing(Object::toString));
 
         write("rubt.net", root, false, true);
     }
