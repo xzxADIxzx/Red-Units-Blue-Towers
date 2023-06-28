@@ -15,7 +15,8 @@ public class BaseTile extends TileType {
 
     @Override
     public void loadui() {
-        drawer = Textures.tile(name); // TODO icon from last texture
+        drawer = Textures.tile(name);
+        icon = drawer.icon();
     }
 
     public void update(Tile tile) {}

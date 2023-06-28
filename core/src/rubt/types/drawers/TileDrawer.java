@@ -4,6 +4,7 @@ import arc.graphics.Texture;
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
 import arc.math.Mathf;
+import arc.scene.style.TextureRegionDrawable;
 import rubt.Axial;
 import rubt.world.Tile;
 
@@ -17,6 +18,10 @@ public class TileDrawer {
 
     public TileDrawer(Texture grid) {
         textures = TextureRegion.split(grid, 64, 64); // someone mixed up a row with a column, but it's not critical
+    }
+
+    public TextureRegionDrawable icon() {
+        return new TextureRegionDrawable(textures[configs.length - 1][0]);
     }
 
     // region draw
