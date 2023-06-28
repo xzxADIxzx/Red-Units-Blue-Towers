@@ -7,6 +7,9 @@ dependencies {
     compileOnly "com.github.Anuken.Arc:arcnet:$arcVersion"
     compileOnly "com.github.Anuken.Arc:freetype:$arcVersion"
 
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+
     annotationProcessor project(":annotations")
     compileOnly project(':annotations')
 }

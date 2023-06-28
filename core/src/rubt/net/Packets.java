@@ -5,6 +5,8 @@ import arc.math.geom.Position;
 import arc.net.Connection;
 import arc.struct.ObjectIntMap;
 import arc.struct.Seq;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import rubt.Groups;
 import rubt.annotations.Annotations.Con;
 import rubt.annotations.Annotations.Sendable;
@@ -89,17 +91,12 @@ public class Packets {
     }
 
     /** Packet containing data in the form of bytes. Usually it is world or entity data. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static abstract class DataPacket implements Packet {
 
         public short amount;
         public byte[] data;
-
-        public DataPacket() {}
-
-        public DataPacket(short amount, byte[] data) {
-            this.amount = amount;
-            this.data = data;
-        }
 
         public void write(Writes w) {
             w.s(amount);
@@ -112,18 +109,13 @@ public class Packets {
     }
 
     /** Packet used to confirm the connection by the client. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Sendable(connection = Con.client)
     public static class PlayerData implements Packet {
 
         public byte[] avatar;
         public String name;
-
-        public PlayerData() {}
-
-        public PlayerData(byte[] avatar, String name) {
-            this.avatar = avatar;
-            this.name = name;
-        }
 
         public void write(Writes w) {
             w.bool(avatar != null);
@@ -138,16 +130,12 @@ public class Packets {
     }
 
     /** Packet used to initialize the loading of the world. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Sendable
     public static class WorldDataBegin implements Packet {
 
         public int amount;
-
-        public WorldDataBegin() {}
-
-        public WorldDataBegin(int amount) {
-            this.amount = amount;
-        }
 
         public void write(Writes w) {
             w.i(amount);
@@ -197,16 +185,12 @@ public class Packets {
     }
 
     /** Packet used to update game state. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Sendable
     public static class UpdateState implements Packet {
 
         public State state;
-
-        public UpdateState() {}
-
-        public UpdateState(State state) {
-            this.state = state;
-        }
 
         public void write(Writes w) {
             w.b(state.ordinal());
@@ -218,16 +202,12 @@ public class Packets {
     }
 
     /** Packet used to update cursor position. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Sendable(connection = Con.client, reliable = false)
     public static class UpdateCursor implements Packet {
 
         public Position cursor;
-
-        public UpdateCursor() {}
-
-        public UpdateCursor(Position cursor) {
-            this.cursor = cursor;
-        }
 
         public void write(Writes w) {
             w.p(cursor);
@@ -261,18 +241,13 @@ public class Packets {
     }
 
     /** Packet used to request a unit spawn. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Sendable(connection = Con.client)
     public static class SpawnUnit implements Packet {
 
         public UnitType type;
         public Position position;
-
-        public SpawnUnit() {}
-
-        public SpawnUnit(UnitType type, Position position) {
-            this.type = type;
-            this.position = position;
-        }
 
         public void write(Writes w) {
             w.b(type.id);
@@ -286,18 +261,13 @@ public class Packets {
     }
 
     /** Packet used to request a tower build. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Sendable(connection = Con.client)
     public static class BuildTurret implements Packet {
 
         public TurretType type;
         public Tile tile;
-
-        public BuildTurret() {}
-
-        public BuildTurret(TurretType type, Tile tile) {
-            this.type = type;
-            this.tile = tile;
-        }
 
         public void write(Writes w) {
             w.b(type.id);
@@ -311,18 +281,13 @@ public class Packets {
     }
 
     /** Packet used to command units. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Sendable(connection = Con.client)
     public static class CommandUnit implements Packet {
 
         public int netId;
         public Position target;
-
-        public CommandUnit() {}
-
-        public CommandUnit(Unit unit, Position target) {
-            this.netId = unit.netId;
-            this.target = target;
-        }
 
         public void write(Writes w) {
             w.i(netId);
@@ -336,16 +301,12 @@ public class Packets {
     }
 
     /** Package used for communication between players. */
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Sendable(connection = Con.client)
     public static class ChatMessage implements Packet {
 
         public String message;
-
-        public ChatMessage() {}
-
-        public ChatMessage(String message) {
-            this.message = message;
-        }
 
         public void write(Writes w) {
             w.str(message);

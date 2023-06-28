@@ -68,7 +68,7 @@ public class DesktopInput extends InputHandler {
             ui.redfrag.rebuild();
         }
 
-        if (input.keyTap(KeyCode.mouseRight)) controlled.each(unit -> Send.commandUnit(unit, input.mouseWorld()));
+        if (input.keyTap(KeyCode.mouseRight)) controlled.each(unit -> Send.commandUnit(unit.netId, input.mouseWorld()));
 
         if (input.keyTap(KeyCode.v)) Send.spawnUnit(tileOn() == null ? UnitTypes.sunbeam : UnitTypes.furbo, input.mouseWorld());
     }
