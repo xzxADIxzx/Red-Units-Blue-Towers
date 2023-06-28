@@ -3,8 +3,7 @@ package rubt.input;
 import arc.input.KeyCode;
 import arc.math.Mathf;
 import arc.scene.ui.TextField;
-import rubt.content.TurretTypes;
-import rubt.content.UnitTypes;
+import rubt.content.*;
 import rubt.graphics.Drawf;
 import rubt.graphics.Palette;
 import rubt.logic.State;
@@ -114,12 +113,33 @@ public class DesktopInput extends InputHandler {
         if (tile == null) return;
 
         Lines.stroke(2f, Palette.blue);
-        Lines.poly(tile.getX(), tile.getY(), 6, 14f + Mathf.absin(4f, 2f));
+        Lines.poly(tile.x, tile.y, 6, 14f + Mathf.absin(4f, 2f));
     }
 
     @Override
-    protected void updateEditor() {}
+    protected void updateEditor() {
+        Tile tile = tileOn();
+        if (tile == null) return;
+
+        if (input.keyDown(KeyCode.mouseLeft) && tile.type != TileTypes.wall) {
+            tile.type = TileTypes.wall;
+            tile.cache();
+            tile.neighbours.each(Tile::cache);
+        }
+
+        if (input.keyDown(KeyCode.mouseRight) && tile.type != TileTypes.air) {
+            tile.type = TileTypes.air;
+            tile.cache();
+            tile.neighbours.each(Tile::cache);
+        }
+    }
 
     @Override
-    protected void drawEditor() {}
+    protected void drawEditor() {
+        Lines.stroke(.8f, Palette.lightbg);
+        for (var tile : world.tiles)
+            Lines.poly(tile.x, tile.y, 6, tilesize);
+
+        drawBlue();
+    }
 }
