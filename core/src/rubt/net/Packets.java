@@ -118,13 +118,12 @@ public class Packets {
         public String name;
 
         public void write(Writes w) {
-            w.bool(avatar != null);
-            if (avatar != null) w.b(avatar);
+            w.nb(avatar);
             w.str(name);
         }
 
         public void read(Reads r) {
-            if (r.bool()) avatar = r.b(Image.rgbSize);
+            avatar = r.nb(Image.rgbSize);
             name = r.str();
         }
     }

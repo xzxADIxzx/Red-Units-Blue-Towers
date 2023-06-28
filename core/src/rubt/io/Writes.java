@@ -30,6 +30,11 @@ public class Writes extends arc.util.io.Writes {
         return instance;
     }
 
+    public void nb(byte[] array) {
+        bool(array != null);
+        if (array != null) b(array);
+    }
+
     public void p(Position pos) {
         f(pos.getX());
         f(pos.getY());

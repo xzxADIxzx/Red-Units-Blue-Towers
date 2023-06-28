@@ -35,6 +35,10 @@ public class Reads extends arc.util.io.Reads {
         return of(ByteBuffer.wrap(bytes));
     }
 
+    public byte[] nb(int length) {
+        return bool() ? b(length) : null;
+    }
+
     public Position p() {
         return new Vec2(f(), f());
     }

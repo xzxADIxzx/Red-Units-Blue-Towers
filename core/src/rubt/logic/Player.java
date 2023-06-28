@@ -79,15 +79,14 @@ public class Player extends NetObject {
     // region serialization
 
     public void write(Writes w) {
-        w.bool(avatar != null);
-        if (avatar != null) w.b(avatar);
+        w.nb(avatar);
         w.str(name);
         w.b(team.ordinal());
         w.bool(admin);
     }
 
     public void read(Reads r) {
-        if (r.bool()) avatar = r.b(Image.rgbSize);
+        avatar = r.nb(Image.rgbSize);
         name = r.str();
         team = Team.values()[r.b()];
         admin = r.bool();
