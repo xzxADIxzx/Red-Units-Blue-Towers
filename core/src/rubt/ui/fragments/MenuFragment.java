@@ -22,7 +22,7 @@ public class MenuFragment {
 
             cont.margin(8f).left();
 
-            cont.table(Textures.alphabg, pane -> { // pane
+            cont.table(Textures.mono_alpha, pane -> { // pane
                 pane.name = "Pane";
                 pane.defaults().width(256f).padBottom(8f);
 

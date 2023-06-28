@@ -16,7 +16,7 @@ public class DebugFragment {
     public boolean shown;
 
     public void build(Group parent) {
-        parent.fill(Textures.darkbg, cont -> {
+        parent.fill(Textures.dark, cont -> {
             cont.name = "Chat Fragment";
             cont.visible(() -> shown);
 
@@ -48,7 +48,7 @@ public class DebugFragment {
     }
 
     public void group(Table list, String name, Cons<Table> cons) {
-        list.table(Textures.alphabg, cont -> {
+        list.table(Textures.mono_alpha, cont -> {
             cont.top();
             cont.defaults().growX().padBottom(8f);
 

@@ -48,11 +48,11 @@ public class JoinFragment {
                     nick.button(Icons.avatar, () -> ui.avatar.show()).size(64f);
                 }).padBottom(16f).row();
 
-                info.table(Textures.alphabg, name -> {
+                info.table(Textures.mono_alpha, name -> {
                     name.label(() -> selected == null ? "Server name" : selected.name()).growX();
                     name.label(() -> selected == null ? "" : selected.address());
                 }).row();
-                info.table(Textures.alphabg).height(512f).row();
+                info.table(Textures.mono_alpha).height(512f).row();
 
                 info.table(btns -> {
                     btns.defaults().grow();

@@ -1,9 +1,10 @@
 package rubt.graphics;
 
+import arc.graphics.Color;
 import arc.graphics.Texture;
 import arc.graphics.Texture.TextureFilter;
 import arc.graphics.g2d.TextureRegion;
-import arc.scene.style.Drawable;
+import arc.scene.style.*;
 import arc.util.serialization.JsonReader;
 import arc.util.serialization.JsonValue;
 import rubt.annotations.Annotations.IconLoader;
@@ -11,24 +12,32 @@ import rubt.types.drawers.TileDrawer;
 
 import static arc.Core.*;
 
-// TODO remake
 public class Textures {
 
     public static JsonValue splits;
-    public static Drawable darkbg, mainbg, alphabg, accentbg, redbg, whiteui, circle;
+    public static Drawable
+
+    mono_white, mono_main, mono_alpha, mono_accent, mono_red,
+    
+    white, dark, accent, circle;
+
     public static TextureRegion engine;
 
     public static void load() {
-        splits = new JsonReader().parse(files.internal("sprites/ui/splits.json"));
+        splits = new JsonReader().parse(files.internal("ui/splits.json"));
 
-        darkbg = loadUI("darkbg");
-        mainbg = loadUI("mainbg");
-        alphabg = loadUI("alphabg");
-        accentbg = loadUI("accentbg");
-        redbg = loadUI("redbg");
+        mono_white = ui("mono_white");
+        mono_main = tint(mono_white, Palette.main);
+        mono_alpha = tint(mono_white, Palette.alpha);
+        mono_accent = tint(mono_white, Palette.accent);
+        mono_red = tint(mono_white, Palette.red);
 
-        whiteui = loadUI("whiteui");
-        circle = loadUI("circle");
+        white = ui("white");
+        circle = ui("circle");
+
+        var drawable = (TextureRegionDrawable) white;
+        dark = drawable.tint(Palette.background.cpy().a(.5f));
+        accent = drawable.tint(Palette.accent);
 
         engine = load("sprites/", "engine");
     }
@@ -43,20 +52,22 @@ public class Textures {
         return region;
     }
 
-    public static Drawable loadUI(String name) {
-        load("sprites/ui/", name);
+    public static Drawable drawable(String path, String name){
+        load(path, name);
         return atlas.drawable(name);
     }
 
-    public static Drawable loadIcon(String name) {
-        load("sprites/icons/", name);
-        return atlas.drawable(name);
+    public static Drawable tint(Drawable from, Color tint) {
+        return ((NinePatchDrawable) from).tint(tint);
     }
 
     @IconLoader
     public static Drawable icon(String name) {
-        load("icons/", name);
-        return atlas.drawable(name);
+        return drawable("icons/", name);
+    }
+
+    public static Drawable ui(String name) {
+        return drawable("ui/", name);
     }
 
     public static TileDrawer tile(String name) {

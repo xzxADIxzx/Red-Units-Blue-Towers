@@ -39,7 +39,7 @@ public class LobbyFragment {
                 info.name = "Server info";
                 info.defaults().height(64f).growX().padBottom(8f);
 
-                info.table(Textures.alphabg).height(512f).colspan(2).row();
+                info.table(Textures.mono_alpha).height(512f).colspan(2).row();
                 // TODO some info about game like rules & etc.
 
                 info.button("Ready", () -> state = State.game).padRight(8f);

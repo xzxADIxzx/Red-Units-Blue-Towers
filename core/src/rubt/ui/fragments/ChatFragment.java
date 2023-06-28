@@ -66,7 +66,7 @@ public class ChatFragment extends Table {
 
         if (messages.isEmpty()) return;
 
-        Textures.alphabg.draw(8f, sy, width, y - sy + 8f);
+        Textures.mono_alpha.draw(8f, sy, width, y - sy + 8f);
 
         y = sy;
         int amount = Math.max(messages.size - scroll - messagesShown, 0);

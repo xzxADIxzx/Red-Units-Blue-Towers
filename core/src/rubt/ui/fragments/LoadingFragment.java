@@ -52,7 +52,7 @@ public class LoadingFragment extends Table {
     @Override
     public void draw() {
         Draw.color(Color.white, color.a);
-        Textures.darkbg.draw(0f, 0f, graphics.getWidth(), graphics.getHeight());
+        Textures.dark.draw(0f, 0f, graphics.getWidth(), graphics.getHeight());
 
         super.draw();
 

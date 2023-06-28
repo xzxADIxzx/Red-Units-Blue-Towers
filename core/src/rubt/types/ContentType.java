@@ -28,7 +28,7 @@ public abstract class ContentType<T> extends GroupObject {
 
     /** Load icon and etc. */
     public void loadui() {
-        icon = Textures.loadIcon(name);
+        icon = Textures.drawable("sprites/icons/", name);
     }
 
     /** Any logic: from units AI to turrets targeting. */
