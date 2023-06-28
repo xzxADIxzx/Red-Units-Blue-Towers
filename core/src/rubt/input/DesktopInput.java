@@ -75,14 +75,6 @@ public class DesktopInput extends InputHandler {
     }
 
     @Override
-    protected void updateBlue() {
-        Tile tile = tileOn();
-        if (tile == null) return;
-
-        if (input.keyTap(KeyCode.b)) Send.buildTurret(TurretTypes.imat, tile);
-    }
-
-    @Override
     protected void drawRed() {
         Lines.stroke(2f, Palette.red);
         controlled.each(unit -> {
@@ -109,6 +101,14 @@ public class DesktopInput extends InputHandler {
     }
 
     @Override
+    protected void updateBlue() {
+        Tile tile = tileOn();
+        if (tile == null) return;
+
+        if (input.keyTap(KeyCode.b)) Send.buildTurret(TurretTypes.imat, tile);
+    }
+
+    @Override
     protected void drawBlue() {
         Tile tile = tileOn();
         if (tile == null) return;
@@ -116,4 +116,10 @@ public class DesktopInput extends InputHandler {
         Lines.stroke(2f, Palette.blue);
         Lines.poly(tile.getX(), tile.getY(), 6, 14f + Mathf.absin(4f, 2f));
     }
+
+    @Override
+    protected void updateEditor() {}
+
+    @Override
+    protected void drawEditor() {}
 }

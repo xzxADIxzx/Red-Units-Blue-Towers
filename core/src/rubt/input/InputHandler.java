@@ -18,11 +18,11 @@ public abstract class InputHandler {
     /** Last known mouse position in screen coordinates. */
     public int screenX, screenY;
 
+    /** Mouse position where a player start dragging a line. */
+    public float dragX = -1f, dragY = -1f;
+
     /** Current controlled units. */
     public Seq<Unit> controlled = new Seq<>();
-
-    /** Mouse position where player start dragging a line. */
-    public float dragX = -1f, dragY = -1f;
 
     public void update() {
         updateCamera();
@@ -75,14 +75,20 @@ public abstract class InputHandler {
     /** Input update of the red team. */
     protected abstract void updateRed();
 
-    /** Input update of the blue team. */
-    protected abstract void updateBlue();
-
     /** Draw overlay of the red team. */
     protected abstract void drawRed();
 
+    /** Input update of the blue team. */
+    protected abstract void updateBlue();
+
     /** Draw overlay of the blue team. */
     protected abstract void drawBlue();
+
+    /** Input update of the editor */
+    protected abstract void updateEditor();
+
+    /** Draw overlay of the editor. */
+    protected abstract void drawEditor();
 
     /** Four-dimensional vector where the first two axes are always less than the other two. */
     protected class Normalized {
