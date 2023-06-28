@@ -28,30 +28,30 @@ public class Styles {
 
     public static void load() {
         scene.addStyle(ButtonStyle.class, button = new ButtonStyle() {{
-            up = Textures.mono_alpha;
-            over = Textures.mono_main;
-            down = Textures.mono_accent;
-            disabled = Textures.mono_main;
+            up = Textures.dotted_alpha;
+            over = Textures.dotted_main;
+            down = Textures.dotted_accent;
+            disabled = Textures.dotted_main;
         }});
 
         emptyButton = new ButtonStyle() {{
-            over = Textures.mono_main;
+            over = Textures.dotted_main;
         }};
 
         scene.addStyle(TextButtonStyle.class, textButton = new TextButtonStyle() {{
             font = Fonts.aldrich;
 
-            up = Textures.mono_alpha;
-            over = Textures.mono_main;
-            down = Textures.mono_accent;
-            disabled = Textures.mono_main;
+            up = Textures.dotted_alpha;
+            over = Textures.dotted_main;
+            down = Textures.dotted_accent;
+            disabled = Textures.dotted_main;
         }});
 
         scene.addStyle(ImageButtonStyle.class, imageButton = new ImageButtonStyle() {{
-            up = Textures.mono_alpha;
-            over = Textures.mono_main;
-            down = Textures.mono_accent;
-            disabled = Textures.mono_main;
+            up = Textures.dotted_alpha;
+            over = Textures.dotted_main;
+            down = Textures.dotted_accent;
+            disabled = Textures.dotted_main;
         }});
 
         scene.addStyle(LabelStyle.class, label = new LabelStyle() {{

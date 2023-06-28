@@ -18,7 +18,9 @@ public class Textures {
     public static Drawable
 
     mono_white, mono_main, mono_alpha, mono_accent, mono_red,
-    
+
+    dotted_white, dotted_main, dotted_alpha, dotted_accent,
+
     white, dark, accent, circle;
 
     public static TextureRegion engine;
@@ -26,11 +28,16 @@ public class Textures {
     public static void load() {
         splits = new JsonReader().parse(files.internal("ui/splits.json"));
 
-        mono_white = ui("mono_white");
+        mono_white = ui("mono-white");
         mono_main = tint(mono_white, Palette.main);
         mono_alpha = tint(mono_white, Palette.alpha);
         mono_accent = tint(mono_white, Palette.accent);
         mono_red = tint(mono_white, Palette.red);
+
+        dotted_white = ui("dotted-white");
+        dotted_main = tint(dotted_white, Palette.main);
+        dotted_alpha = tint(dotted_white, Palette.alpha);
+        dotted_accent = tint(dotted_white, Palette.accent);
 
         white = ui("white");
         circle = ui("circle");
@@ -47,12 +54,15 @@ public class Textures {
         texture.setFilter(TextureFilter.linear); // for better experience
 
         var region = atlas.addRegion(name, texture, 0, 0, texture.width, texture.height);
-        if (splits.has(name)) region.splits = splits.get(name).asIntArray();
+        if (splits.has(name)) {
+            region.splits = splits.get(name).asIntArray();
+            region.pads = splits.get(name + "-pads").asIntArray();
+        }
 
         return region;
     }
 
-    public static Drawable drawable(String path, String name){
+    public static Drawable drawable(String path, String name) {
         load(path, name);
         return atlas.drawable(name);
     }
