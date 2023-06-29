@@ -118,11 +118,14 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateEditor() {
+        if (input.keyTap(KeyCode.mouseLeft) || input.keyTap(KeyCode.mouseRight)) editor.begin();
+        if (input.keyRelease(KeyCode.mouseLeft) || input.keyRelease(KeyCode.mouseRight)) editor.end();
+
         Tile tile = tileOn();
         if (tile == null) return;
 
         if (input.keyDown(KeyCode.mouseLeft)) editor.draw(tile, TileTypes.wall);
-        if (input.keyDown(KeyCode.mouseRight)) editor.draw(tile, TileTypes.air);
+        else if (input.keyDown(KeyCode.mouseRight)) editor.draw(tile, TileTypes.air);
     }
 
     @Override
