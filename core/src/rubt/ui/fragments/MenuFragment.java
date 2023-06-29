@@ -40,7 +40,7 @@ public class MenuFragment {
 
     public void toggle() {
         shown = !shown && (state == State.game || state == State.editor);
-        if (shown) rebuild();
+        rebuild();
     }
 
     public void rebuild() {
@@ -79,7 +79,7 @@ public class MenuFragment {
                 Net.disconnect();
             else { // editor
                 state = State.menu;
-                rebuild();
+                toggle();
             }
         });
     }
