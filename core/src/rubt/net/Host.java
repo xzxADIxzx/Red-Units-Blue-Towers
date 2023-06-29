@@ -1,5 +1,6 @@
 package rubt.net;
 
+import lombok.NoArgsConstructor;
 import rubt.Vars;
 import rubt.io.Reads;
 import rubt.io.Writes;
@@ -7,14 +8,13 @@ import rubt.io.Writes;
 import static arc.Core.*;
 
 /** Represents a remote server. */
+@NoArgsConstructor
 public class Host {
 
     public String ip;
     public int port;
 
     public transient String name, desc;
-
-    public Host() {} // for json
 
     public Host(String ip, int port) {
         if (ip.isBlank()) throw new RuntimeException("IP address cannot be blank!");
