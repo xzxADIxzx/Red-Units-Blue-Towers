@@ -67,13 +67,20 @@ public class MenuFragment {
         pane.button("Settings", Icons.settings, () -> {}).update(anim).row();
 
         if (state == State.menu)
-            pane.button("Exit", Icons.exit, app::exit).update(anim);
+            pane.button("Exit", Icons.exit, app::exit).update(anim).row();
         else
             pane.button("Quit", Icons.close, () -> { // TODO replace with dialog::show
                 if (state == State.game) Net.disconnect();
                 if (state == State.editor) state = State.menu;
                 toggle();
                 rebuild();
-            });
+            }).update(anim).row();
+
+        if (state != State.editor) return;
+
+        ui.partition(pane, "Editor");
+
+        pane.button("Save as", Icons.save, () -> {}).update(anim).row();
+        pane.button("Resize", Icons.resize, () -> {}).update(anim).row();
     }
 }
