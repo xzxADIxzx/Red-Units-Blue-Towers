@@ -11,7 +11,6 @@ import rubt.graphics.Textures;
 import rubt.logic.State;
 import rubt.net.Net;
 import rubt.ui.Icons;
-import rubt.ui.Styles;
 
 import static arc.Core.*;
 import static rubt.Vars.*;
@@ -49,14 +48,9 @@ public class MenuFragment {
         cont.touchable = Touchable.enabled; // control block while the player is in the menu
 
         pane.clear();
-
-        pane.table(title -> {
-            title.image().color(Palette.red).height(4f).growX();
-            title.add("[#FF0040]RU[#0040FF]BT", Styles.tech).pad(4f);
-            title.image().color(Palette.blue).height(4f).growX();
-        }).row();
-
         Cons<TextButton> anim = b -> b.translation.x = Mathf.lerpDelta(b.translation.x, b.hasMouse() ? 24f : 0f, .1f);
+
+        ui.partition(pane, "[#FF0040]RU[#0040FF]BT", Palette.red, Palette.blue);
 
         if (state == State.menu)
             pane.button("Play", Icons.play, ui.joinfrag::show).update(anim).row();

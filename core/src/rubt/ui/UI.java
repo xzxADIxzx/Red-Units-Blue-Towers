@@ -103,5 +103,13 @@ public class UI {
         }).height(32f).row();
     }
 
+    public void partition(Table list, String name, Color left, Color right) {
+        list.table(gap -> {
+            gap.image().color(left).height(4f).growX();
+            gap.add(name, Styles.tech).pad(4f);
+            gap.image().color(right).height(4f).growX();
+        }).row();
+    }
+
     // endregion
 }
