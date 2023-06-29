@@ -4,6 +4,7 @@ import arc.net.ArcNet;
 import arc.net.Connection;
 import arc.util.Log;
 import arc.util.Strings;
+import rubt.editor.MapEditor;
 import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
 import rubt.logic.Rules;
@@ -41,6 +42,7 @@ public class Vars {
     public static Renderer renderer;
     public static UI ui;
     public static InputHandler handler;
+    public static MapEditor editor = new MapEditor();
 
     public static Connection clientCon;
     public static Thread thread;

@@ -121,17 +121,8 @@ public class DesktopInput extends InputHandler {
         Tile tile = tileOn();
         if (tile == null) return;
 
-        if (input.keyDown(KeyCode.mouseLeft) && tile.type != TileTypes.wall) {
-            tile.type = TileTypes.wall;
-            tile.cache();
-            tile.neighbours.each(Tile::cache);
-        }
-
-        if (input.keyDown(KeyCode.mouseRight) && tile.type != TileTypes.air) {
-            tile.type = TileTypes.air;
-            tile.cache();
-            tile.neighbours.each(Tile::cache);
-        }
+        if (input.keyDown(KeyCode.mouseLeft)) editor.draw(tile, TileTypes.wall);
+        if (input.keyDown(KeyCode.mouseRight)) editor.draw(tile, TileTypes.air);
     }
 
     @Override
