@@ -121,6 +121,9 @@ public class DesktopInput extends InputHandler {
         if (input.keyTap(KeyCode.mouseLeft) || input.keyTap(KeyCode.mouseRight)) editor.begin();
         if (input.keyRelease(KeyCode.mouseLeft) || input.keyRelease(KeyCode.mouseRight)) editor.end();
 
+        if (input.ctrl() && input.keyTap(KeyCode.z)) editor.undo();
+        if (input.ctrl() && input.keyTap(KeyCode.y)) editor.redo();
+
         Tile tile = tileOn();
         if (tile == null) return;
 

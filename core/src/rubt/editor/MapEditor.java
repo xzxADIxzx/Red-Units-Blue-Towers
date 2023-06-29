@@ -9,6 +9,8 @@ public class MapEditor {
     public EditHistory history = new EditHistory();
     public EditOperation operation;
 
+    // region history
+
     public void begin() {
         if (operation != null) end(); // flush changes before writing new ones
         operation = new EditOperation();
@@ -18,13 +20,26 @@ public class MapEditor {
         if (operation.any()) history.add(operation);
     }
 
-    public void draw(Tile tile, TileType type) {
-        if (tile.type == type) return;
-        if (operation != null) operation.add(tile, type);
+    public void undo() {
+        if (history.hasUndo()) history.undo();
+    }
 
+    public void redo() {
+        if (history.hasRedo()) history.redo();
+    }
+
+    // endregion
+
+    public void set(Tile tile, TileType type) { // TODO optimize
         tile.type = type;
         tile.cache();
         tile.neighbours.each(Tile::cache);
+    }
+
+    public void draw(Tile tile, TileType type) {
+        if (tile.type == type) return;
+        if (operation != null) operation.add(tile, type);
+        set(tile, type);
     }
 
     public class EditHistory extends Seq<EditOperation> {
@@ -36,7 +51,7 @@ public class MapEditor {
         public Seq<EditOperation> add(EditOperation op) {
             if (index != size) truncate(index); // new element is added not to the end
 
-            super.addUnique(op);
+            super.add(op);
 
             if (size > max) remove(0);
             else index++;
