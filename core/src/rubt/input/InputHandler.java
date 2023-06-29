@@ -4,6 +4,7 @@ import arc.struct.Seq;
 import rubt.Groups;
 import rubt.logic.Logic;
 import rubt.logic.State;
+import rubt.net.Net;
 import rubt.net.Send;
 import rubt.world.*;
 
@@ -25,7 +26,7 @@ public abstract class InputHandler {
     public Seq<Unit> controlled = new Seq<>();
 
     public InputHandler(){
-        Logic.schedule(() -> clientCon.isConnected(), () -> Send.cursor(input.mouseWorld()));
+        Logic.schedule(Net::connected, () -> Send.cursor(input.mouseWorld()));
     }
 
     public void update() {

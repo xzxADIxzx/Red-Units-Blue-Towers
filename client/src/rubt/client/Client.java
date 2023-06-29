@@ -108,6 +108,10 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     // region provider
 
+    public Connection connection() {
+        return this;
+    }
+
     public void connect(String ip, int port) throws IOException {
         thread = Threads.daemon("Client", this);
         connect(5000, ip, port, port);

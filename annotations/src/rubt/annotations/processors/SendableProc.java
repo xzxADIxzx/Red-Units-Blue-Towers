@@ -43,7 +43,7 @@ public class SendableProc extends BaseProcessor {
         // sort methods
         root.methodSpecs.sort(Structs.comparing(Object::toString));
 
-        write("rubt.net", root, false, true);
+        write("rubt.net", root);
     }
 
     public MethodSpec build(String className, Sendable annotation, ExecutableElement constructor) {

@@ -1,7 +1,6 @@
 package rubt;
 
 import arc.net.ArcNet;
-import arc.net.Connection;
 import arc.util.Log;
 import arc.util.Strings;
 import rubt.editor.MapEditor;
@@ -44,7 +43,6 @@ public class Vars {
     public static InputHandler handler;
     public static MapEditor editor = new MapEditor();
 
-    public static Connection clientCon;
     public static Thread thread;
 
     public static void loadLogger() {

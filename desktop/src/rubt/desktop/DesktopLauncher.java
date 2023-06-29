@@ -38,8 +38,7 @@ public class DesktopLauncher extends ClientLauncher {
     public void init() {
         super.init();
 
-        clientCon = client = new Client();
-        Net.provider = client;
+        Net.provider = client = new Client();
 
         Log.infoTag("App", "Client loaded successfully.");
     }

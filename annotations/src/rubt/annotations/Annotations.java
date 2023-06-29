@@ -22,7 +22,7 @@ public class Annotations {
     }
 
     public enum Con {
-        custom("connection"), server(""), client("clientCon");
+        custom("connection"), server(""), client("rubt.net.Net.connection()");
 
         public final String code;
 

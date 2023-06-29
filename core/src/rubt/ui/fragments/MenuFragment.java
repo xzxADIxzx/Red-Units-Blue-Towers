@@ -75,7 +75,7 @@ public class MenuFragment {
 
     public void quit() {
         ui.confirm("Quit", "Are you sure want to quit?\n[scarlet]All unsaved data will be lost!", () -> {
-            if (clientCon.isConnected()) // multiplayer game
+            if (Net.connected()) // multiplayer game
                 Net.disconnect();
             else { // editor
                 state = State.menu;
