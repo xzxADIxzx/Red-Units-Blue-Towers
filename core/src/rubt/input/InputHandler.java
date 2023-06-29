@@ -2,6 +2,7 @@ package rubt.input;
 
 import arc.struct.Seq;
 import rubt.Groups;
+import rubt.logic.Logic;
 import rubt.logic.State;
 import rubt.net.Send;
 import rubt.world.*;
@@ -23,6 +24,10 @@ public abstract class InputHandler {
     /** Current controlled units. */
     public Seq<Unit> controlled = new Seq<>();
 
+    public InputHandler(){
+        Logic.schedule(() -> clientCon.isConnected(), () -> Send.cursor(input.mouseWorld()));
+    }
+
     public void update() {
         updateCamera();
         updateMisc();
@@ -40,8 +45,6 @@ public abstract class InputHandler {
             updateRed();
             updateBlue();
         }
-
-        if (clientCon.isConnected()) Send.cursor(input.mouseWorld()); // TODO move to Timer.schedule
     }
 
     public void draw() {

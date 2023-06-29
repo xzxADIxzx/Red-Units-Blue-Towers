@@ -13,9 +13,9 @@ import static rubt.Vars.*;
 public class Logic {
 
     /** Frequency of calling low-important tasks per second. */
-    private static final int litsFrequency = 10;
+    public static final int litsFrequency = 10;
     /** Low important tasks, such as snapshots. Tasks will be executed one by one, distributing the load. */
-    private static final Seq<Runnable> lits = new Seq<>();
+    public static final Seq<Runnable> lits = new Seq<>();
 
     /** Id of the last called low-important task. */
     private static int lastLitId;

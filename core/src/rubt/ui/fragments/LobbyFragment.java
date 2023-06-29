@@ -2,11 +2,9 @@ package rubt.ui.fragments;
 
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
-import arc.util.Timer;
 import rubt.Groups;
 import rubt.graphics.Textures;
-import rubt.logic.State;
-import rubt.logic.Team;
+import rubt.logic.*;
 import rubt.net.Net;
 import rubt.ui.Icons;
 
@@ -18,9 +16,7 @@ public class LobbyFragment {
     public boolean needRebuilding;
 
     public void build(Group parent) {
-        Timer.schedule(() -> { // TODO looks bad
-            if (needRebuilding) rebuildList();
-        }, 0f, .5f);
+        Logic.schedule(() -> needRebuilding, this::rebuildList);
 
         parent.fill(cont -> {
             cont.name = "Lobby Fragment";

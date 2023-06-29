@@ -36,11 +36,18 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     /** Statistics for debug fragment. */
     public int packetsReaded, packetsWritten;
-    public long bytesReaded, bytesWritten; // TODO per second (how?)
+    public long bytesRead, bytesWritten, bytesReadPerSec, bytesWrittenPerSec;
 
     public Client() {
         super(8192, 8192, new PacketSerializer());
         addListener(this);
+
+        Logic.schedule(() -> {
+            bytesReadPerSec = bytesRead * Logic.litsFrequency;
+            bytesWrittenPerSec = bytesWritten * Logic.litsFrequency;
+
+            bytesRead = bytesWritten = 0L;
+        });
 
         handler.register(WorldDataBegin.class, data -> {
             builder = data.builder();
@@ -133,7 +140,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     public void readed(long bytes) {
         packetsReaded++;
-        bytesReaded += bytes;
+        bytesRead += bytes;
     }
 
     public void written(long bytes) {
@@ -150,11 +157,11 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     }
 
     public long bytesReaded() {
-        return bytesReaded;
+        return bytesReadPerSec;
     }
 
     public long bytesWritten() {
-        return bytesWritten;
+        return bytesWrittenPerSec;
     }
 
     // endregion
