@@ -35,6 +35,12 @@ public class DesktopInput extends InputHandler {
             scene.setKeyboardFocus(null); // reset keyboard focus on click
 
         if (input.keyTap(KeyCode.f9)) ui.debugfrag.toggle();
+        if (input.keyDown(KeyCode.f11)) {
+            if (graphics.isFullscreen())
+                graphics.setWindowedMode(graphics.getWidth(), graphics.getHeight());
+            else
+                graphics.setFullscreen();
+        }
 
         if (state == State.menu) return; // chat isn't available in main menu
         var frag = ui.chatfrag;
