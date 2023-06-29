@@ -22,4 +22,8 @@ public class FloatLerp {
     public float get(long lastUpdate) {
         return Mathf.lerp(last, target, Time.timeSinceMillis(lastUpdate) / updateSpacing);
     }
+
+    public float getAngel(long lastUpdate){
+        return Mathf.slerp(last, target, Time.timeSinceMillis(lastUpdate) / updateSpacing);
+    }
 }

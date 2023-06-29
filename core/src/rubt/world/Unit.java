@@ -104,7 +104,7 @@ public class Unit extends Body implements ContentType.Provider<Unit> {
     public void interpolate() {
         x = xLerp.get(lastUpdate);
         y = yLerp.get(lastUpdate);
-        rotation = rLerp.get(lastUpdate);
+        rotation = rLerp.getAngel(lastUpdate);
     }
 
     // endregion

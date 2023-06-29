@@ -46,7 +46,7 @@ public class Turret extends Body implements ContentType.Provider<Turret> {
     }
 
     public void interpolate() {
-        rotation = rLerp.get(lastUpdate);
+        rotation = rLerp.getAngel(lastUpdate);
     }
 
     // endregion
