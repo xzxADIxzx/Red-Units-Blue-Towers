@@ -47,7 +47,6 @@ public class DesktopLauncher extends ClientLauncher {
     @Override
     public void update() {
         Logic.update();
-        handler.update();
         renderer.draw();
 
         limitFPS(60);

@@ -70,5 +70,7 @@ public class Groups {
         public abstract void writeSnapshot(Writes w);
 
         public abstract void readSnapshot(Reads r);
+
+        public abstract void interpolate();
     }
 }

@@ -6,6 +6,7 @@ import arc.util.Time;
 import arc.util.Timer;
 import arc.util.Timer.Task;
 import rubt.Groups;
+import rubt.Groups.NetObject;
 import rubt.world.*;
 
 import static rubt.Vars.*;
@@ -51,10 +52,13 @@ public class Logic {
     public static void update() {
         Time.update();
 
-        if (!headless) return;
-
-        Groups.units.each(Unit::update);
-        Groups.turrets.each(Turret::update);
+        if (headless) {
+            Groups.units.each(Unit::update);
+            Groups.turrets.each(Turret::update);
+        } else {
+            Groups.sync.each(NetObject::interpolate);
+            handler.update();
+        }
     }
 
     public static void reset() {
