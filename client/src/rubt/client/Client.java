@@ -138,7 +138,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         });
     }
 
-    public void readed(long bytes) {
+    public void read(long bytes) {
         packetsReaded++;
         bytesRead += bytes;
     }
@@ -148,7 +148,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         bytesWritten += bytes;
     }
 
-    public int packetsReaded() {
+    public int packetsRead() {
         return packetsReaded;
     }
 
@@ -156,7 +156,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
         return packetsWritten;
     }
 
-    public long bytesReaded() {
+    public long bytesRead() {
         return bytesReadPerSec;
     }
 

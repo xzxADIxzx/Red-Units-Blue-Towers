@@ -87,13 +87,13 @@ public class Net {
         /** Fetch data about a specific server. */
         public void fetchServerInfo(String ip, int port, Cons<DatagramPacket> cons);
 
-        public void readed(long bytes);
+        public void read(long bytes);
         public void written(long bytes);
 
-        public int packetsReaded();
+        public int packetsRead();
         public int packetsWritten();
 
-        public long bytesReaded();
+        public long bytesRead();
         public long bytesWritten();
     }
 }

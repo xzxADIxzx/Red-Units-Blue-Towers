@@ -27,7 +27,7 @@ public class PacketSerializer implements NetSerializer {
 
     @Override
     public Object read(ByteBuffer buffer) {
-        if (Net.provider != null) Net.provider.readed(buffer.remaining());
+        if (Net.provider != null) Net.provider.read(buffer.remaining());
 
         byte id = buffer.get();
         if (id == 1) return readFramework(buffer);

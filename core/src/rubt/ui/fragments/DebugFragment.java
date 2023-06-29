@@ -39,9 +39,9 @@ public class DebugFragment {
             });
             
             group(cont, "Net", netp -> {
-                netp.label(() -> "PACKETS READED: " + Net.provider.packetsReaded()).row();
+                netp.label(() -> "PACKETS READ: " + Net.provider.packetsRead()).row();
                 netp.label(() -> "PACKETS WRITTEN: " + Net.provider.packetsWritten()).row();
-                netp.label(() -> "BYTES READED: " + Net.provider.bytesReaded()).row();
+                netp.label(() -> "BYTES READ: " + Net.provider.bytesRead()).row();
                 netp.label(() -> "BYTES WRITTEN: " + Net.provider.bytesWritten()).row();
             });
         });
