@@ -88,14 +88,23 @@ public class Unit extends Body implements ContentType.Provider<Unit> {
 
     public void writeSnapshot(Writes w) {
         w.p(this);
-        w.p(target);
         w.f(rotation);
+        w.p(target);
     }
 
     public void readSnapshot(Reads r) {
-        set(r.p());
+        lastUpdate = Time.millis();
+        xLerp.read(r);
+        yLerp.read(r);
+        rLerp.read(r);
+
         target = r.p();
-        rotation = r.f();
+    }
+
+    public void interpolate() {
+        x = xLerp.get(lastUpdate);
+        y = yLerp.get(lastUpdate);
+        rotation = rLerp.get(lastUpdate);
     }
 
     // endregion

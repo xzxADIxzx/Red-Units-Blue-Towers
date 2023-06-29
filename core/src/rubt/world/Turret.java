@@ -1,5 +1,6 @@
 package rubt.world;
 
+import arc.util.Time;
 import rubt.Groups;
 import rubt.content.TurretTypes;
 import rubt.io.Reads;
@@ -40,7 +41,12 @@ public class Turret extends Body implements ContentType.Provider<Turret> {
     }
 
     public void readSnapshot(Reads r) {
-        rotation = r.f();
+        lastUpdate = Time.millis();
+        rLerp.read(r);
+    }
+
+    public void interpolate() {
+        rotation = rLerp.get(lastUpdate);
     }
 
     // endregion

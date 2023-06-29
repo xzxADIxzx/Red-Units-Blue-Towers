@@ -3,14 +3,18 @@ package rubt.world;
 import arc.math.geom.Position;
 import arc.struct.Seq;
 import rubt.Groups.NetObject;
+import rubt.net.FloatLerp;
 
 import static rubt.Vars.*;
 
 /** Implementation of position and rotation over NetObject. */
 public abstract class Body extends NetObject {
 
-    public float x, y;
-    public float rotation;
+    public float x, y, rotation;
+
+    /** Last update time via snapshots. */
+    public long lastUpdate;
+    public FloatLerp xLerp = new FloatLerp(), yLerp = new FloatLerp(), rLerp = new FloatLerp();
 
     public Body(Seq<? extends NetObject> group) {
         super(group);
