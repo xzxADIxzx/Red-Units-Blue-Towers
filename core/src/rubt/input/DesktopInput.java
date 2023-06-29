@@ -118,8 +118,7 @@ public class DesktopInput extends InputHandler {
 
     @Override
     protected void updateEditor() {
-        if (input.keyTap(KeyCode.mouseLeft) || input.keyTap(KeyCode.mouseRight)) editor.begin();
-        if (input.keyRelease(KeyCode.mouseLeft) || input.keyRelease(KeyCode.mouseRight)) editor.end();
+        if (input.keyRelease(KeyCode.mouseLeft) || input.keyRelease(KeyCode.mouseRight)) editor.flush();
 
         if (input.ctrl() && input.keyTap(KeyCode.z)) editor.undo();
         if (input.ctrl() && input.keyTap(KeyCode.y)) editor.redo();

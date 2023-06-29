@@ -7,17 +7,13 @@ import rubt.world.Tile;
 public class MapEditor {
 
     public EditHistory history = new EditHistory();
-    public EditOperation operation;
+    public EditOperation operation = new EditOperation();
 
     // region history
 
-    public void begin() {
-        if (operation != null) end(); // flush changes before writing new ones
+    public void flush() {
+        if (operation.any()) history.add(operation); // flush changes before writing new ones
         operation = new EditOperation();
-    }
-
-    public void end() {
-        if (operation.any()) history.add(operation);
     }
 
     public void undo() {
