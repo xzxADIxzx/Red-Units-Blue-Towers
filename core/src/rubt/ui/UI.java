@@ -100,7 +100,7 @@ public class UI {
         var dialog = new BaseDialog(title);
 
         dialog.buttons.defaults().size(200f, 64f);
-        dialog.buttons.button("Yes", Icons.close, () -> {
+        dialog.buttons.button("Yes", Icons.done, () -> {
             confirmed.run();
             dialog.hide();
         });

@@ -63,12 +63,7 @@ public class MenuFragment {
         if (state == State.menu)
             pane.button("Exit", Icons.exit, app::exit).update(anim).row();
         else
-            pane.button("Quit", Icons.close, () -> { // TODO replace with dialog::show
-                if (state == State.game) Net.disconnect();
-                if (state == State.editor) state = State.menu;
-                toggle();
-                rebuild();
-            }).update(anim).row();
+            pane.button("Quit", Icons.close, this::quit).update(anim).row();
 
         if (state != State.editor) return;
 
@@ -76,5 +71,16 @@ public class MenuFragment {
 
         pane.button("Save as", Icons.save, () -> {}).update(anim).row();
         pane.button("Resize", Icons.resize, () -> {}).update(anim).row();
+    }
+
+    public void quit() {
+        ui.confirm("Quit", "Are you sure want to quit?\n[scarlet]All unsaved data will be lost!", () -> {
+            if (clientCon.isConnected()) // multiplayer game
+                Net.disconnect();
+            else { // editor
+                state = State.menu;
+                rebuild();
+            }
+        });
     }
 }
