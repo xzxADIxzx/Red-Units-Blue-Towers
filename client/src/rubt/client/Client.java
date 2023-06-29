@@ -168,7 +168,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
     public void disconnected(Connection connection, DcReason reason) {
         Groups.clear();
-        state = State.menu;
+        state = State.join;
+        ui.menufrag.toggle(); // hide menu fragment
 
         Log.info("Connection closed: @.", reason);
     }

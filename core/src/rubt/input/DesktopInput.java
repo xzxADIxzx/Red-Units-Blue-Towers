@@ -34,6 +34,8 @@ public class DesktopInput extends InputHandler {
         if (input.keyTap(KeyCode.mouseLeft) && scene.hasField() && scene.hit(input.mouseX(), input.mouseY(), true) instanceof TextField == false)
             scene.setKeyboardFocus(null); // reset keyboard focus on click
 
+        if (input.keyTap(KeyCode.escape)) ui.menufrag.toggle();
+
         if (input.keyTap(KeyCode.f9)) ui.debugfrag.toggle();
         if (input.keyDown(KeyCode.f11)) {
             if (graphics.isFullscreen())
