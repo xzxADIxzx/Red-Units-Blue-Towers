@@ -96,6 +96,29 @@ public class UI {
         Log.err(title, error);
     }
 
+    public void confirm(String title, String text, Runnable confirmed, Runnable denied) {
+        var dialog = new BaseDialog(title);
+
+        dialog.buttons.defaults().size(200f, 64f);
+        dialog.buttons.button("Yes", Icons.close, () -> {
+            confirmed.run();
+            dialog.hide();
+        });
+        dialog.buttons.button("No", Icons.close, () -> {
+            denied.run();
+            dialog.hide();
+        });
+
+        dialog.closeOnBack(denied);
+        dialog.cont.add(text);
+
+        dialog.show();
+    }
+
+    public void confirm(String title, String text, Runnable confirmed) {
+        confirm(title, text, confirmed, () -> {});
+    }
+
     public void partition(Table list, String name) {
         list.table(gap -> {
             gap.add(name, Styles.tech).color(Color.gray).padRight(4f);
