@@ -1,6 +1,6 @@
 package rubt.ui.dialogs;
 
-import rubt.Groups;
+import rubt.logic.Logic;
 import rubt.logic.State;
 import rubt.ui.Icons;
 
@@ -20,7 +20,7 @@ public class OpenEditorDialog extends BaseDialog {
                     hide();
                 } catch (Exception ex) {
                     ui.error("Couldn't load map", ex);
-                    Groups.clear(); // for safety
+                    Logic.reset(); // for safety
                 }
             });
         });

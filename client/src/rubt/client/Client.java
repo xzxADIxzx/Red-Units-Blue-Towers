@@ -8,6 +8,7 @@ import arc.util.Log;
 import arc.util.Threads;
 import rubt.Groups;
 import rubt.io.Reads;
+import rubt.logic.Logic;
 import rubt.logic.State;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;
@@ -167,9 +168,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     }
 
     public void disconnected(Connection connection, DcReason reason) {
-        Groups.clear();
         state = State.menu;
-        ui.menufrag.toggle(); // hide menu fragment
+        Logic.reset();
 
         Log.info("Connection closed: @.", reason);
     }
