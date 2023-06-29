@@ -51,7 +51,7 @@ public class ServerLauncher extends ClientLauncher {
     @Override
     public void update() {
         Logic.update();
-        server.sendSnapshot(); // TODO send data once per 100ms
+        server.sendSnapshot(); // TODO send data once per 100ms (move to Logic.schedule)
 
         limitFPS(60);
     }
