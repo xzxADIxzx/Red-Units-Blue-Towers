@@ -39,6 +39,7 @@ public class ServerLauncher extends ClientLauncher {
 
             world.load(World.random());
             state = State.lobby;
+            Logic.schedule(server::sendSnapshot);
         } catch (Exception ex) {
             Log.err("Couldn't startup server", ex);
             exit();
@@ -51,8 +52,6 @@ public class ServerLauncher extends ClientLauncher {
     @Override
     public void update() {
         Logic.update();
-        server.sendSnapshot(); // TODO send data once per 100ms (move to Logic.schedule)
-
         limitFPS(60);
     }
 }

@@ -13,7 +13,7 @@ import static rubt.Vars.*;
 public class Logic {
 
     /** Frequency of calling low-important tasks per second. */
-    public static final int litsFrequency = 10;
+    public static final int litsFrequency = 20;
     /** Low important tasks, such as snapshots. Tasks will be executed one by one, distributing the load. */
     public static final Seq<Runnable> lits = new Seq<>();
 
@@ -24,7 +24,7 @@ public class Logic {
 
     // region lits
 
-    /** Schedules a task to run 10 times per second. Usually used for heavy or low-important tasks. */
+    /** Schedules a task to run 20 times per second. Usually used for heavy or low-important tasks. */
     public static void schedule(Runnable task) {
         lits.add(task);
 
