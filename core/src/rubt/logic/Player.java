@@ -3,9 +3,11 @@ package rubt.logic;
 import arc.graphics.g2d.TextureRegion;
 import arc.net.Connection;
 import arc.util.Align;
+import arc.util.Time;
 import rubt.Groups;
 import rubt.Groups.NetObject;
 import rubt.io.*;
+import rubt.net.FloatLerp;
 import rubt.ui.Fonts;
 import rubt.ui.Icons;
 
@@ -24,6 +26,10 @@ public class Player extends NetObject {
 
     /** Cursor position that will be visible to teammates. */
     public float cursorX, cursorY;
+
+    /** Last update time via snapshots. */
+    public long lastUpdate;
+    public FloatLerp xLerp = new FloatLerp(), yLerp = new FloatLerp();
 
     public Player() {
         super(Groups.players);
@@ -99,8 +105,14 @@ public class Player extends NetObject {
     }
 
     public void readSnapshot(Reads r) {
-        cursorX = r.f();
-        cursorY = r.f();
+        lastUpdate = Time.millis();
+        xLerp.read(r);
+        yLerp.read(r);
+    }
+
+    public void interpolate() {
+        cursorX = xLerp.get(lastUpdate);
+        cursorY = yLerp.get(lastUpdate);
     }
 
     // endregion
