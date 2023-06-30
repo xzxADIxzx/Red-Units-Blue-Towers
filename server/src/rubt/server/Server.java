@@ -58,15 +58,12 @@ public class Server extends arc.net.Server implements NetListener {
             sendEntity(player);
         });
 
-        handler.register(UpdateCursor.class, (con, data) -> {
-            var player = Groups.players.find(p -> p.con == con);
-            if (player != null) {
-                player.cursorX = data.cursor.getX();
-                player.cursorY = data.cursor.getY();
-            }
+        handler.registerPlayer(UpdateCursor.class, (player, data) -> {
+            player.cursorX = data.cursor.getX();
+            player.cursorY = data.cursor.getY();
         });
 
-        handler.register(SpawnUnit.class, (con, data) -> {
+        handler.registerPlayer(SpawnUnit.class, (player, data) -> {
             // TODO check player's team, unit's cost and spawn position
 
             Unit unit = new Unit();
@@ -77,7 +74,7 @@ public class Server extends arc.net.Server implements NetListener {
             sendEntity(unit);
         });
 
-        handler.register(BuildTurret.class, (con, data) -> {
+        handler.registerPlayer(BuildTurret.class, (player, data) -> {
             // TODO check player's team, turret's cost and tile
 
             Turret turret = new Turret();
@@ -87,14 +84,13 @@ public class Server extends arc.net.Server implements NetListener {
             sendEntity(turret);
         });
 
-        handler.register(CommandUnit.class, (con, data) -> {
+        handler.registerPlayer(CommandUnit.class, (player, data) -> {
             var object = Groups.sync.get(data.netId);
             if (object instanceof Unit unit) unit.target = data.target;
         });
 
-        handler.register(ChatMessage.class, (con, data) -> {
-            var player = Groups.players.find(p -> p.con == con);
-            if (player != null && !data.message.isBlank() && data.message.length() <= maxMessageLength)
+        handler.registerPlayer(ChatMessage.class, (player, data) -> {
+            if (!data.message.isBlank() && data.message.length() <= maxMessageLength)
                 Send.chatMessage(player.name, data.message);
         });
     }
@@ -173,8 +169,8 @@ public class Server extends arc.net.Server implements NetListener {
     public void received(Connection connection, Object object) {
         if (object instanceof Packet packet) try {
             handler.handle(connection, packet);
-        } catch (Exception ignored) {
-            Log.err("Unable to process client packet", ignored);
+        } catch (Exception ex) {
+            Log.err("Unable to process client packet", ex);
         }
     }
 

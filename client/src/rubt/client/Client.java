@@ -188,8 +188,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
     public void received(Connection connection, Object object) {
         if (object instanceof Packet packet) try {
             handler.handle(connection, packet);
-        } catch (Exception ignored) {
-            Log.err("Unable to process server packet", ignored);
+        } catch (Exception ex) {
+            Log.err("Unable to process server packet", ex);
         }
     }
 
