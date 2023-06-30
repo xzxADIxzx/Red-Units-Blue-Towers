@@ -63,6 +63,7 @@ public class Logic {
 
     public static void reset() {
         Groups.clear();
+        player = null;
         ui.menufrag.toggle(); // update menu fragment
     }
 

@@ -6,8 +6,7 @@ import arc.util.Strings;
 import rubt.editor.MapEditor;
 import rubt.graphics.Renderer;
 import rubt.input.InputHandler;
-import rubt.logic.Rules;
-import rubt.logic.State;
+import rubt.logic.*;
 import rubt.ui.UI;
 import rubt.world.*;
 
@@ -44,6 +43,7 @@ public class Vars {
     public static MapEditor editor = new MapEditor();
 
     public static Thread thread;
+    public static Player player;
 
     public static void loadLogger() {
         ArcNet.errorHandler = ex -> Log.debug(Strings.getStackTrace(ex));

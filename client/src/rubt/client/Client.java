@@ -8,8 +8,7 @@ import arc.util.Log;
 import arc.util.Threads;
 import rubt.Groups;
 import rubt.io.Reads;
-import rubt.logic.Logic;
-import rubt.logic.State;
+import rubt.logic.*;
 import rubt.net.*;
 import rubt.net.Net.NetProvider;
 import rubt.net.Packets.*;
@@ -74,6 +73,9 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
         var entity = Entities.newEntity(reads.b());
         entity.read(reads);
+
+        // save the player for later use
+        if (player == null && entity instanceof Player p) player = p;
     }
 
     public void readSnapshot(Snapshot snapshot) {

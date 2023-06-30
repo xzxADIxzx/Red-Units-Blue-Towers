@@ -125,7 +125,7 @@ public class Server extends arc.net.Server implements NetListener {
         if (sent > 0) Send.snapshot((short) sync.position(), sync.array());
     }
 
-    public void sendWorldData(Connection connection) { // TODO replace connection by player
+    public void sendWorldData(Connection connection) {
         try {
             // initialize new stream
             var output = new ByteArrayOutputStream();
@@ -141,8 +141,8 @@ public class Server extends arc.net.Server implements NetListener {
 
                 Send.worldData(connection, (short) bytes.length, bytes); // short because the chunk size does not exceed maxSnapshotSize
             }
-        } catch (IOException ex) {
-            // TODO kick player
+        } catch (Exception ex) {
+            connection.close(DcReason.error);
             return;
         }
 
@@ -153,13 +153,11 @@ public class Server extends arc.net.Server implements NetListener {
 
     public void connected(Connection connection) {
         sendWorldData(connection);
-
         Log.info("@ received.", connection);
     }
 
     public void disconnected(Connection connection, DcReason reason) {
         // TODO mark player as disconnected and clear on game reset or replace Seq by IntMap
-
         Log.info("@ disconnected: @.", connection, reason);
     }
 

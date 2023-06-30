@@ -43,6 +43,7 @@ public class DebugFragment {
                 netp.label(() -> "PACKETS WRITTEN: " + Net.provider.packetsWritten()).row();
                 netp.label(() -> "BYTES READ: " + Net.provider.bytesRead()).row();
                 netp.label(() -> "BYTES WRITTEN: " + Net.provider.bytesWritten()).row();
+                netp.label(() -> "PLAYER: " + player).row();
             });
         });
     }
