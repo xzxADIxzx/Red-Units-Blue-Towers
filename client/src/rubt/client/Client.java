@@ -63,15 +63,17 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
 
         handler.register(Snapshot.class, this::readSnapshot);
 
-        handler.register(CreateEntity.class, data -> {
-            ByteBuffer buffer = ByteBuffer.wrap(data.data);
-            Reads reads = Reads.of(buffer);
-
-            var entity = Entities.newEntity(reads.b());
-            entity.read(reads);
-        });
+        handler.register(CreateEntity.class, this::readEntity);
 
         handler.register(ChatMessage.class, data -> ui.chatfrag.flush(data.message));
+    }
+
+    public void readEntity(CreateEntity data) {
+        ByteBuffer buffer = ByteBuffer.wrap(data.data);
+        Reads reads = Reads.of(buffer);
+
+        var entity = Entities.newEntity(reads.b());
+        entity.read(reads);
     }
 
     public void readSnapshot(Snapshot snapshot) {
@@ -83,8 +85,8 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
                 var object = Groups.sync.get(reads.i());
                 object.readSnapshot(reads);
             }
-        } catch (Exception ignored) {
-            Log.err("Error reading snapshot", ignored);
+        } catch (Exception ex) {
+            Log.err("Couldn't read snapshot", ex);
         }
     }
 
@@ -98,7 +100,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             builder = null;
 
             ui.loadfrag.hide();
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ui.error("Couldn't read world data", ex);
             ui.loadfrag.hide();
 
