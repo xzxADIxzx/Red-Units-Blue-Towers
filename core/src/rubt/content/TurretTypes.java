@@ -8,15 +8,23 @@ public class TurretTypes {
 
     public static Seq<TurretType> all = new Seq<>();
 
+    public static HeadTurret dislike, disgust, hatred;
     public static HeadTurret imat;
 
     /** Create turret types. */
     public static void load() {
-        imat = new HeadTurret("imat") {{
-            health = 100;
-            damage = 20;
+        dislike = new HeadTurret("dislike") {{
+            range = 36f;
 
-            reload = 0.8f;
+            rotationSpeed = 7f;
+            reload = 1f;
+        }};
+
+        imat = new HeadTurret("imat") {{
+            range = 144f;
+
+            rotationSpeed = 5f;
+            reload = .8f;
             inaccuracy = 5f;
         }};
     }

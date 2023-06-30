@@ -112,7 +112,7 @@ public class DesktopInput extends InputHandler {
         Tile tile = tileOn();
         if (tile == null) return;
 
-        if (input.keyTap(KeyCode.b)) Send.buildTurret(TurretTypes.imat, tile);
+        if (input.keyTap(KeyCode.b)) Send.buildTurret(input.ctrl() ? TurretTypes.imat : TurretTypes.dislike, tile);
     }
 
     @Override
