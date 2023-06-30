@@ -8,11 +8,11 @@ import rubt.world.Turret;
 
 public abstract class BaseTurret extends TurretType {
 
-    /** How fast the turret turns towards the enemy. Degrees per second. */
+    /** How fast the turret turns towards the enemy. Degrees per tick. */
     public float rotationSpeed;
-    /** Time in seconds between shots. */
+    /** Time in ticks between shots. */
     public float reload;
-    /** Time in seconds between bursts of shots. */
+    /** Time in ticks between bursts of shots. */
     public float burstCooldown = 0f;
     /** Projectile spread in degrees. */
     public float inaccuracy = 0f;
