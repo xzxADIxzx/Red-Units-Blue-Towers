@@ -12,6 +12,9 @@ public class Turret extends Body implements ContentType.Provider<Turret> {
 
     public TurretType type;
 
+    public Unit target;
+    public boolean shooting;
+
     public Turret() {
         super(Groups.turrets);
     }
