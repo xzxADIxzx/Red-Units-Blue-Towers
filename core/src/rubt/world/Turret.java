@@ -44,11 +44,14 @@ public class Turret extends Body implements ContentType.Provider<Turret> {
 
     public void writeSnapshot(Writes w) {
         w.f(rotation);
+        w.bool(shooting);
     }
 
     public void readSnapshot(Reads r) {
         lastUpdate = Time.millis();
         rLerp.read(r);
+
+        shooting = r.bool();
     }
 
     public void interpolate() {

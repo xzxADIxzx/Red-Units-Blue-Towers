@@ -25,10 +25,14 @@ public abstract class BaseTurret extends TurretType {
 
     public void update(Turret turret) {
         var target = Groups.units.min(unit -> unit.dst(turret)); // TODO better algorithm, for example, look for targets with the lowest hp
-        if (target == null) return;
+
+        boolean within = target != null && target.within(turret, range);
+        boolean shooting = within && Angles.within(turret.angleTo(target), turret.rotation, 30f);
 
         turret.target = target;
-        turret.shooting = target != null && target.within(turret, range);
+        turret.shooting = shooting;
+
+        if (!within) return;
 
         // TODO take into account the speed of the bullet and the unit
         turret.rotation = Angles.moveToward(turret.rotation, turret.angleTo(target), rotationSpeed * Time.delta);
