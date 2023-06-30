@@ -152,16 +152,13 @@ public class Server extends arc.net.Server implements NetListener {
     // region listeners
 
     public void connected(Connection connection) {
-        Groups.connections.add(connection);
         sendWorldData(connection);
 
         Log.info("@ received.", connection);
     }
 
     public void disconnected(Connection connection, DcReason reason) {
-        Groups.connections.remove(connection);
-        Groups.players.remove(player -> player.con == connection);
-        // TODO mark player as disconnected and clear on game reset
+        // TODO mark player as disconnected and clear on game reset or replace Seq by IntMap
 
         Log.info("@ disconnected: @.", connection, reason);
     }

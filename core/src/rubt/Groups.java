@@ -1,7 +1,6 @@
 package rubt;
 
 import arc.math.geom.Position;
-import arc.net.Connection;
 import arc.struct.Seq;
 import rubt.io.Reads;
 import rubt.io.Writes;
@@ -12,7 +11,6 @@ import rubt.world.*;
 public class Groups {
 
     public static Seq<NetObject> sync = new Seq<>();
-    public static Seq<Connection> connections = new Seq<>();
 
     public static Seq<Tile> tiles = new Seq<>();
     public static Seq<Unit> units = new Seq<>();
@@ -21,7 +19,6 @@ public class Groups {
 
     public static void clear() {
         sync.clear();
-        connections.clear();
 
         tiles.clear();
         units.clear();
