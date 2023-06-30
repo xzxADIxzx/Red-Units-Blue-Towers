@@ -16,15 +16,17 @@ public class TurretTypes {
         dislike = new HeadTurret("dislike") {{
             range = 36f;
 
-            rotationSpeed = 7f;
-            reload = 1f;
+            rotationSpeed = 1f;
+            reload = 40f;
         }};
 
         imat = new HeadTurret("imat") {{
             range = 144f;
 
             rotationSpeed = 5f;
-            reload = .8f;
+            reload = 30f;
+            burstShoots = 4;
+            burstCooldown = 120f;
             inaccuracy = 5f;
         }};
     }

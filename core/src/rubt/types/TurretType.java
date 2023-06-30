@@ -13,4 +13,7 @@ public abstract class TurretType extends ContentType<Turret> {
     public TurretType(String name) {
         super(TurretTypes.all, name);
     }
+
+    /** Turret firing update. */
+    public abstract void shoot(Turret turret);
 }

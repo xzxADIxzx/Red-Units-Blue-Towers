@@ -18,7 +18,7 @@ public class Renderer {
 
     public Bloom bloom = new Bloom(true);
 
-    public float minZoom = 1f, maxZoom = 6f;
+    public float minZoom = 1f, maxZoom = 7f;
     public float current = 4f, target = 4f;
 
     public void zoom(float amount) {

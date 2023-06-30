@@ -59,6 +59,9 @@ public class Logic {
             Groups.sync.each(NetObject::interpolate);
             handler.update();
         }
+
+        // turrets' firing updates on both server and client because sending each bullet is too expensive
+        Groups.turrets.each(turret -> turret.shooting, turret -> turret.type.shoot(turret));
     }
 
     public static void reset() {
