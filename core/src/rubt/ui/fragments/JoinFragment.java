@@ -73,7 +73,6 @@ public class JoinFragment {
 
     public void show() {
         loadSavedHosts();
-        discoverLocalHosts();
         rebuildList();
 
         state = State.join;

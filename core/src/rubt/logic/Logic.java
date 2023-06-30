@@ -64,6 +64,8 @@ public class Logic {
     public static void reset() {
         Groups.clear();
         player = null;
+
+        ui.loadfrag.hide(); // hide load fragment if present
         ui.menufrag.toggle(); // update menu fragment
     }
 

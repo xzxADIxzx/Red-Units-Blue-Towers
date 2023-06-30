@@ -117,6 +117,6 @@ public class LoadingFragment extends Table {
     }
 
     public void hide() {
-        actions(Actions.after(getActions().peek()), Actions.alpha(0f, .8f), Actions.run(this::superHide));
+        actions(Actions.delay(1f), Actions.alpha(0f, .8f), Actions.run(this::superHide));
     }
 }

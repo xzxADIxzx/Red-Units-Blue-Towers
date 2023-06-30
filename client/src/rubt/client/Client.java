@@ -104,9 +104,7 @@ public class Client extends arc.net.Client implements NetListener, NetProvider {
             ui.loadfrag.hide();
         } catch (Exception ex) {
             ui.error("Couldn't read world data", ex);
-            ui.loadfrag.hide();
-
-            disconnect();
+            disconnect(); // load frag will be hidden via logic reset
         }
     }
 
