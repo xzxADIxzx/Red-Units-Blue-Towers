@@ -8,6 +8,7 @@ import arc.math.Mathf;
 import arc.struct.Seq;
 import rubt.Groups;
 import rubt.logic.Player;
+import rubt.logic.Team;
 import rubt.types.ContentType;
 
 import static arc.Core.*;
@@ -65,11 +66,8 @@ public class Renderer {
 
             handler.draw();
 
-            Draw.color(Palette.red); // TODO hide enemies cursors? + don't draw local player's cursor
-            Groups.players.each(Player::red, Player::drawCursor);
-
-            Draw.color(Palette.blue);
-            Groups.players.each(Player::blue, Player::drawCursor);
+            Draw.color(player == null || player.team == Team.red ? Palette.red : Palette.blue);
+            Groups.players.each(other -> other.team == player.team && other != player, Player::drawCursor);
 
             bloom.render();
         });
