@@ -9,32 +9,29 @@ import java.nio.ByteBuffer;
 /** Builtin writes but with some extra methods for convenience. */
 public class Writes extends arc.util.io.Writes {
 
-    private static Writes instance = new Writes();
-
-    public Writes() {
-        super(null);
+    public Writes(DataOutput output) {
+        super(output);
     }
 
     public static Writes of(DataOutput output) {
-        instance.output = output;
-        return instance;
+        return new Writes(output);
     }
 
-    public static Writes of(OutputStream output) {
-        instance.output = new DataOutputStream(output);
-        return instance;
+    public static Writes of(OutputStream stream) {
+        return new Writes(new DataOutputStream(stream));
     }
 
     public static Writes of(ByteBuffer buffer) {
-        instance.output = new ByteBufferOutput(buffer);
-        return instance;
+        return new Writes(new ByteBufferOutput(buffer));
     }
 
+    /** Write nullable byte array. */
     public void nb(byte[] array) {
         bool(array != null);
         if (array != null) b(array);
     }
 
+    /** Write position. */
     public void p(Position pos) {
         f(pos.getX());
         f(pos.getY());
