@@ -3,7 +3,6 @@ package rubt.ui.fragments;
 import arc.func.Cons;
 import arc.scene.Group;
 import arc.scene.ui.layout.Table;
-import arc.util.Time;
 import rubt.Groups;
 import rubt.graphics.Textures;
 import rubt.net.Net;
@@ -26,7 +25,6 @@ public class DebugFragment {
             group(cont, "Performance", perf -> {
                 perf.label(() -> "FPS: " + graphics.getFramesPerSecond()).row();
                 perf.label(() -> "FRAME: " + graphics.getFrameId()).row();
-                perf.label(() -> "TIME: " + Time.time).row();
                 perf.label(() -> "DELTA: " + graphics.getDeltaTime()).row();
             });
 
