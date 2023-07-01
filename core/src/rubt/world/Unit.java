@@ -23,6 +23,7 @@ public class Unit extends Body implements ContentType.Provider<Unit> {
     public Path path;
 
     public Vec2 vel = new Vec2();
+    public float health;
 
     public Unit() {
         super(Groups.units);

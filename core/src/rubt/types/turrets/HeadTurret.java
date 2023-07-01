@@ -29,4 +29,6 @@ public class HeadTurret extends BaseTurret {
     public void drawGlow(Turret turret) {
         Draw.rect(glow, turret, 16f, 16f, turret.rot());
     }
+
+    public void spawnBullet(Turret turret) {/* TODO spawn bullet */}
 }

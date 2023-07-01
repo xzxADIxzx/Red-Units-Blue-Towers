@@ -3,8 +3,10 @@ package rubt.types.turrets;
 import arc.math.Angles;
 import arc.util.Time;
 import rubt.Groups;
+import rubt.types.BulletType;
 import rubt.types.TurretType;
 import rubt.world.Turret;
+import rubt.world.Unit;
 
 public abstract class BaseTurret extends TurretType {
 
@@ -19,12 +21,29 @@ public abstract class BaseTurret extends TurretType {
     /** Projectile spread in degrees. */
     public float inaccuracy;
 
+    /** Bullet that the turret fires. */
+    public BulletType bullet;
+
     public BaseTurret(String name) {
         super(name);
     }
 
+    /** Searchs for the best target. Logic may differ for different turrets types. */
+    public Unit bestTarget(Turret turret) {
+        var available = Groups.units.select(target -> target.within(turret, range));
+        if (available.isEmpty()) return null;
+
+        available.sort(target -> target.dst(turret));
+
+        // finish off units with low hp
+        var lowHP = available.find(target -> target.health * .5f - bullet.damage < 0f);
+        if (lowHP != null) return lowHP;
+
+        return available.first();
+    }
+
     public void update(Turret turret) {
-        var target = Groups.units.min(unit -> unit.dst(turret)); // TODO better algorithm, for example, look for targets with the lowest hp
+        var target = bestTarget(turret);
 
         boolean within = target != null && target.within(turret, range);
         boolean shooting = within && Angles.within(turret.angleTo(target), turret.rotation, 30f);
