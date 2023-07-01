@@ -16,7 +16,7 @@ public class TurretTypes {
         dislike = new HeadTurret("dislike") {{
             range = 36f;
 
-            rotationSpeed = 1f;
+            rotationSpeed = 6f;
             reload = 40f;
         }};
 

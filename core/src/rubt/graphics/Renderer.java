@@ -66,8 +66,10 @@ public class Renderer {
 
             handler.draw();
 
-            Draw.color(player == null || player.team == Team.red ? Palette.red : Palette.blue);
-            Groups.players.each(other -> other.team == player.team && other != player, Player::drawCursor);
+            if (player != null) {
+                Draw.color(player.team == Team.red ? Palette.red : Palette.blue);
+                Groups.players.each(other -> other.team == player.team && other != player, Player::drawCursor);
+            }
 
             bloom.render();
         });
