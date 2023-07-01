@@ -62,6 +62,7 @@ public class Logic {
 
         // turrets' firing updates on both server and client because sending each bullet is too expensive
         Groups.turrets.each(turret -> turret.shooting, turret -> turret.type.shoot(turret));
+        Groups.bullets.each(bullet -> bullet.type.update(bullet)); // same reason
     }
 
     public static void reset() {
