@@ -8,6 +8,8 @@ public class Layers {
 
     tiles = 1f,
 
+    bullets = 1.5f,
+
     turrets = 2f,
 
     units = 3f,

@@ -59,6 +59,7 @@ public class Renderer {
         Draw.draw(Layers.tiles, () -> drawContent(Groups.tiles, Color.white));
         Draw.draw(Layers.units, () -> drawContent(Groups.units, Palette.red));
         Draw.draw(Layers.turrets, () -> drawContent(Groups.turrets, Palette.blue));
+        Draw.draw(Layers.bullets, () -> drawContent(Groups.bullets, Color.white));
 
         Draw.draw(Layers.overlay, () -> {
             bloom.setBloomIntesity(1.8f);
