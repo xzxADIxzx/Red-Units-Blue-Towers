@@ -16,6 +16,7 @@ public class Groups {
     public static Seq<Unit> units = new Seq<>();
     public static Seq<Turret> turrets = new Seq<>();
     public static Seq<Player> players = new Seq<>();
+    public static Seq<Bullet> bullets = new Seq<>();
 
     public static void clear() {
         sync.clear();
@@ -24,6 +25,7 @@ public class Groups {
         units.clear();
         turrets.clear();
         players.clear();
+        bullets.clear();
     }
 
     /** Any object belonging to any group. Usually it's a content type or entity. */
