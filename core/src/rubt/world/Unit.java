@@ -11,11 +11,12 @@ import rubt.io.Reads;
 import rubt.io.Writes;
 import rubt.types.ContentType;
 import rubt.types.UnitType;
+import rubt.world.Collisions.Hitbox;
 import rubt.world.Pathfinder.Path;
 
 import static rubt.Vars.*;
 
-public class Unit extends Body implements ContentType.Provider<Unit> {
+public class Unit extends Body implements ContentType.Provider<Unit>, Hitbox {
 
     public UnitType type;
 
@@ -31,6 +32,10 @@ public class Unit extends Body implements ContentType.Provider<Unit> {
 
     public ContentType<Unit> type() {
         return type;
+    }
+
+    public float size() {
+        return type.size;
     }
 
     public void update() {

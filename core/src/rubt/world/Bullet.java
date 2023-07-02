@@ -6,8 +6,9 @@ import arc.util.Time;
 import rubt.Groups;
 import rubt.Groups.GroupObject;
 import rubt.types.*;
+import rubt.world.Collisions.Hitbox;
 
-public class Bullet extends GroupObject implements ContentType.Provider<Bullet>, Position {
+public class Bullet extends GroupObject implements ContentType.Provider<Bullet>, Hitbox {
 
     public BulletType type;
 
@@ -35,6 +36,10 @@ public class Bullet extends GroupObject implements ContentType.Provider<Bullet>,
 
     public ContentType<Bullet> type() {
         return type;
+    }
+
+    public float size() {
+        return type.size;
     }
 
     public float getX() {

@@ -10,10 +10,11 @@ import rubt.io.Writes;
 import rubt.types.ContentType;
 import rubt.types.TileType;
 import rubt.types.drawers.TileDrawer;
+import rubt.world.Collisions.Hitbox;
 
 import static rubt.Vars.*;
 
-public class Tile extends Entity implements ContentType.Provider<Tile> {
+public class Tile extends Entity implements ContentType.Provider<Tile>, Hitbox {
 
     public TileType type;
 
@@ -29,6 +30,10 @@ public class Tile extends Entity implements ContentType.Provider<Tile> {
 
     public ContentType<Tile> type() {
         return type;
+    }
+
+    public float size() {
+        return tilesize;
     }
 
     public void cache() {
