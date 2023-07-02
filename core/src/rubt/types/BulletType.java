@@ -18,6 +18,9 @@ public abstract class BulletType extends ContentType<Bullet> {
         super(ContentTypes.bullets, name);
     }
 
+    @Override
+    public void loadui() {} // bullets don't have an icon
+
     /** Target hitting logic. May differ for a base bullet and a rocket. */
-    public abstract void hit(Unit unit);
+    public abstract void hit(Bullet bullet, Unit unit);
 }
