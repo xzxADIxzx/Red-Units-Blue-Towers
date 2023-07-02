@@ -67,7 +67,7 @@ public abstract class BaseTurret extends TurretType {
         spawnBullet(turret);
         turret.shotCooldown = Time.time;
 
-        if (burstShoots > 0 && turret.shots++ % burstShoots == 0) burstCooldown = Time.time;
+        if (burstShoots > 0 && turret.shots++ % burstShoots == 0) turret.burstCooldown = Time.time;
     }
 
     public abstract void spawnBullet(Turret turret);
