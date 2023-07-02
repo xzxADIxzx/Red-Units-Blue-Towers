@@ -40,12 +40,18 @@ public class Renderer {
     }
 
     public void draw() {
+        // zoom update
         float dest = Mathf.clamp(Mathf.round(target, 0.5f), minZoom, maxZoom);
         current = Mathf.lerpDelta(current, dest, 0.1f);
         if (Mathf.equal(current, dest, 0.001f)) current = dest;
 
-        camera.resize(graphics.getWidth() / current, graphics.getHeight() / current);
-        bloom.resize(graphics.getWidth(), graphics.getHeight());
+        // width & height
+        int w = graphics.getWidth(), h = graphics.getHeight();
+        float wc = w / current, hc = h / current;
+
+        // other stuff
+        camera.resize(wc, hc);
+        bloom.resize(w, h);
         bloom.blurPasses = 6;
 
         Draw.proj(camera);
@@ -53,7 +59,7 @@ public class Renderer {
 
         Draw.draw(Layers.bg, () -> {
             graphics.clear(Palette.background);
-            Fill.light(camera.position.x, camera.position.y, 64, graphics.getHeight() / current * .8f, Palette.lightbg, Palette.background);
+            Fill.light(camera.position.x, camera.position.y, 64, hc * .8f, Palette.lightbg, Palette.background);
 
             if (player == null) return;
 
@@ -61,7 +67,7 @@ public class Renderer {
             bloom.capture();
 
             graphics.clear(player.team == Team.red ? Palette.red : Palette.blue);
-            Fill.dropShadow(camera.position.x, camera.position.y, graphics.getWidth() / current, graphics.getHeight() / current, 8f, 1f);
+            Fill.dropShadow(camera.position.x, camera.position.y, wc, hc, 8f, 1f);
 
             bloom.render();
         });
