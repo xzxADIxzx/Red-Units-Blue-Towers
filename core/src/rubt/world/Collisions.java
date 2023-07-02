@@ -37,6 +37,13 @@ public class Collisions {
         });
     }
 
+    public void checkBullet(Bullet bullet) {
+        Groups.units.each(unit -> {
+            // check whether the bullet collides with the unit
+            check(bullet, unit, (size, dst) -> bullet.type.hit(bullet, unit));
+        });
+    }
+
     public interface Hitbox extends Position {
         float size();
     }

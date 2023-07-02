@@ -6,6 +6,8 @@ import rubt.types.BulletType;
 import rubt.world.Bullet;
 import rubt.world.Unit;
 
+import static rubt.Vars.*;
+
 public class BaseBullet extends BulletType {
 
     /** How many units can one bullet pierce. */
@@ -16,8 +18,9 @@ public class BaseBullet extends BulletType {
     }
 
     public void update(Bullet bullet) {
+        // physical update
         bullet.moveDelta();
-        // TODO collision
+        collisions.checkBullet(bullet);
     }
 
     public void draw(Bullet bullet) {}
