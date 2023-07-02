@@ -54,6 +54,16 @@ public class Renderer {
         Draw.draw(Layers.bg, () -> {
             graphics.clear(Palette.background);
             Fill.light(camera.position.x, camera.position.y, 64, graphics.getHeight() / current * .8f, Palette.lightbg, Palette.background);
+
+            if (player == null) return;
+
+            bloom.setBloomIntesity(2.8f);
+            bloom.capture();
+
+            graphics.clear(player.team == Team.red ? Palette.red : Palette.blue);
+            Fill.dropShadow(camera.position.x, camera.position.y, graphics.getWidth() / current, graphics.getHeight() / current, 8f, 1f);
+
+            bloom.render();
         });
 
         Draw.draw(Layers.tiles, () -> drawContent(Groups.tiles, Color.white));
