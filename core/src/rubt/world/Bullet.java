@@ -2,6 +2,7 @@ package rubt.world;
 
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
+import arc.struct.Seq;
 import arc.util.Time;
 import rubt.Groups;
 import rubt.Groups.GroupObject;
@@ -17,8 +18,8 @@ public class Bullet extends GroupObject implements ContentType.Provider<Bullet>,
 
     /** For homing. */
     public Unit target;
-    /** How many opponents were hit by the bullet. */
-    public int hits;
+    /** Units hit by the bullet. */
+    public Seq<Unit> hits = new Seq<>();
 
     public Bullet(BulletType type, Position position, Vec2 velocity, Unit target) {
         super(Groups.bullets);

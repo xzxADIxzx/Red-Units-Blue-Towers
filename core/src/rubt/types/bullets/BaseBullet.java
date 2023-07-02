@@ -30,9 +30,11 @@ public class BaseBullet extends BulletType {
     }
 
     public void hit(Bullet bullet, Unit unit) {
-        unit.health -= bullet.type.damage;
-        bullet.hits++;
+        if (bullet.hits.contains(unit)) return; // bullet cannot hit the same unit twice
 
-        if (bullet.hits >= pierce) Groups.bullets.remove(bullet); // TODO effects
+        unit.health -= bullet.type.damage;
+        bullet.hits.add(unit);
+
+        if (bullet.hits.size >= pierce) Groups.bullets.remove(bullet); // TODO effects
     }
 }
