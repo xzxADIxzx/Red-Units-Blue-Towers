@@ -2,6 +2,7 @@ package rubt.types.turrets;
 
 import arc.graphics.g2d.Draw;
 import arc.graphics.g2d.TextureRegion;
+import arc.util.Tmp;
 import rubt.graphics.Shaders;
 import rubt.graphics.Textures;
 import rubt.world.*;
@@ -30,5 +31,7 @@ public class HeadTurret extends BaseTurret {
         Draw.rect(glow, turret, 16f, 16f, turret.rot());
     }
 
-    public void spawnBullet(Turret turret) {/* TODO spawn bullet */}
+    public void spawnBullet(Turret turret) {
+        new Bullet(bullet, turret, Tmp.v1.trns(turret.rotation, bullet.speed).cpy(), turret.target);
+    }
 }

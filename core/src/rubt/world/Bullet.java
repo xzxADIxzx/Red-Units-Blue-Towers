@@ -2,6 +2,7 @@ package rubt.world;
 
 import arc.math.geom.Position;
 import arc.math.geom.Vec2;
+import arc.util.Time;
 import rubt.Groups;
 import rubt.Groups.GroupObject;
 import rubt.types.*;
@@ -11,13 +12,25 @@ public class Bullet extends GroupObject implements ContentType.Provider<Bullet>,
     public BulletType type;
 
     public float x, y;
-    public Vec2 vel = new Vec2();
+    public Vec2 vel;
 
     /** For homing. */
     public Unit target;
+    /** How many opponents were hit by the bullet. */
+    public int hits;
 
-    public Bullet() {
+    public Bullet(BulletType type, Position position, Vec2 velocity, Unit target) {
         super(Groups.bullets);
+
+        this.type = type;
+        this.x = position.getX();
+        this.y = position.getY();
+        this.vel = velocity;
+        this.target = target;
+    }
+
+    public Bullet(BulletType type, Position position, Unit target) {
+        this(type, position, new Vec2(), target);
     }
 
     public ContentType<Bullet> type() {
@@ -30,5 +43,10 @@ public class Bullet extends GroupObject implements ContentType.Provider<Bullet>,
 
     public float getY() {
         return y;
+    }
+
+    public void moveDelta() {
+        x += vel.x * Time.delta;
+        y += vel.y * Time.delta;
     }
 }
