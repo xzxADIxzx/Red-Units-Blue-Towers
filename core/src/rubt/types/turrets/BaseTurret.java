@@ -12,8 +12,6 @@ public abstract class BaseTurret extends TurretType {
 
     /** How fast the turret turns towards the enemy. Degrees per tick. */
     public float rotationSpeed;
-    /** Time in ticks between shots. */
-    public float reload;
     /** Number of shots in the burst. 0 if fire rate is constant. */
     public int burstShoots;
     /** Time in ticks between bursts of shots. */
