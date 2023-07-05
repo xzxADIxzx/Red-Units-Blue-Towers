@@ -8,13 +8,21 @@ public class Layers {
 
     tiles = 1f,
 
-    bullets = 1.5f,
+    tilesGlow = 1.1f,
 
-    turrets = 2f,
+    bullets = 2f,
 
-    units = 3f,
+    bulletsGlow = 2.1f,
 
-    overlay = 4f
+    turrets = 3f,
+
+    turretsGlow = 3.1f,
+
+    units = 4f,
+
+    unitsGlow = 4.1f,
+
+    overlay = 5f
 
     ;
 }
